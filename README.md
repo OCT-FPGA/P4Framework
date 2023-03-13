@@ -33,4 +33,4 @@ The `build_box_250mhz.tcl` file is used for instructing Vivado to generate the V
 
 The `p2p_250mhz.sv` is to define the interface between opennic shell and VitisNetP4 IP. It doesn't need to change if your IP doesn't have the extern functions. 
 
-Use `make shell user_plguin=./templatePlugin` to build. 
+Use `make shell custom_plguin=templatePlugin` to build. 
