@@ -3,6 +3,8 @@ This framework integrates the VitisNetP4 with Xilinx's OpenNIC shell. This frame
 
 In addition, we provide three examples to demonstrate the usage of this framework.
 
+Note: Use `git submodule update --init` to update the submodule open-nic shell
+
 ## Examples 
 We provide three examples: forward, calc and advCalc. These examples are all inherited from VitisNetP4 Examples.
 
