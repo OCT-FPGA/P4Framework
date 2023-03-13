@@ -23,7 +23,7 @@ cur_dir=$(shell pwd)
 user_build_dir=$(cur_dir)/$(build_dir)
 
 
-all: $(EXAMPLE_OBJ) shell
+all: $(EXAMPLE_OBJ) 
 $(EXAMPLE_OBJ): CHECK_VIVADO_VER
 	$(eval tag=$@_$(build_timestamp))
 	$(eval user_plugin=../../Examples/$@)
@@ -34,18 +34,17 @@ $(EXAMPLE_OBJ): CHECK_VIVADO_VER
 	#build
 	@[ -d '$(user_build_dir)' ] || mkdir $(user_build_dir) 
 	cd open-nic-shell/script && vivado -mode batch -source build.tcl -tclargs $(TCL_ARGS) | tee $(cur_dir)/build_$(tag).log
-#
-#	@[ -d '$(DIST_APP_DIR)' ] || mkdir -p $(DIST_APP_DIR) 
-#	cp -r $(build_dir)/$(board)_$(tag)/open_nic_shell/open_nic_shell.gen/sources_1/ip/vitis_net_p4_0/src/sw/drivers $(DIST_APP_DIR)/.
-#	cd $(DIST_APP_DIR)/drivers && make
-#	cp -r Examples/$@/c-driver/* $(DIST_APP_DIR)/drivers/install/.
-#	cd $(DIST_APP_DIR)/drivers/install && make
-#
-#	cp $(build_dir)/$(board)_$(tag)/open_nic_shell/open_nic_shell.runs/impl_1/open_nic_shell.mcs $(DIST_APP_DIR)/$@.mcs
+
+	@[ -d '$(DIST_APP_DIR)' ] || mkdir -p $(DIST_APP_DIR) 
+	cp -r $(build_dir)/$(board)_$(tag)/open_nic_shell/open_nic_shell.gen/sources_1/ip/vitis_net_p4_0/src/sw/drivers $(DIST_APP_DIR)/.
+	cd $(DIST_APP_DIR)/drivers && make
+	cp -r Examples/$@/c-driver/* $(DIST_APP_DIR)/drivers/install/.
+	cd $(DIST_APP_DIR)/drivers/install && make
+
+	cp $(build_dir)/$(board)_$(tag)/open_nic_shell/open_nic_shell.runs/impl_1/open_nic_shell.mcs $(DIST_APP_DIR)/$@.mcs
 
 shell: CHECK_VIVADO_VER
 	$(eval tag=$@_$(build_timestamp))
-	$(eval user_plugin=)
 	$(eval DIST_APP_DIR=$(DIST_DIR)/$(board)_$(tag)_dist)
 	$(eval TCL_ARGS=$(foreach arg, $(TCL_ARGS_LIST), $(if $(strip $($(arg))), -$(arg) $($(arg))))) 
 	$(info TCL_ARGS=$(TCL_ARGS))
