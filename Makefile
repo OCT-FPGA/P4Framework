@@ -46,6 +46,7 @@ $(EXAMPLE_OBJ): CHECK_VIVADO_VER
 shell: CHECK_VIVADO_VER
 	$(eval tag=$@_$(build_timestamp))
 	$(eval DIST_APP_DIR=$(DIST_DIR)/$(board)_$(tag)_dist)
+	$(if $(strip $(custom_plugin)),$(eval user_plugin=$(cur_dir)/$(custom_plugin)))
 	$(eval TCL_ARGS=$(foreach arg, $(TCL_ARGS_LIST), $(if $(strip $($(arg))), -$(arg) $($(arg))))) 
 	$(info TCL_ARGS=$(TCL_ARGS))
 	#build
