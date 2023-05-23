@@ -21,7 +21,7 @@ set p4_src forward.p4
 
 read_verilog -quiet -sv p2p_250mhz.sv
 # Create VitisNetP4 IP with p4 src code
-create_ip -name vitis_net_p4 -vendor xilinx.com -library ip -version 1.0 -module_name vitis_net_p4_0
+create_ip -name vitis_net_p4 -vendor xilinx.com -library ip -module_name vitis_net_p4_0
 set_property -dict [list CONFIG.P4_FILE "$p4_dir/$p4_src"] [get_ips vitis_net_p4_0]
 generate_target all [get_ips vitis_net_p4_0]
 
