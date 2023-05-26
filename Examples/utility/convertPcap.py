@@ -26,16 +26,16 @@ for line in lines:
             pktCounter +=1 
             wordCount = 0 
             lineCount = 0
-            print("{:06d}".format(lineCount), end = " ", file=wrFile)
+            print("{:06x}".format(lineCount), end = " ", file=wrFile)
         continue
     for word in words:
         wordCount +=1
         print(word, end=" ", file=wrFile)
         if (wordCount % 16 == 0): 
-            lineCount += 10
-            print("\n{:06d}".format(lineCount), end = " ", file=wrFile)
+            lineCount += 16
+            print("\n{:06x}".format(lineCount), end = " ", file=wrFile)
 wrFile.close()
 cmd = "text2pcap " + tempTxtName + " " + wrFileName 
 os.system(cmd)
-cmd = "rm -rf " + tempTxtName
-os.system(cmd)
+#cmd = "rm -rf " + tempTxtName
+#os.system(cmd)
