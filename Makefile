@@ -9,12 +9,11 @@ DIST_DIR=dist
 
 
 # Define default implement arguments and default values
-TCL_ARGS_LIST=board tag build_timestamp impl synth_ip post_impl qspi_support user_plugin user_build_dir
+TCL_ARGS_LIST=board tag build_timestamp impl synth_ip post_impl user_plugin user_build_dir
 board=au280
 impl=1
 synth_ip=1
 post_impl=1
-qspi_support=1
 build_timestamp=$(shell date +%y%m%d%H%M)
 
 # user_build_dir must be full path. Use build_dir to give the relative path 
