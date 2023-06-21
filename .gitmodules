@@ -1,4 +1,4 @@
 [submodule "open-nic-shell"]
 	path = open-nic-shell
 	url = https://github.com/OCT-FPGA/open-nic-shell.git
-	branch = framework_support
+	branch = oct_dev
