@@ -9,11 +9,16 @@ DIST_DIR=dist
 
 
 # Define default implement arguments and default values
-TCL_ARGS_LIST=board tag build_timestamp impl synth_ip post_impl user_plugin user_build_dir
+TCL_ARGS_LIST=board tag build_timestamp sim impl synth_ip post_impl user_plugin user_build_dir 
 board=au280
 impl=1
 synth_ip=1
 post_impl=1
+sim=0
+#Fix Version
+sim_lib_path=$(HOME)/opt/xilinx_sim_libs/2022.2/compile_simlib
+sim_exec_path=$(MODELSIM_LOC)
+sim_top=p2p_250mhz
 build_timestamp=$(shell date +%y%m%d%H%M)
 
 # user_build_dir must be full path. Use build_dir to give the relative path 
@@ -21,13 +26,15 @@ build_dir=build
 cur_dir=$(shell pwd)
 user_build_dir=$(cur_dir)/$(build_dir)
 
-
 all: $(EXAMPLE_OBJ) 
 $(EXAMPLE_OBJ): CHECK_VIVADO_VER
 	$(eval tag=$@_$(build_timestamp))
 	$(eval user_plugin=../../Examples/$@)
 	$(eval DIST_APP_DIR=$(DIST_DIR)/$(board)_$(tag)_dist)
 	$(eval TCL_ARGS=$(foreach arg, $(TCL_ARGS_LIST), -$(arg) $($(arg))))
+ifeq ($(sim),1)
+	$(eval TCL_ARGS=$(TCL_ARGS) -sim_lib_path $(sim_lib_path) -sim_exec_path $(sim_exec_path) -sim_top $(sim_top))
+endif
 	$(info TCL_ARGS=$(TCL_ARGS))
 
 	#build
