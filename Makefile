@@ -1,6 +1,6 @@
 .PHONY: all clean
 
-EXAMPLE_OBJ=forward calc advCalc
+EXAMPLE_OBJ=forward calc advCalc advCalc_no_table
 QSPI=false
 SHELL := /bin/bash
 VIVADO_TARGET_VER=2021.2
@@ -11,9 +11,9 @@ DIST_DIR=dist
 # Define default implement arguments and default values
 TCL_ARGS_LIST=board tag build_timestamp sim impl synth_ip post_impl user_plugin user_build_dir 
 board=au280
-impl=1
-synth_ip=1
-post_impl=1
+impl=0
+synth_ip=0
+post_impl=0
 sim=0
 #Fix Version
 sim_lib_path=$(HOME)/opt/xilinx_sim_libs/2022.2/compile_simlib
@@ -36,18 +36,24 @@ ifeq ($(sim),1)
 	$(eval TCL_ARGS=$(TCL_ARGS) -sim_lib_path $(sim_lib_path) -sim_exec_path $(sim_exec_path) -sim_top $(sim_top))
 endif
 	$(info TCL_ARGS=$(TCL_ARGS))
+	$(eval app_dir=$(user_build_dir)/$(board)_$(tag))
 
-	#build
+#	#build
 	@[ -d '$(user_build_dir)' ] || mkdir $(user_build_dir) 
 	cd open-nic-shell/script && vivado -mode batch -source build.tcl -tclargs $(TCL_ARGS) | tee $(cur_dir)/build_$(tag).log
-
-	@[ -d '$(DIST_APP_DIR)' ] || mkdir -p $(DIST_APP_DIR) 
-	cp -r $(build_dir)/$(board)_$(tag)/open_nic_shell/open_nic_shell.gen/sources_1/ip/vitis_net_p4_0/src/sw/drivers $(DIST_APP_DIR)/.
-	cd $(DIST_APP_DIR)/drivers && make
-	cp -r Examples/$@/c-driver/* $(DIST_APP_DIR)/drivers/install/.
-	cd $(DIST_APP_DIR)/drivers/install && make
-
-	cp $(build_dir)/$(board)_$(tag)/open_nic_shell/open_nic_shell.runs/impl_1/open_nic_shell.mcs $(DIST_APP_DIR)/$@.mcs
+#
+#	@[ -d '$(DIST_APP_DIR)' ] || mkdir -p $(DIST_APP_DIR) 
+#	cp -r $(build_dir)/$(board)_$(tag)/open_nic_shell/open_nic_shell.gen/sources_1/ip/vitis_net_p4_0/src/sw/drivers $(DIST_APP_DIR)/.
+#	cd $(DIST_APP_DIR)/drivers && make
+#	cp -r Examples/$@/c-driver/* $(DIST_APP_DIR)/drivers/install/.
+#	cd $(DIST_APP_DIR)/drivers/install && make
+#
+#	cp $(build_dir)/$(board)_$(tag)/open_nic_shell/open_nic_shell.runs/impl_1/open_nic_shell.mcs $(DIST_APP_DIR)/$@.mcs
+ifeq ($(sim),1)
+	ln -s $(cur_dir)/open-nic-shell/script/tb/* $(app_dir)/open_nic_shell/open_nic_shell.sim/sim_1/behav/modelsim/.
+	ln -s $(cur_dir)/Examples/$@/tb/* $(app_dir)/open_nic_shell/open_nic_shell.sim/sim_1/behav/modelsim/.
+	[ ! -d 'Examples/$@/behav_test/gen' ] || cp Examples/$@/behav_test/gen/*.pcap $(app_dir)/open_nic_shell/open_nic_shell.sim/sim_1/behav/modelsim/.
+endif
 
 shell: CHECK_VIVADO_VER
 	$(eval tag=$@_$(build_timestamp))
