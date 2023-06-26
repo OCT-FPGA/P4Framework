@@ -191,7 +191,18 @@ control MyProcessing(inout headers hdr,
         send_back(hdr.p4calc.operand_a ^ hdr.p4calc.operand_b);
     }
 
+    action opr_or() {
+        send_back(hdr.p4calc.operand_a | hdr.p4calc.operand_b);
+    }
+    action opr_xor() {
+        send_back(hdr.p4calc.operand_a ^ hdr.p4calc.operand_b);
+    }
+
     action operation_drop() {
+        smeta.drop = 1;
+    }
+    
+    action operation_forward() {
         smeta.drop = 1;
     }
     
@@ -200,14 +211,9 @@ control MyProcessing(inout headers hdr,
             hdr.p4calc.operation : exact;
         }
         actions = {
-			operation_add;
-			operation_sub;
-			operation_mult;
-			operation_div;
-			operation_sqrt;
-			operation_and;
-			operation_or;
-			operation_xor;
+            operation_forward;
+            opr_xor;
+            opr_or;
 			operation_drop;
         }
         direct_match = true;
@@ -234,6 +240,7 @@ control MyProcessing(inout headers hdr,
             } else if (op == op_sqrt){
                 operation_sqrt();
             } else {
+                calculate.apply();
                 operation_drop();
             }
         } else {
