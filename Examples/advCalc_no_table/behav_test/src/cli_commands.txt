@@ -1,0 +1,5 @@
+# run traffic
+run_traffic src/advCalc
+
+# end
+exit
