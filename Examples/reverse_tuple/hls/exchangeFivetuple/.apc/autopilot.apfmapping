@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<autopilotfilemapping:AutoPilotFileMapping xmlns:autopilotfilemapping="www.autoesl.com/autopilotfilemapping">
+  <source>
+    <originFiles name="exchangeFivetuple.cpp" path="/home/function47/Desktop/Workspace/P4Framework/Examples/sketch/hls/exchangeFivetuple/exchangeFivetuple.cpp"/>
+    <originFiles name="exchangeFivetuple.hpp" path="/home/function47/Desktop/Workspace/P4Framework/Examples/sketch/hls/exchangeFivetuple/exchangeFivetuple.hpp"/>
+  </source>
+  <testbench/>
+</autopilotfilemapping:AutoPilotFileMapping>

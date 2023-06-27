@@ -1,6 +1,6 @@
 .PHONY: all clean
 
-EXAMPLE_OBJ=forward calc advCalc advCalc_no_table
+EXAMPLE_OBJ=forward calc advCalc advCalc_no_table reverse_tuple
 QSPI=false
 SHELL := /bin/bash
 VIVADO_TARGET_VER=2021.2

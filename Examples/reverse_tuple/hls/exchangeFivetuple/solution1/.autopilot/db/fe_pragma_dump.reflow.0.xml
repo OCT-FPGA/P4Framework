@@ -1,0 +1,17 @@
+<pragmas>
+<pragma file="exchangeFivetuple/exchangeFivetuple.cpp" line="8" pragmaType="pipeline" parentfunction="exchangeFivetuple" off="0" ii="1" rewind="0" style=""/>
+<pragma file="exchangeFivetuple/exchangeFivetuple.cpp" line="5" pragmaType="interface" parentfunction="exchangeFivetuple" mode="axis" port="user_extern_in" register="0" register_mode="both" name="" depth="-1"/>
+<pragma file="exchangeFivetuple/exchangeFivetuple.cpp" line="6" pragmaType="interface" parentfunction="exchangeFivetuple" mode="axis" port="user_extern_out" register="0" register_mode="both" name="" depth="-1"/>
+<pragma file="" line="0" pragmaType="inline" parentfunction="ap_uint<16>::ap_uint()" off="0" region="0" recursive="0"/>
+<pragma file="" line="0" pragmaType="inline" parentfunction="ap_uint<8>::ap_uint()" off="0" region="0" recursive="0"/>
+<pragma file="/opt/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_common.h" line="0" pragmaType="inline" parentfunction="ssdm_int<16, false>::ssdm_int()" off="0" region="0" recursive="0"/>
+<pragma file="/opt/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_int_base.h" line="175" pragmaType="inline" parentfunction="ap_int_base<16, false>::ap_int_base()" off="0" region="0" recursive="0"/>
+<pragma file="/opt/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_common.h" line="0" pragmaType="inline" parentfunction="ssdm_int<32, false>::ssdm_int()" off="0" region="0" recursive="0"/>
+<pragma file="/opt/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_int_base.h" line="175" pragmaType="inline" parentfunction="ap_int_base<32, false>::ap_int_base()" off="0" region="0" recursive="0"/>
+<pragma file="" line="0" pragmaType="inline" parentfunction="read" off="0" region="0" recursive="0"/>
+<pragma file="" line="0" pragmaType="inline" parentfunction="write" off="0" region="0" recursive="0"/>
+<pragma file="" line="0" pragmaType="inline" parentfunction="read" off="0" region="0" recursive="0"/>
+<pragma file="" line="0" pragmaType="inline" parentfunction="ap_uint<32>::ap_uint()" off="0" region="0" recursive="0"/>
+<pragma file="/opt/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_int_base.h" line="175" pragmaType="inline" parentfunction="ap_int_base<8, false>::ap_int_base()" off="0" region="0" recursive="0"/>
+<pragma file="/opt/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_common.h" line="0" pragmaType="inline" parentfunction="ssdm_int<8, false>::ssdm_int()" off="0" region="0" recursive="0"/>
+</pragmas>

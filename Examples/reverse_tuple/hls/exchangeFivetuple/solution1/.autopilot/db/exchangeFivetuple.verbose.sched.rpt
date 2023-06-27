@@ -1,0 +1,145 @@
+
+
+================================================================
+== Vitis HLS Report for 'exchangeFivetuple'
+================================================================
+* Date:           Mon Jun 26 23:22:28 2023
+
+* Version:        2022.2 (Build 3670227 on Oct 13 2022)
+* Project:        exchangeFivetuple
+* Solution:       solution1 (Vivado IP Flow Target)
+* Product family: virtexuplus
+* Target device:  xcu280-fsvh2892-2L-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  4.00 ns|      0 ns|     1.08 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+----------+----------+-----+-----+---------+
+    |  Latency (cycles) |  Latency (absolute) |  Interval | Pipeline|
+    |   min   |   max   |    min   |    max   | min | max |   Type  |
+    +---------+---------+----------+----------+-----+-----+---------+
+    |        ?|        ?|         ?|         ?|    ?|    ?|       no|
+    +---------+---------+----------+----------+-----+-----+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |                  |  Latency (cycles) | Iteration|  Initiation Interval  | Trip |          |
+        |     Loop Name    |   min   |   max   |  Latency |  achieved |   target  | Count| Pipelined|
+        +------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |- VITIS_LOOP_7_1  |        ?|        ?|         2|          1|          1|   inf|       yes|
+        +------------------+---------+---------+----------+-----------+-----------+------+----------+
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 1
+ResetActiveHigh: 1
+IsCombinational: 0
+IsDatapathOnly: 0
+HasWiredReturn: 0
+HasMFsm: 2
+HasVarLatency: 1
+IsPipeline: 0
+IsRtlPipelined: 0
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
++ Individual pipeline summary: 
+  * Pipeline-0: initiation interval (II) = 1, depth = 2
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states : 3
+* Pipeline : 1
+  Pipeline-0 : II = 1, D = 2, States = { 2 3 }
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 2 
+2 --> 3 
+3 --> 2 
+
+* FSM state operations: 
+
+State 1 <SV = 0> <Delay = 0.00>
+ST_1 : Operation 4 [1/1] (0.00ns)   --->   "%spectopmodule_ln3 = spectopmodule void @_ssdm_op_SpecTopModule, void @empty_2" [exchangeFivetuple/exchangeFivetuple.cpp:3]   --->   Operation 4 'spectopmodule' 'spectopmodule_ln3' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 5 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i128 %user_extern_in, void @empty, i32 1, i32 1, void @empty_0, i32 0, i32 0, void @empty_1, void @empty_1, void @empty_1, i32 0, i32 0, i32 0, i32 0, void @empty_1, void @empty_1, i32 4294967295, i32 0"   --->   Operation 5 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 6 [1/1] (0.00ns)   --->   "%specbitsmap_ln0 = specbitsmap void @_ssdm_op_SpecBitsMap, i128 %user_extern_in"   --->   Operation 6 'specbitsmap' 'specbitsmap_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 7 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i128 %user_extern_out, void @empty, i32 1, i32 1, void @empty_0, i32 0, i32 0, void @empty_1, void @empty_1, void @empty_1, i32 0, i32 0, i32 0, i32 0, void @empty_1, void @empty_1, i32 4294967295, i32 0"   --->   Operation 7 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 8 [1/1] (0.00ns)   --->   "%specbitsmap_ln0 = specbitsmap void @_ssdm_op_SpecBitsMap, i128 %user_extern_out"   --->   Operation 8 'specbitsmap' 'specbitsmap_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 9 [1/1] (0.00ns)   --->   "%br_ln7 = br void %while.body" [exchangeFivetuple/exchangeFivetuple.cpp:7]   --->   Operation 9 'br' 'br_ln7' <Predicate = true> <Delay = 0.00>
+
+State 2 <SV = 1> <Delay = 0.00>
+ST_2 : Operation 10 [1/1] (0.00ns)   --->   "%user_extern_in_read = read i128 @_ssdm_op_Read.axis.volatile.i128P128A, i128 %user_extern_in" [exchangeFivetuple/exchangeFivetuple.cpp:9]   --->   Operation 10 'read' 'user_extern_in_read' <Predicate = true> <Delay = 0.00> <CoreInst = "axis">   --->   Core 123 'axis' <Latency = 0> <II = 1> <Delay = 1.00> <Adapter> <Opcode : >
+ST_2 : Operation 11 [1/1] (0.00ns)   --->   "%in_extern_src_V_1 = trunc i128 %user_extern_in_read" [exchangeFivetuple/exchangeFivetuple.cpp:9]   --->   Operation 11 'trunc' 'in_extern_src_V_1' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 12 [1/1] (0.00ns)   --->   "%in_extern_dst_V = partselect i32 @_ssdm_op_PartSelect.i32.i128.i32.i32, i128 %user_extern_in_read, i32 32, i32 63" [exchangeFivetuple/exchangeFivetuple.cpp:9]   --->   Operation 12 'partselect' 'in_extern_dst_V' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 13 [1/1] (0.00ns)   --->   "%tmp_s = partselect i16 @_ssdm_op_PartSelect.i16.i128.i32.i32, i128 %user_extern_in_read, i32 80, i32 95" [exchangeFivetuple/exchangeFivetuple.cpp:16]   --->   Operation 13 'partselect' 'tmp_s' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 14 [1/1] (0.00ns)   --->   "%tmp3 = partselect i16 @_ssdm_op_PartSelect.i16.i128.i32.i32, i128 %user_extern_in_read, i32 64, i32 79" [exchangeFivetuple/exchangeFivetuple.cpp:16]   --->   Operation 14 'partselect' 'tmp3' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 15 [1/1] (0.00ns)   --->   "%tmp_2 = partselect i8 @_ssdm_op_PartSelect.i8.i128.i32.i32, i128 %user_extern_in_read, i32 96, i32 103" [exchangeFivetuple/exchangeFivetuple.cpp:16]   --->   Operation 15 'partselect' 'tmp_2' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 16 [1/1] (0.00ns)   --->   "%or_ln16_1 = bitconcatenate i104 @_ssdm_op_BitConcatenate.i104.i8.i16.i16.i32.i32, i8 %tmp_2, i16 %tmp3, i16 %tmp_s, i32 %in_extern_src_V_1, i32 %in_extern_dst_V" [exchangeFivetuple/exchangeFivetuple.cpp:16]   --->   Operation 16 'bitconcatenate' 'or_ln16_1' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 17 [1/1] (0.00ns)   --->   "%zext_ln16 = zext i104 %or_ln16_1" [exchangeFivetuple/exchangeFivetuple.cpp:16]   --->   Operation 17 'zext' 'zext_ln16' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 18 [2/2] (0.00ns)   --->   "%write_ln16 = write void @_ssdm_op_Write.axis.volatile.i128P128A, i128 %user_extern_out, i128 %zext_ln16" [exchangeFivetuple/exchangeFivetuple.cpp:16]   --->   Operation 18 'write' 'write_ln16' <Predicate = true> <Delay = 0.00> <CoreInst = "axis">   --->   Core 123 'axis' <Latency = 0> <II = 1> <Delay = 1.00> <Adapter> <Opcode : >
+
+State 3 <SV = 2> <Delay = 0.00>
+ST_3 : Operation 19 [1/1] (0.00ns)   --->   "%specpipeline_ln8 = specpipeline void @_ssdm_op_SpecPipeline, i32 1, i32 0, i32 0, i32 0, void @empty_1" [exchangeFivetuple/exchangeFivetuple.cpp:8]   --->   Operation 19 'specpipeline' 'specpipeline_ln8' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 20 [1/1] (0.00ns)   --->   "%specloopname_ln9 = specloopname void @_ssdm_op_SpecLoopName, void @empty_3" [exchangeFivetuple/exchangeFivetuple.cpp:9]   --->   Operation 20 'specloopname' 'specloopname_ln9' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 21 [1/2] (0.00ns)   --->   "%write_ln16 = write void @_ssdm_op_Write.axis.volatile.i128P128A, i128 %user_extern_out, i128 %zext_ln16" [exchangeFivetuple/exchangeFivetuple.cpp:16]   --->   Operation 21 'write' 'write_ln16' <Predicate = true> <Delay = 0.00> <CoreInst = "axis">   --->   Core 123 'axis' <Latency = 0> <II = 1> <Delay = 1.00> <Adapter> <Opcode : >
+ST_3 : Operation 22 [1/1] (0.00ns)   --->   "%br_ln7 = br void %while.body" [exchangeFivetuple/exchangeFivetuple.cpp:7]   --->   Operation 22 'br' 'br_ln7' <Predicate = true> <Delay = 0.00>
+
+
+============================================================
++ Verbose Summary: Timing violations
+============================================================
+Target clock period: 4ns, clock uncertainty: 1.08ns.
+
+ <State 1>: 0ns
+The critical path consists of the following:
+
+ <State 2>: 0ns
+The critical path consists of the following:
+
+ <State 3>: 0ns
+The critical path consists of the following:
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+N/A
+* FSMD analyzer results:
+  - Output states:
+ - Input state : 
+  - Chain level:
+	State 1
+	State 2
+	State 3
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+N/A
