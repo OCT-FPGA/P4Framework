@@ -1,0 +1,15 @@
+cmake_minimum_required(VERSION 3.15)
+project(User_externs)
+#set(EARLY_CXXFLAGS "-DBMLOG_DEBUG_ON -DBMLOG_TRACE_ON")
+#set(LATE_CXXFLAGS "-Wall -Wextra -fPIC -pthread -g -o2")
+set(XILINX_VIVADO /opt/Xilinx/Vivado/2022.2)
+set(CMAKE_CXX_FLAGS "-DBMLOG_DEBUG_ON -DBMLOG_TRACE_ON -Wall -Wextra -pthread -g -O2")
+set(SYS_INCLUDE_DIR ${XILINX_VIVADO}/tps/lnx64/gcc-6.2.0/include)
+set(INCLUDE_DIR include include/spdlog ${XILINX_VIVADO}/include ${XILINX_VIVADO}/tps/boost_1_72_0)
+set(SRC_LIST user_externs.cpp)
+set(TARGET_OBJECT advan_calc_user_externs)
+
+# Target
+add_library(${TARGET_OBJECT} SHARED user_externs.cpp)
+target_include_directories(${TARGET_OBJECT} SYSTEM PUBLIC ${SYS_INCLUDE_DIR})
+target_include_directories(${TARGET_OBJECT} PRIVATE ${INCLUDE_DIR})

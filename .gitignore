@@ -2,4 +2,5 @@
 dist
 build
 .vscode
+.cache
 gen/
