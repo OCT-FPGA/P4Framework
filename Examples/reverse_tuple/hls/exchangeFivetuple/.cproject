@@ -61,6 +61,8 @@
                                     									
                                     <listOptionValue builtIn="false" value="/opt/Xilinx/Vitis_HLS/2022.2/lnx64/tools/auto_cc/include"/>
                                     									
+                                    <listOptionValue builtIn="false" value="/home/function47/Desktop/Workspace/P4Framework/Examples/reverse_tuple/hls"/>
+                                    									
                                     <listOptionValue builtIn="false" value="/home/function47/Desktop/Workspace/P4Framework/Examples/sketch/hls"/>
                                     								
                                 </option>
@@ -96,6 +98,8 @@
                                     <listOptionValue builtIn="false" value="/opt/Xilinx/Vitis_HLS/2022.2/include"/>
                                     									
                                     <listOptionValue builtIn="false" value="/opt/Xilinx/Vitis_HLS/2022.2/lnx64/tools/auto_cc/include"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="/home/function47/Desktop/Workspace/P4Framework/Examples/reverse_tuple/hls"/>
                                     									
                                     <listOptionValue builtIn="false" value="/home/function47/Desktop/Workspace/P4Framework/Examples/sketch/hls"/>
                                     								
@@ -163,7 +167,7 @@
                     					
                     <sourceEntries>
                         						
-                        <entry excluding=".apc|.settings|solution1|*.c*|*.C*" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+                        <entry excluding=".apc|.settings|.vscode|solution1|*.c*|*.C*" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
                         					
                     </sourceEntries>
                     				
@@ -233,6 +237,8 @@
                                     									
                                     <listOptionValue builtIn="false" value="/opt/Xilinx/Vitis_HLS/2022.2/lnx64/tools/auto_cc/include"/>
                                     									
+                                    <listOptionValue builtIn="false" value="/home/function47/Desktop/Workspace/P4Framework/Examples/reverse_tuple/hls"/>
+                                    									
                                     <listOptionValue builtIn="false" value="/home/function47/Desktop/Workspace/P4Framework/Examples/sketch/hls"/>
                                     								
                                 </option>
@@ -258,6 +264,8 @@
                                     <listOptionValue builtIn="false" value="/opt/Xilinx/Vitis_HLS/2022.2/include"/>
                                     									
                                     <listOptionValue builtIn="false" value="/opt/Xilinx/Vitis_HLS/2022.2/lnx64/tools/auto_cc/include"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="/home/function47/Desktop/Workspace/P4Framework/Examples/reverse_tuple/hls"/>
                                     									
                                     <listOptionValue builtIn="false" value="/home/function47/Desktop/Workspace/P4Framework/Examples/sketch/hls"/>
                                     								
@@ -315,7 +323,7 @@
                     					
                     <sourceEntries>
                         						
-                        <entry excluding=".apc|.settings|solution1|*.c*|*.C*" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+                        <entry excluding=".apc|.settings|.vscode|solution1|*.c*|*.C*" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
                         					
                     </sourceEntries>
                     				
@@ -366,5 +374,7 @@
     </storageModule>
     	
     <storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+    	
+    <storageModule moduleId="refreshScope"/>
     
 </cproject>

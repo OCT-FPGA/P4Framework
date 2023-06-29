@@ -1,18 +1,50 @@
 {"sourceFile": [{
       "name": "",
-      "directive": [{
-          "functionName": "exchangeFivetuple",
+      "directive": [
+        {
+          "functionName": "exchangeFivetuple_kernel",
           "label": "",
           "functionLabel": "",
           "id": "1",
-          "sourceFile": "\/home\/function47\/Desktop\/Workspace\/P4Framework\/Examples\/sketch\/hls\/exchangeFivetuple\/solution1\/csynth.tcl",
-          "sourceLine": "15",
+          "sourceFile": "\/home\/function47\/Desktop\/Workspace\/P4Framework\/Examples\/reverse_tuple\/hls\/exchangeFivetuple\/solution1\/directives.tcl",
+          "sourceLine": "6",
           "pragma": {
             "name": "TOP",
             "option": [{
                 "name": "name",
-                "value": "exchangeFivetuple"
+                "value": "exchangeFivetuple_kernel"
               }]
           }
-        }]
+        },
+        {
+          "functionName": "exchangeFivetuple_kernel",
+          "label": "",
+          "functionLabel": "",
+          "id": "2",
+          "sourceFile": "\/home\/function47\/Desktop\/Workspace\/P4Framework\/Examples\/reverse_tuple\/hls\/exchangeFivetuple\/solution1\/csynth.tcl",
+          "sourceLine": "17",
+          "pragma": {
+            "name": "TOP",
+            "option": [{
+                "name": "name",
+                "value": "exchangeFivetuple_kernel"
+              }]
+          }
+        },
+        {
+          "functionName": "exchangeFivetuple_kernel",
+          "label": "",
+          "functionLabel": "",
+          "id": "3",
+          "sourceFile": "\/home\/function47\/Desktop\/Workspace\/P4Framework\/Examples\/reverse_tuple\/hls\/exchangeFivetuple\/solution1\/csynth.tcl",
+          "sourceLine": "17",
+          "pragma": {
+            "name": "TOP",
+            "option": [{
+                "name": "name",
+                "value": "exchangeFivetuple_kernel"
+              }]
+          }
+        }
+      ]
     }]}

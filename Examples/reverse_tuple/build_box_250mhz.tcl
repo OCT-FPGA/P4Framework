@@ -28,7 +28,7 @@ generate_target all [get_ips vitis_net_p4_0]
 
 # Add HLS IP
 update_ip_catalog
-create_ip -name exchangeFivetuple -vendor xilinx.com -library hls -version 1.0 -module_name exchangeFivetuple_0
+create_ip -name exchangeFivetuple_kernel -vendor xilinx.com -library hls -version 1.0 -module_name exchangeFivetuple_0
 
 
 # Modify AXI_CROSSBAR to fit Table register size

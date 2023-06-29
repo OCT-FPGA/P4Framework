@@ -1,8 +1,8 @@
 <AutoPilot:ProjectResources xmlns:AutoPilot="com.autoesl.autopilot.ui.directiveView">
     <sourceFile name="">
-        <directive functionName="exchangeFivetuple" label="" functionLabel="">
+        <directive functionName="exchangeFivetuple_kernel" label="" functionLabel="">
             <pragma name="TOP">
-                <option name="name" value="exchangeFivetuple"/>
+                <option name="name" value="exchangeFivetuple_kernel"/>
             </pragma>
         </directive>
     </sourceFile>

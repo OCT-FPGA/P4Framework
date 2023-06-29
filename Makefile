@@ -1,6 +1,6 @@
 .PHONY: all clean
 
-EXAMPLE_OBJ=forward calc advCalc advCalc_no_table reverse_tuple
+EXAMPLE_OBJ=forward calc advCalc advCalc_no_table reverse_tuple sketch
 QSPI=false
 SHELL := /bin/bash
 VIVADO_TARGET_VER=2021.2
@@ -39,7 +39,7 @@ endif
 	$(eval app_dir=$(user_build_dir)/$(board)_$(tag))
 
 #	#build
-	@[ -d '$(user_build_dir)' ] || mkdir $(user_build_dir) 
+	[ -d '$(user_build_dir)' ] || mkdir $(user_build_dir) 
 	cd open-nic-shell/script && vivado -mode batch -source build.tcl -tclargs $(TCL_ARGS) | tee $(cur_dir)/build_$(tag).log
 #
 #	@[ -d '$(DIST_APP_DIR)' ] || mkdir -p $(DIST_APP_DIR) 

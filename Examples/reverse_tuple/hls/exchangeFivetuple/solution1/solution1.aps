@@ -7,12 +7,11 @@
     </downStreamTool>
     <synthesis askAgain="true"/>
     <config>
-        <config_export format="ip_catalog" output="/home/function47/Desktop/Workspace/P4Framework/Examples/sketch/hls" rtl="verilog"/>
+        <config_export format="ip_catalog" output="/home/function47/Desktop/Workspace/P4Framework/Examples/reverse_tuple/hls" rtl="verilog" vivado_clock="4"/>
     </config>
     <UIConfigurations>
         <UIAutosynConf boardInfo="Alveo U280 Data Center Accelerator Card (xcu280-fsvh2892-2L-e) " hideTrivialOp="true" isBasedOnBoard="true" isSolutionDirty="false" isStopAskAgain="false" showDetailDesignViewer="false">
             <Platform>xilinx/virtexuplus/virtexuplus</Platform>
-            <Platform>xilinx/virtexuplus/virtexuplus_fpv7</Platform>
             <customLibs/>
         </UIAutosynConf>
         <UIIPPackagerConf AskAgain="true" DescriptionButton="false" LibraryButton="false" RTLLanguage="verilog" UseNetList="none" VendorButton="false" VersionButton="false" evaluateRTL="false" setup="false">
@@ -41,8 +40,8 @@
             </RTLs>
         </UIAutoSimConf>
     </UIConfigurations>
-    <ExportDesign askAgain="true" evaluate="false" flow="false" flowChoice="syn" formatName="ip_catalog" output="/home/function47/Desktop/Workspace/P4Framework/Examples/sketch/hls" rtl="verilog" rtlButton="true" rtlCombo="verilog">
-        <Format formatName="ip_catalog" description="" vendor="" library="" ipname="exchangeFivetuple" version="" display_name="" taxonomy=""/>
+    <ExportDesign askAgain="true" evaluate="false" flow="false" flowChoice="syn" formatName="ip_catalog" output="/home/function47/Desktop/Workspace/P4Framework/Examples/reverse_tuple/hls" rtl="verilog" rtlButton="true" rtlCombo="verilog">
+        <Format formatName="ip_catalog" description="" vendor="" library="" ipname="exchangeFivetuple_kernel" version="" display_name="" taxonomy=""/>
         <Format formatName="sysgen"/>
         <Format formatName="sysgen_ise"/>
         <Format formatName="syn_dcp"/>
@@ -70,7 +69,7 @@
         <library value="xilinx/virtexuplus/virtexuplus" name="DefaultPlatform"/>
     </libraryList>
     <clockList>
-        <clock default="false" name="default" period="4"/>
+        <clock name="default" default="false" period="4"/>
     </clockList>
 </solution>
 

@@ -1,5 +1,5 @@
 <root versionMajor = "1" versionMinor = "5">
-  <kernel src_name="exchangeFivetuple" language="c" hwCtrl="ap_ctrl_hs" mem_layout="fpga64-xilinx-none">
+  <kernel src_name="exchangeFivetuple_kernel" language="c" hwCtrl="ap_ctrl_hs" mem_layout="fpga64-xilinx-none">
     <args>
       <arg id="0" access_type="r" src_name="user_extern_in" src_type="stream&lt;five_tuples_t, 0&gt;&amp;" src_isptr="1" src_bitwidth="128" src_size_or_depth="1">
         <hw hw_usage="data" hw_interface="AXI-Stream" hw_name="user_extern_in" hw_bitwidth="128" hw_size_or_depth="0" hw_kernel_support="true">

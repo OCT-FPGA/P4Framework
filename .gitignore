@@ -4,3 +4,5 @@ build
 .vscode
 .cache
 gen/
+.autopilot
+.debug

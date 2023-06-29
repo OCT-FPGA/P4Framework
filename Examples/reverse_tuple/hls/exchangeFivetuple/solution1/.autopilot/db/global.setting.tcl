@@ -1,13 +1,13 @@
 
-set TopModule "exchangeFivetuple"
+set TopModule "exchangeFivetuple_kernel"
 set ClockPeriod 4
 set ClockList ap_clk
-set HasVivadoClockPeriod 0
+set HasVivadoClockPeriod 1
 set CombLogicFlag 0
-set PipelineFlag 0
+set PipelineFlag 1
 set DataflowTaskPipelineFlag 1
 set TrivialPipelineFlag 0
-set noPortSwitchingFlag 1
+set noPortSwitchingFlag 0
 set FloatingPointFlag 0
 set FftOrFirFlag 0
 set NbRWValue 0
@@ -23,7 +23,7 @@ set ResetRegisterNum 0
 set FsmEncStyle onehot
 set MaxFanout 0
 set RtlPrefix {}
-set RtlSubPrefix exchangeFivetuple_
+set RtlSubPrefix exchangeFivetuple_kernel_
 set ExtraCCFlags {}
 set ExtraCLdFlags {}
 set SynCheckOptions {}
@@ -42,9 +42,9 @@ set SCTraceFileName mytrace
 set SCTraceFileFormat vcd
 set SCTraceOption all
 set TargetInfo xcu280:-fsvh2892:-2L-e
-set SourceFiles {sc {} c ../exchangeFivetuple.cpp}
-set SourceFlags {sc {} c {{}}}
-set DirectiveFile /home/function47/Desktop/Workspace/P4Framework/Examples/sketch/hls/exchangeFivetuple/solution1/solution1.directive
+set SourceFiles {sc {} c {../src/exchangeFivetuple_hls_wrapper.cpp ../src/exchangeFivetuple_kernel.cpp}}
+set SourceFlags {sc {} c {{} {}}}
+set DirectiveFile /home/function47/Desktop/Workspace/P4Framework/Examples/reverse_tuple/hls/exchangeFivetuple/solution1/solution1.directive
 set TBFiles {bc {} c {} sc {} cas {} vhdl {} verilog {}}
 set SpecLanguage C
 set TVInFiles {bc {} c {} sc {} cas {} vhdl {} verilog {}}

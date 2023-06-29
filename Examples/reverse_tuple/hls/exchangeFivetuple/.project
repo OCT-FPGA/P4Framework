@@ -29,42 +29,52 @@
 		<link>
 			<name>source</name>
 			<type>2</type>
-			<location>/home/function47/Desktop/Workspace/P4Framework/Examples/sketch/hls/exchangeFivetuple/.apc/.src</location>
+			<location>/home/function47/Desktop/Workspace/P4Framework/Examples/reverse_tuple/hls/exchangeFivetuple/.apc/.src</location>
 		</link>
 		<link>
 			<name>testbench</name>
 			<type>2</type>
-			<location>/home/function47/Desktop/Workspace/P4Framework/Examples/sketch/hls/exchangeFivetuple/.apc/.tb</location>
+			<location>/home/function47/Desktop/Workspace/P4Framework/Examples/reverse_tuple/hls/exchangeFivetuple/.apc/.tb</location>
 		</link>
 		<link>
 			<name>solution1/constraints</name>
 			<type>2</type>
-			<location>/home/function47/Desktop/Workspace/P4Framework/Examples/sketch/hls/exchangeFivetuple/solution1/.tcls</location>
-		</link>
-		<link>
-			<name>source/exchangeFivetuple.cpp</name>
-			<type>1</type>
-			<location>/home/function47/Desktop/Workspace/P4Framework/Examples/sketch/hls/exchangeFivetuple/exchangeFivetuple.cpp</location>
+			<location>/home/function47/Desktop/Workspace/P4Framework/Examples/reverse_tuple/hls/exchangeFivetuple/solution1/.tcls</location>
 		</link>
 		<link>
 			<name>source/exchangeFivetuple.hpp</name>
 			<type>1</type>
-			<location>/home/function47/Desktop/Workspace/P4Framework/Examples/sketch/hls/exchangeFivetuple/exchangeFivetuple.hpp</location>
+			<location>/home/function47/Desktop/Workspace/P4Framework/Examples/reverse_tuple/hls/exchangeFivetuple/src/exchangeFivetuple.hpp</location>
+		</link>
+		<link>
+			<name>source/exchangeFivetuple_hls_wrapper.cpp</name>
+			<type>1</type>
+			<location>/home/function47/Desktop/Workspace/P4Framework/Examples/reverse_tuple/hls/exchangeFivetuple/src/exchangeFivetuple_hls_wrapper.cpp</location>
+		</link>
+		<link>
+			<name>source/exchangeFivetuple_kernel.cpp</name>
+			<type>1</type>
+			<location>/home/function47/Desktop/Workspace/P4Framework/Examples/reverse_tuple/hls/exchangeFivetuple/src/exchangeFivetuple_kernel.cpp</location>
+		</link>
+		<link>
+			<name>source/tuple_types.h</name>
+			<type>1</type>
+			<location>/home/function47/Desktop/Workspace/P4Framework/Examples/reverse_tuple/hls/exchangeFivetuple/src/tuple_types.h</location>
 		</link>
 		<link>
 			<name>solution1/constraints/.xml.directive</name>
 			<type>1</type>
-			<location>/home/function47/Desktop/Workspace/P4Framework/Examples/sketch/hls/exchangeFivetuple/solution1/solution1.directive</location>
+			<location>/home/function47/Desktop/Workspace/P4Framework/Examples/reverse_tuple/hls/exchangeFivetuple/solution1/solution1.directive</location>
 		</link>
 		<link>
 			<name>solution1/constraints/directives.tcl</name>
 			<type>1</type>
-			<location>/home/function47/Desktop/Workspace/P4Framework/Examples/sketch/hls/exchangeFivetuple/solution1/directives.tcl</location>
+			<location>/home/function47/Desktop/Workspace/P4Framework/Examples/reverse_tuple/hls/exchangeFivetuple/solution1/directives.tcl</location>
 		</link>
 		<link>
 			<name>solution1/constraints/script.tcl</name>
 			<type>1</type>
-			<location>/home/function47/Desktop/Workspace/P4Framework/Examples/sketch/hls/exchangeFivetuple/solution1/script.tcl</location>
+			<location>/home/function47/Desktop/Workspace/P4Framework/Examples/reverse_tuple/hls/exchangeFivetuple/solution1/script.tcl</location>
 		</link>
 	</linkedResources>
 </projectDescription>
