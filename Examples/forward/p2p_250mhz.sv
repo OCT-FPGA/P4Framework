@@ -157,10 +157,7 @@ module p2p_250mhz #(
 			   }
                          ),                               // input wire [47 : 0] user_metadata_in
 				       
-        .user_metadata_in_valid(s_axis_adap_rx_250mhz_tvalid[i] && 
-                          s_axis_adap_rx_250mhz_tready[i] &&
-                          s_axis_adap_rx_250mhz_tlast[i]
-	                ),                                // input wire user_metadata_in_valid
+        .user_metadata_in_valid(s_axis_adap_rx_250mhz_tvalid[i]),                                // input wire user_metadata_in_valid
 				       
         .user_metadata_out({axis_qdma_c2h_tuser[15:0],    // can refer to the "vitis_net_p4_0_pkg.sv" to find the field indices 
 			    axis_qdma_c2h_tuser[31:16],   // and the order of each field within the metadata struct as used 
