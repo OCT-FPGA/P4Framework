@@ -124,25 +124,6 @@ module p2p_250mhz #(
     assign m_axis_qdma_c2h_tuser_src[`getvec(16, i)]        = axis_qdma_c2h_tuser[16+:16];
     assign m_axis_qdma_c2h_tuser_dst[`getvec(16, i)]        = 16'h1 << i;
 
-    axi_stream_pipeline tx_ppl_inst (
-      .s_axis_tvalid (s_axis_qdma_h2c_tvalid[i]),
-      .s_axis_tdata  (s_axis_qdma_h2c_tdata[`getvec(512, i)]),
-      .s_axis_tkeep  (s_axis_qdma_h2c_tkeep[`getvec(64, i)]),
-      .s_axis_tlast  (s_axis_qdma_h2c_tlast[i]),
-      .s_axis_tuser  (axis_qdma_h2c_tuser),
-      .s_axis_tready (s_axis_qdma_h2c_tready[i]),
-
-      .m_axis_tvalid (m_axis_adap_tx_250mhz_tvalid[i]),
-      .m_axis_tdata  (m_axis_adap_tx_250mhz_tdata[`getvec(512, i)]),
-      .m_axis_tkeep  (m_axis_adap_tx_250mhz_tkeep[`getvec(64, i)]),
-      .m_axis_tlast  (m_axis_adap_tx_250mhz_tlast[i]),
-      .m_axis_tuser  (axis_adap_tx_250mhz_tuser),
-      .m_axis_tready (m_axis_adap_tx_250mhz_tready[i]),
-
-      .aclk          (axis_aclk),
-      .aresetn       (axil_aresetn)
-    );
-
     if (i==0) begin
       vitis_net_p4_0 forward_p4 (
         .s_axis_aclk     (axis_aclk),                         // input wire s_axis_aclk
@@ -151,30 +132,23 @@ module p2p_250mhz #(
         .s_axi_aresetn   (axil_aresetn),                      // input wire s_axi_aresetn
         .cam_mem_aclk    (axis_aclk),                         // input wire cam_mem_aclk
         .cam_mem_aresetn (axis_aresetn),                      // input wire cam_mem_aresetn
-        .user_metadata_in({s_axis_adap_rx_250mhz_tuser_size[`getvec(16, i)], // can refer to the "vitis_net_p4_0_pkg.sv" to find the field indices 
-			   s_axis_adap_rx_250mhz_tuser_src[`getvec(16, i)],  // and the order of each field within the metadata struct as used by the 
-			   s_axis_adap_rx_250mhz_tuser_dst[`getvec(16, i)]   // generated RTL implementation 
-			   }
-                         ),                               // input wire [47 : 0] user_metadata_in
-				       
-        .user_metadata_in_valid(s_axis_adap_rx_250mhz_tvalid[i]),                                // input wire user_metadata_in_valid
-				       
-        .user_metadata_out({axis_qdma_c2h_tuser[15:0],    // can refer to the "vitis_net_p4_0_pkg.sv" to find the field indices 
-			    axis_qdma_c2h_tuser[31:16],   // and the order of each field within the metadata struct as used 
-			    axis_qdma_c2h_tuser[47:32]    // by the generated RTL implementation 
-                           }),                            // output wire [47 : 0] user_metadata_out
-                           
-        .user_metadata_out_valid(user_metadata_out_valid),// output wire user_metadata_out_valid
-        .s_axis_tdata    (s_axis_adap_rx_250mhz_tdata[`getvec(512, i)]),  // input wire [511 : 0] s_axis_tdata
-        .s_axis_tkeep    (s_axis_adap_rx_250mhz_tkeep[`getvec(64, i)]),   // input wire [63 : 0] s_axis_tkeep
-        .s_axis_tlast    (s_axis_adap_rx_250mhz_tlast[i]),                // input wire s_axis_tlast
-        .s_axis_tvalid   (s_axis_adap_rx_250mhz_tvalid[i]),               // input wire s_axis_tvalid
-        .s_axis_tready   (s_axis_adap_rx_250mhz_tready[i]),               // output wire s_axis_tready
-        .m_axis_tdata    (m_axis_qdma_c2h_tdata[`getvec(512, i)]),        // output wire [511 : 0] m_axis_tdata
-        .m_axis_tkeep    (m_axis_qdma_c2h_tkeep[`getvec(64, i)]),         // output wire [63 : 0] m_axis_tkeep
-        .m_axis_tlast    (m_axis_qdma_c2h_tlast[i]),                      // output wire m_axis_tlast
-        .m_axis_tvalid   (m_axis_qdma_c2h_tvalid[i]),                     // output wire m_axis_tvalid
-        .m_axis_tready   (m_axis_qdma_c2h_tready[i]),                     // input wire m_axis_tready
+        .user_metadata_in(axis_qdma_h2c_tuser),
+        .user_metadata_in_valid(s_axis_qdma_h2c_tvalid[i]),   // input wire user_metadata_in_valid
+        .user_metadata_out(axis_adap_tx_250mhz_tuser),
+        .user_metadata_out_valid(user_metadata_out_valid),    // output wire user_metadata_out_valid
+
+        .m_axis_tdata    (m_axis_adap_tx_250mhz_tdata[`getvec(512, i)]),  // input wire [511 : 0] s_axis_tdata
+        .m_axis_tkeep    (m_axis_adap_tx_250mhz_tkeep[`getvec(64, i)]),   // input wire [63 : 0] s_axis_tkeep
+        .m_axis_tlast    (m_axis_adap_tx_250mhz_tlast[i]),                // input wire s_axis_tlast
+        .m_axis_tvalid   (m_axis_adap_tx_250mhz_tvalid[i]),               // input wire s_axis_tvalid
+        .m_axis_tready   (m_axis_adap_tx_250mhz_tready[i]),               // output wire s_axis_tready
+
+        .s_axis_tdata    (s_axis_qdma_h2c_tdata[`getvec(512, i)]),        // output wire [511 : 0] m_axis_tdata
+        .s_axis_tkeep    (s_axis_qdma_h2c_tkeep[`getvec(64, i)]),         // output wire [63 : 0] m_axis_tkeep
+        .s_axis_tlast    (s_axis_qdma_h2c_tlast[i]),                      // output wire m_axis_tlast
+        .s_axis_tvalid   (s_axis_qdma_h2c_tvalid[i]),                     // output wire m_axis_tvalid
+        .s_axis_tready   (s_axis_qdma_h2c_tready[i]),                     // input wire m_axis_tready
+
         .s_axi_araddr    (s_axil_araddr),                       // input wire [12 : 0] s_axi_araddr
         .s_axi_arready   (s_axil_arready),                      // output wire s_axi_arready
         .s_axi_arvalid   (s_axil_arvalid),                      // input wire s_axi_arvalid
@@ -193,7 +167,27 @@ module p2p_250mhz #(
         .s_axi_wstrb     (4'b1111),                             // input wire [3 : 0] s_axi_wstrb
         .s_axi_wvalid    (s_axil_wvalid)                        // input wire s_axi_wvalid
       );
-    end else begin      
+    end else begin
+
+    axi_stream_pipeline tx_ppl_inst (
+      .s_axis_tvalid (s_axis_qdma_h2c_tvalid[i]),
+      .s_axis_tdata  (s_axis_qdma_h2c_tdata[`getvec(512, i)]),
+      .s_axis_tkeep  (s_axis_qdma_h2c_tkeep[`getvec(64, i)]),
+      .s_axis_tlast  (s_axis_qdma_h2c_tlast[i]),
+      .s_axis_tuser  (axis_qdma_h2c_tuser),
+      .s_axis_tready (s_axis_qdma_h2c_tready[i]),
+
+      .m_axis_tvalid (m_axis_adap_tx_250mhz_tvalid[i]),
+      .m_axis_tdata  (m_axis_adap_tx_250mhz_tdata[`getvec(512, i)]),
+      .m_axis_tkeep  (m_axis_adap_tx_250mhz_tkeep[`getvec(64, i)]),
+      .m_axis_tlast  (m_axis_adap_tx_250mhz_tlast[i]),
+      .m_axis_tuser  (axis_adap_tx_250mhz_tuser),
+      .m_axis_tready (m_axis_adap_tx_250mhz_tready[i]),
+
+      .aclk          (axis_aclk),
+      .aresetn       (axil_aresetn)
+    );
+    end
       axi_stream_pipeline rx_ppl_inst (
         .s_axis_tvalid (s_axis_adap_rx_250mhz_tvalid[i]),
         .s_axis_tdata  (s_axis_adap_rx_250mhz_tdata[`getvec(512, i)]),
@@ -212,7 +206,6 @@ module p2p_250mhz #(
         .aclk          (axis_aclk),
         .aresetn       (axil_aresetn)
       );
-    end
   end
   endgenerate
 
