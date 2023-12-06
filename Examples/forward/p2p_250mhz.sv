@@ -132,7 +132,7 @@ module p2p_250mhz #(
         .s_axi_aresetn   (axil_aresetn),                      // input wire s_axi_aresetn
         .cam_mem_aclk    (axis_aclk),                         // input wire cam_mem_aclk
         .cam_mem_aresetn (axis_aresetn),                      // input wire cam_mem_aresetn
-        .user_metadata_in(axis_qdma_h2c_tuser),
+        .user_metadata_in({s_axis_qdma_h2c_tuser_size[`getvec(16,i)], s_axis_qdma_h2c_tuser_src[`getvec(16,i)],s_axis_qdma_h2c_tuser_dst[`getvec(16,i)]}),
         .user_metadata_in_valid(s_axis_qdma_h2c_tvalid[i]),   // input wire user_metadata_in_valid
         .user_metadata_out(axis_adap_tx_250mhz_tuser),
         .user_metadata_out_valid(user_metadata_out_valid),    // output wire user_metadata_out_valid
