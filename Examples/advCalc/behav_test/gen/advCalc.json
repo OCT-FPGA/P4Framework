@@ -1,0 +1,1365 @@
+{
+  "program" : "../advCalc.p4",
+  "__meta__" : {
+    "version" : [1, 0],
+    "compiler" : "p4c-vitisnet"
+  },
+  "header_types" : [
+    {
+      "name" : "scalars_0",
+      "id" : 0,
+      "is_struct" : false,
+      "fields" : [
+        ["square_root_result", 24, false],
+        ["tmp", 48, false]
+      ]
+    },
+    {
+      "name" : "divider_input",
+      "id" : 1,
+      "is_struct" : true,
+      "fields" : [
+        ["divisor", 32, false],
+        ["dividend", 32, false]
+      ]
+    },
+    {
+      "name" : "divider_output",
+      "id" : 2,
+      "is_struct" : true,
+      "fields" : [
+        ["remainder", 32, false],
+        ["quotient", 32, false]
+      ]
+    },
+    {
+      "name" : "standard_metadata_t",
+      "id" : 3,
+      "is_struct" : true,
+      "fields" : [
+        ["drop", 1, false],
+        ["ingress_timestamp", 64, false],
+        ["parser_error", 3, false],
+        ["_padding", 4, false]
+      ]
+    },
+    {
+      "name" : "eth_mac_t",
+      "id" : 4,
+      "is_struct" : false,
+      "fields" : [
+        ["dstAddr", 48, false],
+        ["srcAddr", 48, false],
+        ["etherType", 16, false]
+      ]
+    },
+    {
+      "name" : "p4calc_t",
+      "id" : 5,
+      "is_struct" : false,
+      "fields" : [
+        ["p", 8, false],
+        ["four", 8, false],
+        ["version", 8, false],
+        ["operation", 8, false],
+        ["operand_a", 32, false],
+        ["operand_b", 32, false],
+        ["result", 32, false]
+      ]
+    },
+    {
+      "name" : "metadata",
+      "id" : 6,
+      "is_struct" : true,
+      "fields" : [
+        ["tuser_size", 16, false],
+        ["tuser_src", 16, false],
+        ["tuser_dst", 16, false]
+      ]
+    }
+  ],
+  "headers" : [
+    {
+      "name" : "div_in",
+      "id" : 0,
+      "header_type" : "divider_input",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "div_out",
+      "id" : 1,
+      "header_type" : "divider_output",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "scalars",
+      "id" : 2,
+      "header_type" : "scalars_0",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "standard_metadata_t",
+      "id" : 3,
+      "header_type" : "standard_metadata_t",
+      "metadata" : true,
+      "pi_omit" : true
+    },
+    {
+      "name" : "eth",
+      "id" : 4,
+      "header_type" : "eth_mac_t",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "p4calc",
+      "id" : 5,
+      "header_type" : "p4calc_t",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "metadata",
+      "id" : 6,
+      "header_type" : "metadata",
+      "metadata" : true,
+      "pi_omit" : true
+    }
+  ],
+  "header_stacks" : [],
+  "header_union_types" : [],
+  "header_unions" : [],
+  "header_union_stacks" : [],
+  "field_lists" : [],
+  "errors" : [
+    ["NoError", 0],
+    ["PacketTooShort", 1],
+    ["NoMatch", 2],
+    ["StackOutOfBounds", 3],
+    ["HeaderTooShort", 4],
+    ["ParserTimeout", 5],
+    ["HeaderDepthLimitExceeded", 6]
+  ],
+  "enums" : [],
+  "parsers" : [
+    {
+      "name" : "parser",
+      "id" : 0,
+      "init_state" : "start",
+      "parse_states" : [
+        {
+          "name" : "start",
+          "id" : 0,
+          "parser_ops" : [
+            {
+              "parameters" : [
+                {
+                  "type" : "regular",
+                  "value" : "eth"
+                }
+              ],
+              "op" : "extract"
+            }
+          ],
+          "transitions" : [
+            {
+              "type" : "hexstr",
+              "value" : "0x1234",
+              "mask" : null,
+              "next_state" : "parse_p4calc"
+            },
+            {
+              "value" : "default",
+              "mask" : null,
+              "next_state" : "drop"
+            }
+          ],
+          "transition_key" : [
+            {
+              "type" : "field",
+              "value" : ["eth", "etherType"]
+            }
+          ]
+        },
+        {
+          "name" : "parse_p4calc",
+          "id" : 1,
+          "parser_ops" : [
+            {
+              "parameters" : [
+                {
+                  "type" : "regular",
+                  "value" : "p4calc"
+                }
+              ],
+              "op" : "extract"
+            }
+          ],
+          "transitions" : [
+            {
+              "type" : "hexstr",
+              "value" : "0x503401",
+              "mask" : null,
+              "next_state" : null
+            },
+            {
+              "value" : "default",
+              "mask" : null,
+              "next_state" : "drop"
+            }
+          ],
+          "transition_key" : [
+            {
+              "type" : "field",
+              "value" : ["p4calc", "p"]
+            },
+            {
+              "type" : "field",
+              "value" : ["p4calc", "four"]
+            },
+            {
+              "type" : "field",
+              "value" : ["p4calc", "version"]
+            }
+          ]
+        },
+        {
+          "name" : "drop",
+          "id" : 2,
+          "parser_ops" : [
+            {
+              "parameters" : [
+                {
+                  "type" : "field",
+                  "value" : ["standard_metadata_t", "drop"]
+                },
+                {
+                  "type" : "hexstr",
+                  "value" : "0x01"
+                }
+              ],
+              "op" : "set"
+            }
+          ],
+          "transitions" : [
+            {
+              "value" : "default",
+              "mask" : null,
+              "next_state" : null
+            }
+          ],
+          "transition_key" : []
+        }
+      ]
+    }
+  ],
+  "parse_vsets" : [],
+  "deparsers" : [
+    {
+      "name" : "deparser",
+      "id" : 0,
+      "source_info" : {
+        "filename" : "../advCalc.p4",
+        "line" : 221,
+        "column" : 8,
+        "source_fragment" : "MyDeparser"
+      },
+      "start" : "node_7",
+      "emits" : [
+        {
+          "name" : "node_7",
+          "id" : 0,
+          "sequence_point" : true,
+          "header" : "eth",
+          "next" : "node_8"
+        },
+        {
+          "name" : "node_8",
+          "id" : 1,
+          "sequence_point" : true,
+          "header" : "p4calc",
+          "next" : null
+        }
+      ],
+      "conditionals" : []
+    }
+  ],
+  "meter_arrays" : [],
+  "counter_arrays" : [],
+  "register_arrays" : [],
+  "calculations" : [],
+  "learn_lists" : [],
+  "actions" : [
+    {
+      "name" : "MyProcessing.operation_add",
+      "id" : 0,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp"]
+            },
+            {
+              "type" : "field",
+              "value" : ["eth", "dstAddr"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 141,
+            "column" : 8,
+            "source_fragment" : "bit<48> tmp = hdr.eth.dstAddr;"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["eth", "dstAddr"]
+            },
+            {
+              "type" : "field",
+              "value" : ["eth", "srcAddr"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 142,
+            "column" : 8,
+            "source_fragment" : "hdr.eth.dstAddr = hdr.eth.srcAddr"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["eth", "srcAddr"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 143,
+            "column" : 8,
+            "source_fragment" : "hdr.eth.srcAddr = tmp"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["p4calc", "result"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["p4calc", "operand_a"]
+                      },
+                      "right" : {
+                        "type" : "field",
+                        "value" : ["p4calc", "operand_b"]
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 144,
+            "column" : 8,
+            "source_fragment" : "hdr.p4calc.result = result; ..."
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyProcessing.operation_sub",
+      "id" : 1,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp"]
+            },
+            {
+              "type" : "field",
+              "value" : ["eth", "dstAddr"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 141,
+            "column" : 8,
+            "source_fragment" : "bit<48> tmp = hdr.eth.dstAddr;"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["eth", "dstAddr"]
+            },
+            {
+              "type" : "field",
+              "value" : ["eth", "srcAddr"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 142,
+            "column" : 8,
+            "source_fragment" : "hdr.eth.dstAddr = hdr.eth.srcAddr"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["eth", "srcAddr"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 143,
+            "column" : 8,
+            "source_fragment" : "hdr.eth.srcAddr = tmp"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["p4calc", "result"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "-",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["p4calc", "operand_a"]
+                      },
+                      "right" : {
+                        "type" : "field",
+                        "value" : ["p4calc", "operand_b"]
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 144,
+            "column" : 8,
+            "source_fragment" : "hdr.p4calc.result = result; ..."
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyProcessing.operation_mult",
+      "id" : 2,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp"]
+            },
+            {
+              "type" : "field",
+              "value" : ["eth", "dstAddr"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 141,
+            "column" : 8,
+            "source_fragment" : "bit<48> tmp = hdr.eth.dstAddr;"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["eth", "dstAddr"]
+            },
+            {
+              "type" : "field",
+              "value" : ["eth", "srcAddr"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 142,
+            "column" : 8,
+            "source_fragment" : "hdr.eth.dstAddr = hdr.eth.srcAddr"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["eth", "srcAddr"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 143,
+            "column" : 8,
+            "source_fragment" : "hdr.eth.srcAddr = tmp"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["p4calc", "result"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "*",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["p4calc", "operand_a"]
+                      },
+                      "right" : {
+                        "type" : "field",
+                        "value" : ["p4calc", "operand_b"]
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 144,
+            "column" : 8,
+            "source_fragment" : "hdr.p4calc.result = result; ..."
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyProcessing.operation_div",
+      "id" : 3,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["div_in", "dividend"]
+            },
+            {
+              "type" : "field",
+              "value" : ["p4calc", "operand_a"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 161,
+            "column" : 8,
+            "source_fragment" : "div_in.dividend = hdr.p4calc.operand_a"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["div_in", "divisor"]
+            },
+            {
+              "type" : "field",
+              "value" : ["p4calc", "operand_b"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 162,
+            "column" : 8,
+            "source_fragment" : "div_in.divisor = hdr.p4calc.operand_b"
+          }
+        },
+        {
+          "op" : "_calc_divide_apply",
+          "parameters" : [
+            {
+              "type" : "extern",
+              "value" : "MyProcessing.calc_divide"
+            },
+            {
+              "type" : "header",
+              "value" : "div_in"
+            },
+            {
+              "type" : "header",
+              "value" : "div_out"
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 164,
+            "column" : 8,
+            "source_fragment" : "calc_divide.apply(div_in, div_out)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp"]
+            },
+            {
+              "type" : "field",
+              "value" : ["eth", "dstAddr"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 141,
+            "column" : 8,
+            "source_fragment" : "bit<48> tmp = hdr.eth.dstAddr;"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["eth", "dstAddr"]
+            },
+            {
+              "type" : "field",
+              "value" : ["eth", "srcAddr"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 142,
+            "column" : 8,
+            "source_fragment" : "hdr.eth.dstAddr = hdr.eth.srcAddr"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["eth", "srcAddr"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 143,
+            "column" : 8,
+            "source_fragment" : "hdr.eth.srcAddr = tmp"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["p4calc", "result"]
+            },
+            {
+              "type" : "field",
+              "value" : ["div_out", "quotient"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 144,
+            "column" : 8,
+            "source_fragment" : "hdr.p4calc.result = result; ..."
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyProcessing.operation_sqrt",
+      "id" : 4,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "_calc_square_root_apply",
+          "parameters" : [
+            {
+              "type" : "extern",
+              "value" : "MyProcessing.calc_square_root"
+            },
+            {
+              "type" : "field",
+              "value" : ["p4calc", "operand_a"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "square_root_result"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 169,
+            "column" : 8,
+            "source_fragment" : "calc_square_root.apply(hdr.p4calc.operand_a, square_root_result)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp"]
+            },
+            {
+              "type" : "field",
+              "value" : ["eth", "dstAddr"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 141,
+            "column" : 8,
+            "source_fragment" : "bit<48> tmp = hdr.eth.dstAddr;"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["eth", "dstAddr"]
+            },
+            {
+              "type" : "field",
+              "value" : ["eth", "srcAddr"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 142,
+            "column" : 8,
+            "source_fragment" : "hdr.eth.dstAddr = hdr.eth.srcAddr"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["eth", "srcAddr"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 143,
+            "column" : 8,
+            "source_fragment" : "hdr.eth.srcAddr = tmp"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["p4calc", "result"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "field",
+                    "value" : ["scalars", "square_root_result"]
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 144,
+            "column" : 8,
+            "source_fragment" : "hdr.p4calc.result = result; ..."
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyProcessing.operation_and",
+      "id" : 5,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp"]
+            },
+            {
+              "type" : "field",
+              "value" : ["eth", "dstAddr"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 141,
+            "column" : 8,
+            "source_fragment" : "bit<48> tmp = hdr.eth.dstAddr;"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["eth", "dstAddr"]
+            },
+            {
+              "type" : "field",
+              "value" : ["eth", "srcAddr"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 142,
+            "column" : 8,
+            "source_fragment" : "hdr.eth.dstAddr = hdr.eth.srcAddr"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["eth", "srcAddr"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 143,
+            "column" : 8,
+            "source_fragment" : "hdr.eth.srcAddr = tmp"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["p4calc", "result"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "field",
+                    "value" : ["p4calc", "operand_a"]
+                  },
+                  "right" : {
+                    "type" : "field",
+                    "value" : ["p4calc", "operand_b"]
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 144,
+            "column" : 8,
+            "source_fragment" : "hdr.p4calc.result = result; ..."
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyProcessing.operation_or",
+      "id" : 6,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp"]
+            },
+            {
+              "type" : "field",
+              "value" : ["eth", "dstAddr"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 141,
+            "column" : 8,
+            "source_fragment" : "bit<48> tmp = hdr.eth.dstAddr;"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["eth", "dstAddr"]
+            },
+            {
+              "type" : "field",
+              "value" : ["eth", "srcAddr"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 142,
+            "column" : 8,
+            "source_fragment" : "hdr.eth.dstAddr = hdr.eth.srcAddr"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["eth", "srcAddr"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 143,
+            "column" : 8,
+            "source_fragment" : "hdr.eth.srcAddr = tmp"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["p4calc", "result"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "|",
+                  "left" : {
+                    "type" : "field",
+                    "value" : ["p4calc", "operand_a"]
+                  },
+                  "right" : {
+                    "type" : "field",
+                    "value" : ["p4calc", "operand_b"]
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 144,
+            "column" : 8,
+            "source_fragment" : "hdr.p4calc.result = result; ..."
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyProcessing.operation_xor",
+      "id" : 7,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp"]
+            },
+            {
+              "type" : "field",
+              "value" : ["eth", "dstAddr"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 141,
+            "column" : 8,
+            "source_fragment" : "bit<48> tmp = hdr.eth.dstAddr;"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["eth", "dstAddr"]
+            },
+            {
+              "type" : "field",
+              "value" : ["eth", "srcAddr"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 142,
+            "column" : 8,
+            "source_fragment" : "hdr.eth.dstAddr = hdr.eth.srcAddr"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["eth", "srcAddr"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 143,
+            "column" : 8,
+            "source_fragment" : "hdr.eth.srcAddr = tmp"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["p4calc", "result"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "^",
+                  "left" : {
+                    "type" : "field",
+                    "value" : ["p4calc", "operand_a"]
+                  },
+                  "right" : {
+                    "type" : "field",
+                    "value" : ["p4calc", "operand_b"]
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 144,
+            "column" : 8,
+            "source_fragment" : "hdr.p4calc.result = result; ..."
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyProcessing.operation_drop",
+      "id" : 8,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["standard_metadata_t", "drop"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x01"
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 186,
+            "column" : 8,
+            "source_fragment" : "smeta.drop = 1"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyProcessing.operation_drop",
+      "id" : 9,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["standard_metadata_t", "drop"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x01"
+            }
+          ],
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 186,
+            "column" : 8,
+            "source_fragment" : "smeta.drop = 1"
+          }
+        }
+      ]
+    }
+  ],
+  "pipelines" : [
+    {
+      "name" : "ingress",
+      "id" : 0,
+      "source_info" : {
+        "filename" : "../advCalc.p4",
+        "line" : 128,
+        "column" : 8,
+        "source_fragment" : "MyProcessing"
+      },
+      "init_table" : "node_2",
+      "tables" : [
+        {
+          "name" : "MyProcessing.calculate",
+          "id" : 0,
+          "sequence_point" : false,
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 189,
+            "column" : 10,
+            "source_fragment" : "calculate"
+          },
+          "key" : [
+            {
+              "match_type" : "exact",
+              "name" : "hdr.p4calc.operation",
+              "target" : ["p4calc", "operation"],
+              "mask" : null
+            }
+          ],
+          "match_type" : "exact",
+          "type" : "simple",
+          "direct_match" : true,
+          "max_size" : 256,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [0, 1, 2, 3, 4, 5, 6, 7, 8],
+          "actions" : ["MyProcessing.operation_add", "MyProcessing.operation_sub", "MyProcessing.operation_mult", "MyProcessing.operation_div", "MyProcessing.operation_sqrt", "MyProcessing.operation_and", "MyProcessing.operation_or", "MyProcessing.operation_xor", "MyProcessing.operation_drop"],
+          "base_default_next" : null,
+          "next_tables" : {
+            "MyProcessing.operation_add" : null,
+            "MyProcessing.operation_sub" : null,
+            "MyProcessing.operation_mult" : null,
+            "MyProcessing.operation_div" : null,
+            "MyProcessing.operation_sqrt" : null,
+            "MyProcessing.operation_and" : null,
+            "MyProcessing.operation_or" : null,
+            "MyProcessing.operation_xor" : null,
+            "MyProcessing.operation_drop" : null
+          },
+          "default_entry" : {
+            "action_id" : 8,
+            "action_const" : false,
+            "action_data" : [],
+            "action_entry_const" : false
+          }
+        },
+        {
+          "name" : "tbl_operation_drop",
+          "id" : 1,
+          "sequence_point" : false,
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [9],
+          "actions" : ["MyProcessing.operation_drop"],
+          "base_default_next" : null,
+          "next_tables" : {
+            "MyProcessing.operation_drop" : null
+          },
+          "default_entry" : {
+            "action_id" : 9,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        }
+      ],
+      "action_profiles" : [],
+      "conditionals" : [
+        {
+          "name" : "node_2",
+          "id" : 0,
+          "sequence_point" : true,
+          "source_info" : {
+            "filename" : "../advCalc.p4",
+            "line" : 209,
+            "column" : 12,
+            "source_fragment" : "hdr.p4calc.isValid()"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "d2b",
+              "left" : null,
+              "right" : {
+                "type" : "field",
+                "value" : ["p4calc", "$valid$"]
+              }
+            }
+          },
+          "true_next" : "MyProcessing.calculate",
+          "false_next" : "tbl_operation_drop",
+          "if_else" : true,
+          "converge" : null
+        }
+      ]
+    }
+  ],
+  "checksums" : [],
+  "force_arith" : [],
+  "extern_instances" : [
+    {
+      "name" : "MyProcessing.calc_divide",
+      "type" : "calc_divide",
+      "id" : 0,
+      "source_info" : {
+        "filename" : "../advCalc.p4",
+        "line" : 132,
+        "column" : 50,
+        "source_fragment" : "calc_divide"
+      },
+      "fixed_latency" : 34,
+      "input_width" : 64,
+      "output_width" : 64
+    },
+    {
+      "name" : "MyProcessing.calc_square_root",
+      "type" : "calc_square_root",
+      "id" : 1,
+      "source_info" : {
+        "filename" : "../advCalc.p4",
+        "line" : 133,
+        "column" : 37,
+        "source_fragment" : "calc_square_root"
+      },
+      "fixed_latency" : 17,
+      "input_width" : 32,
+      "output_width" : 24
+    }
+  ],
+  "field_aliases" : []
+}

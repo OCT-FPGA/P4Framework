@@ -44,6 +44,7 @@ typedef bit<48>  MacAddr;
 typedef bit<32>  IPv4Addr;
 typedef bit<128> IPv6Addr;
 
+const bit<16> HNEW_TYPE  = 0x88B6;                                                       //NEW HEADER CUSTOM PROTOCOL TYPE FOR ETHERNET TO PARSE IN THE DESTINATION
 const bit<16> VLAN_TYPE  = 0x8100;
 const bit<16> IPV4_TYPE  = 0x0800;
 const bit<16> IPV6_TYPE  = 0x86DD;
@@ -60,6 +61,16 @@ header eth_mac_t {
     MacAddr smac; // Source MAC address
     bit<16> type; // Tag Protocol Identifier
 }
+
+//========================== ADDING THE NEW HEADER FOR THE TIMER ===============================================================
+
+header timer_t {
+    bit<64> ingress_timing;                                                                //TO CAPTURE THE INGRESS TIMEStAMP
+    bit<16> intermediate_type;                                                             //NEXT PROTOCOL IDENTIFIER
+}
+
+//====================================================================================================================================
+
 
 header vlan_t {
     bit<3>  pcp;  // Priority code point
@@ -129,6 +140,7 @@ header udp_t {
 // header structure
 struct headers {
     eth_mac_t    eth;
+    timer_t      timer;                                                               //NEW HEADER TO BE ADDED
     vlan_t[2]    vlan;
     ipv4_t       ipv4;
     ipv4_opt_t   ipv4opt;
@@ -174,7 +186,8 @@ parser MyParser(packet_in packet,
             default   : accept; 
         }
     }
-    
+
+ 
     state parse_vlan {
         packet.extract(hdr.vlan.next);
         transition select(hdr.vlan.last.tpid) {
@@ -228,7 +241,6 @@ control MyProcessing(inout headers hdr,
                      inout standard_metadata_t smeta) {
                       
  
-
     action forwardPacket() {
     }
     
@@ -255,16 +267,29 @@ control MyProcessing(inout headers hdr,
     }
 
     apply {
-    
-
+        
         if (smeta.parser_error != error.NoError) {
             dropPacket();
             return;
         }
+
+        //========================== ADDING THE NEW HEADER FOR THE TIMER AND SETTING IT VALID ===============================================================
+
+        if (hdr.eth.isValid()){
+            hdr.timer.setValid();                                                                                             //TO SET THE NEW HEADER TO BE VALID
+            meta.tuser_size = meta.tuser_size + 0x000a;                                                                       //TO INCREASE THE METADATA SIZE OF THE PACKET BY THE SIZE OF THE CUSTOM HEADER
+            //hdr.timer.ingress_timing = 0x0123456789abcdef;                                                                    //ASSIGNING RANDOM VALUE TO THE TIMER HEADER
+            hdr.timer.ingress_timing = smeta.ingress_timestamp;                                                             //ASSIGNING THE INGRESS TIMESTAMP VALUE TO THE TIMER HEADER
+
+            hdr.timer.intermediate_type = hdr.eth.type;                                                                       //ASSIGNING THE PROTOCOL ID OF NEXT HEADER AFTER THE ETHERNET HEADER (VLAN, IPv4, IPv6, etc) TO THE PROTOCOL TYPE OF NEW HEADER FOR PARSING IN DESTINATION
+            hdr.eth.type = HNEW_TYPE;                                                                                         //ASSIGNING THE CUSTOM PROTOCOL ID OF NEW HEADER TO THE PROTOCOL TYPE OF ETHERNET HEADER FOR PARSING IN DESTINATION 
+        }
         
-        if (hdr.ipv4.isValid())
+        //===================================================================================================================================================    
+
+        if (hdr.ipv4.isValid())   
             forwardIPv4.apply();
-            
+
         else if (hdr.ipv6.isValid())
             forwardIPv6.apply();
         else
@@ -283,6 +308,7 @@ control MyDeparser(packet_out packet,
                    inout standard_metadata_t smeta) {
     apply {
         packet.emit(hdr.eth);
+        packet.emit(hdr.timer);                                                             //TO EMIT THE ADDED HEADER
         packet.emit(hdr.vlan);
         packet.emit(hdr.ipv4);
         packet.emit(hdr.ipv4opt);

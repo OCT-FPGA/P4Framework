@@ -44,12 +44,13 @@ typedef bit<48>  MacAddr;
 typedef bit<32>  IPv4Addr;
 typedef bit<128> IPv6Addr;
 
+const bit<16> HNEW_TYPE  = 0x88B6;                                                       //NEW HEADER CUSTOM PROTOCOL TYPE FOR ETHERNET TO PARSE IN THE DESTINATION
 const bit<16> VLAN_TYPE  = 0x8100;
 const bit<16> IPV4_TYPE  = 0x0800;
 const bit<16> IPV6_TYPE  = 0x86DD;
 
 const bit<8> TCP_PROT  = 0x06;
-const bit<8> UDP_PROT  = 0x11;
+const bit<8> UDP_PROT  = 0xfd;
 
 // ****************************************************************************** //
 // *************************** H E A D E R S  *********************************** //
@@ -60,6 +61,16 @@ header eth_mac_t {
     MacAddr smac; // Source MAC address
     bit<16> type; // Tag Protocol Identifier
 }
+
+//========================== THE NEW HEADER FOR THE TIMER ===============================================================
+
+header timer_t {
+    bit<64> previous_ingress_timing;                                                                //TO CAPTURE THE PREVIOUS HOP'S INGRESS TIMEStAMP
+    bit<16> intermediate_type;                                                             //NEXT PROTOCOL IDENTIFIER
+}
+
+//====================================================================================================================================
+
 
 header vlan_t {
     bit<3>  pcp;  // Priority code point
@@ -129,6 +140,7 @@ header udp_t {
 // header structure
 struct headers {
     eth_mac_t    eth;
+    timer_t      timer;                                                               //HEADER FOR PREVIOUS HOP'S INGRESS_TIMESTAMP
     vlan_t[2]    vlan;
     ipv4_t       ipv4;
     ipv4_opt_t   ipv4opt;
@@ -144,6 +156,7 @@ struct metadata {
 	bit<16> tuser_size;
 	bit<16> tuser_src;
 	bit<16> tuser_dst;
+
 }
 
 // User-defined errors 
@@ -168,12 +181,27 @@ parser MyParser(packet_in packet,
     state parse_eth {
         packet.extract(hdr.eth);
         transition select(hdr.eth.type) {
+            HNEW_TYPE : parse_timer;
             VLAN_TYPE : parse_vlan;
             IPV4_TYPE : parse_ipv4;
             IPV6_TYPE : parse_ipv6;
             default   : accept; 
         }
     }
+
+//======================================= PARSING THE NEW HEADER FOR THE TIMER ===============================================================
+
+    state parse_timer {
+        packet.extract(hdr.timer);
+        transition select(hdr.timer.intermediate_type) {
+            VLAN_TYPE : parse_vlan;
+            IPV4_TYPE : parse_ipv4;
+            IPV6_TYPE : parse_ipv6;
+            default   : accept; 
+        }
+    }
+
+//===========================================================================================================================================
     
     state parse_vlan {
         packet.extract(hdr.vlan.next);
@@ -225,10 +253,8 @@ parser MyParser(packet_in packet,
 
 control MyProcessing(inout headers hdr, 
                      inout metadata meta, 
-                     inout standard_metadata_t smeta) {
-                      
+                     inout standard_metadata_t smeta) {                    
  
-
     action forwardPacket() {
     }
     
@@ -255,16 +281,28 @@ control MyProcessing(inout headers hdr,
     }
 
     apply {
-    
-
+        
         if (smeta.parser_error != error.NoError) {
             dropPacket();
             return;
         }
-        
-        if (hdr.ipv4.isValid())
-            forwardIPv4.apply();
+
+//================================================================ REMOVING THE NEW HEADER FOR THE TIMER AND SETTING IT INVALID ===============================================================
+
+        if((hdr.timer.isValid())&&(hdr.eth.isValid())){
             
+            hdr.eth.type = hdr.timer.intermediate_type;                                                                        //ASSIGNING THE PROTOCOL ID OF THE HEADER AFTER THE TIMER HEADER TO THE ETHERNET HEADER TYPE FOR PARSING IN NEXT DESTINATION 
+            
+            hdr.timer.setInvalid();                                                                                            //TO SET THE TIMER HEADER TO BE INVALID
+            meta.tuser_size = meta.tuser_size - 0x000a;                                                                        //TO DECREASE THE METADATA SIZE OF THE PACKET BY THE SIZE OF THE CUSTOM HEADER
+
+        }
+
+//========================================================================================================================================================================================    
+
+        if (hdr.ipv4.isValid())   
+            forwardIPv4.apply();
+
         else if (hdr.ipv6.isValid())
             forwardIPv6.apply();
         else
@@ -283,6 +321,7 @@ control MyDeparser(packet_out packet,
                    inout standard_metadata_t smeta) {
     apply {
         packet.emit(hdr.eth);
+        packet.emit(hdr.timer);
         packet.emit(hdr.vlan);
         packet.emit(hdr.ipv4);
         packet.emit(hdr.ipv4opt);
