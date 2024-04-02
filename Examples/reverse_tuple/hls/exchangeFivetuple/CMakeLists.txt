@@ -3,10 +3,11 @@ project(exchangeFivetuple_hls_wrapper)
 
 message("$ENV{XILINX_VITIS}")
 set(XILINX_VITIS "$ENV{XILINX_VITIS}")
-set(CMAKE_CXX_COMPILER ${XILINX_VITIS}/tps/lnx64/gcc-8.3.0/bin/g++)
+set(g++_VER 6.2.0)
+set(CMAKE_CXX_COMPILER ${XILINX_VITIS}/tps/lnx64/gcc-${g++_VER}/bin/g++)
 set(CMAKE_CXX_FLAGS "-DBMLOG_DEBUG_ON -DBMLOG_TRACE_ON -Wall -Wextra -pthread -g -O2 -fPIC")
 
-set(SYS_INCLUDE_DIR ${XILINX_VITIS}/tps/lnx64/gcc-8.3.0/include)
+set(SYS_INCLUDE_DIR ${XILINX_VITIS}/tps/lnx64/gcc-${g++_VER}/include)
 set(INCLUDE_DIR include ${XILINX_VITIS}/lnx64/tools/autocc ${XILINX_VITIS}/include) 
 
 

@@ -1,6 +1,7 @@
 *.log
 dist
 build
+extern_lib_build
 .vscode
 .cache
 gen/
