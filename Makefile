@@ -9,7 +9,7 @@ DIST_DIR=dist
 
 
 # Define default implement arguments and default values
-TCL_ARGS_LIST=board tag build_timestamp sim impl synth_ip post_impl user_plugin user_build_dir 
+TCL_ARGS_LIST=board tag build_timestamp sim impl synth_ip post_impl user_plugin user_build_dir num_cmac_port num_phys_func
 board=au280
 impl=0
 synth_ip=0
@@ -20,6 +20,8 @@ sim_lib_path=$(HOME)/opt/xilinx_sim_libs/2022.2/compile_simlib
 sim_exec_path=$(MODELSIM_LOC)
 sim_top=p2p_250mhz
 build_timestamp=$(shell date +%y%m%d%H%M)
+num_cmac_port=2
+num_phys_func=2
 
 # user_build_dir must be full path. Use build_dir to give the relative path 
 build_dir=build
