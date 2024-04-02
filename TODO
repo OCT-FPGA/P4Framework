@@ -1,7 +1,6 @@
 # chores:
 ## Rewrite tcl for generating Vivado IP from HLS. Now using directly generated IP 
-## Write publish task in Makefile
 ## Vivado version control
 # dev
-## Include shell as one of the examples
+# Create an empty template user extern wrapper in component. Now using exchangeFiveTuple
 
