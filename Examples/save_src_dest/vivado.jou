@@ -1,0 +1,15 @@
+#-----------------------------------------------------------
+# Vivado v2021.2 (64-bit)
+# SW Build 3367213 on Tue Oct 19 02:47:39 MDT 2021
+# IP Build 3369179 on Thu Oct 21 08:25:16 MDT 2021
+# Start of session at: Mon Apr 15 23:06:42 2024
+# Process ID: 284571
+# Current directory: /home/abriasco/P4OpenNIC_Public/P4Framework/Examples/reverse_tuple
+# Command line: vivado
+# Log file: /home/abriasco/P4OpenNIC_Public/P4Framework/Examples/reverse_tuple/vivado.log
+# Journal file: /home/abriasco/P4OpenNIC_Public/P4Framework/Examples/reverse_tuple/vivado.jou
+# Running On: p4-tools, OS: Linux, CPU Frequency: 2494.138 MHz, CPU Physical cores: 16, Host memory: 135067 MB
+#-----------------------------------------------------------
+start_gui
+open_project /home/abriasco/P4OpenNIC_Public/P4Framework/build/au280_shell_2404152314/open_nic_shell/open_nic_shell.xpr
+update_compile_order -fileset sources_1

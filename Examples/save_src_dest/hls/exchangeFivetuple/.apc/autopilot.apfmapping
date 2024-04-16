@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<autopilotfilemapping:AutoPilotFileMapping xmlns:autopilotfilemapping="www.autoesl.com/autopilotfilemapping">
+  <source>
+    <originFiles name="tuple_types.h" path="/home/function47/Desktop/Workspace/P4Framework/Examples/reverse_tuple/hls/exchangeFivetuple/src/tuple_types.h"/>
+    <originFiles name="exchangeFivetuple_kernel.cpp" path="/home/function47/Desktop/Workspace/P4Framework/Examples/reverse_tuple/hls/exchangeFivetuple/src/exchangeFivetuple_kernel.cpp"/>
+    <originFiles name="exchangeFivetuple_hls_wrapper.cpp" path="/home/function47/Desktop/Workspace/P4Framework/Examples/reverse_tuple/hls/exchangeFivetuple/src/exchangeFivetuple_hls_wrapper.cpp"/>
+    <originFiles name="exchangeFivetuple.hpp" path="/home/function47/Desktop/Workspace/P4Framework/Examples/reverse_tuple/hls/exchangeFivetuple/src/exchangeFivetuple.hpp"/>
+  </source>
+  <testbench/>
+</autopilotfilemapping:AutoPilotFileMapping>
