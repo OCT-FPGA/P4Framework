@@ -6,6 +6,7 @@
 ############################################################
 open_project saveSrcDestV2
 set_top saveSrcDest_kernel
+add_files src/addr_types.h
 add_files src/saveSrcDest.hpp
 add_files src/saveSrcDest_hls_wrapper.cpp
 add_files src/saveSrcDest_kernel.cpp
@@ -13,8 +14,8 @@ add_files -tb test/test1.cpp
 open_solution "solution1" -flow_target vivado
 set_part {xcu280-fsvh2892-2L-e}
 create_clock -period 2 -name default
-source "./saveSrcDestV2/solution1/directives.tcl"
-csim_design
+#source "./saveSrcDestV2/solution1/directives.tcl"
+csim_design -clean
 csynth_design
 cosim_design
 export_design -format ip_catalog

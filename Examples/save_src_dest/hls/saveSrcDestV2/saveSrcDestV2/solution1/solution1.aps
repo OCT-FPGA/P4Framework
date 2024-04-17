@@ -26,7 +26,7 @@
   </clockList>
   <config/>
   <UIConfigurations>
-    <UIAutosynConf boardInfo="Alveo U280 Data Center Accelerator Card (xcu280-fsvh2892-2L-e) " hideTrivialOp="true" isBasedOnBoard="true" isSolutionDirty="false" isStopAskAgain="false" showDetailDesignViewer="false">
+    <UIAutosynConf boardInfo="Alveo U280 Data Center Accelerator Card (xcu280-fsvh2892-2L-e) " hideTrivialOp="true" isBasedOnBoard="true" isSolutionDirty="true" isStopAskAgain="false" showDetailDesignViewer="false">
       <Platform>xilinx/virtexuplus/virtexuplus</Platform>
       <Platform>xilinx/virtexuplus/virtexuplus_fpv7</Platform>
       <customLibs/>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<autopilotfilemapping:AutoPilotFileMapping xmlns:autopilotfilemapping="www.autoesl.com/autopilotfilemapping">
+  <source>
+    <originFiles name="saveSrcDest.hpp" path="/home/abriasco/P4OpenNIC_Public/P4Framework/Examples/save_src_dest/hls/saveSrcDestV3/src/saveSrcDest.hpp"/>
+    <originFiles name="saveSrcDest_hls_wrapper.cpp" path="/home/abriasco/P4OpenNIC_Public/P4Framework/Examples/save_src_dest/hls/saveSrcDestV3/src/saveSrcDest_hls_wrapper.cpp"/>
+    <originFiles name="saveSrcDest_kernel.cpp" path="/home/abriasco/P4OpenNIC_Public/P4Framework/Examples/save_src_dest/hls/saveSrcDestV3/src/saveSrcDest_kernel.cpp"/>
+    <originFiles name="addr_types.h" path="/home/abriasco/P4OpenNIC_Public/P4Framework/Examples/save_src_dest/hls/saveSrcDestV3/include/addr_types.h"/>
+  </source>
+  <testbench>
+    <originFiles name="test1.cpp" path="/home/abriasco/P4OpenNIC_Public/P4Framework/Examples/save_src_dest/hls/saveSrcDestV3/test/test1.cpp"/>
+  </testbench>
+</autopilotfilemapping:AutoPilotFileMapping>

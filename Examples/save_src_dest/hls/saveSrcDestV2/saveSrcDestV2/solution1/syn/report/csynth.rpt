@@ -1,0 +1,114 @@
+
+
+================================================================
+== Synthesis Summary Report of 'saveSrcDest_kernel'
+================================================================
++ General Information: 
+    * Date:           Wed Apr 17 13:22:32 2024
+    * Version:        2023.1 (Build 3854077 on May  4 2023)
+    * Project:        saveSrcDestV2
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: virtexuplusHBM
+    * Target device:  xcu280-fsvh2892-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +----------------------+------+------+---------+--------+----------+---------+------+----------+------+----+-----------+-----------+-----+
+    |        Modules       | Issue|      | Latency | Latency| Iteration|         | Trip |          |      |    |           |           |     |
+    |        & Loops       | Type | Slack| (cycles)|  (ns)  |  Latency | Interval| Count| Pipelined| BRAM | DSP|     FF    |    LUT    | URAM|
+    +----------------------+------+------+---------+--------+----------+---------+------+----------+------+----+-----------+-----------+-----+
+    |+ saveSrcDest_kernel  |     -|  0.16|        3|   6.000|         -|        1|     -|       yes|     -|   -|  166 (~0%)|  406 (~0%)|    -|
+    +----------------------+------+------+---------+--------+----------+---------+------+----------+------+----+-----------+-----------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* AXIS
++-----------+-----------+---------------+-------+--------+--------+
+| Interface | Direction | Register Mode | TDATA | TREADY | TVALID |
++-----------+-----------+---------------+-------+--------+--------+
+| dest      | in        | both          | 32    | 1      | 1      |
+| dest_out  | out       | both          | 32    | 1      | 1      |
+| src       | in        | both          | 32    | 1      | 1      |
+| src_out   | out       | both          | 32    | 1      | 1      |
++-----------+-----------+---------------+-------+--------+--------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst_n  | reset      | ap_rst_n                          |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+-------------------------+
+| Argument | Direction | Datatype                |
++----------+-----------+-------------------------+
+| src      | in        | stream<ap_uint<32>, 0>& |
+| dest     | in        | stream<ap_uint<32>, 0>& |
+| src_out  | out       | stream<ap_uint<32>, 0>& |
+| dest_out | out       | stream<ap_uint<32>, 0>& |
++----------+-----------+-------------------------+
+
+* SW-to-HW Mapping
++----------+--------------+-----------+
+| Argument | HW Interface | HW Type   |
++----------+--------------+-----------+
+| src      | src          | interface |
+| dest     | dest         | interface |
+| src_out  | src_out      | interface |
+| dest_out | dest_out     | interface |
++----------+--------------+-----------+
+
+
+================================================================
+== Bind Op Report
+================================================================
++----------------------+-----+--------+----------+-----+--------+---------+
+| Name                 | DSP | Pragma | Variable | Op  | Impl   | Latency |
++----------------------+-----+--------+----------+-----+--------+---------+
+| + saveSrcDest_kernel | 0   |        |          |     |        |         |
+|   add_ln24_fu_202_p2 | -   |        | add_ln24 | add | fabric | 0       |
+|   add_ln32_fu_246_p2 | -   |        | add_ln32 | add | fabric | 0       |
+|   grp_fu_172_p2      | -   |        | add_ln33 | add | fabric | 0       |
+|   add_ln34_fu_268_p2 | -   |        | add_ln34 | add | fabric | 0       |
+|   grp_fu_172_p2      | -   |        | add_ln29 | add | fabric | 0       |
++----------------------+-----+--------+----------+-----+--------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
++-----------------------+------+------+--------+-------------------+---------+------+---------+
+| Name                  | BRAM | URAM | Pragma | Variable          | Storage | Impl | Latency |
++-----------------------+------+------+--------+-------------------+---------+------+---------+
+| + saveSrcDest_kernel  | 0    | 0    |        |                   |         |      |         |
+|   saved_addresses_0_U | -    | -    |        | saved_addresses_0 | ram_s2p | auto | 1       |
+|   saved_addresses_1_U | -    | -    |        | saved_addresses_1 | ram_s2p | auto | 1       |
++-----------------------+------+------+--------+-------------------+---------+------+---------+
+
+
+================================================================
+== Pragma Report
+================================================================
+* Valid Pragma Syntax
++-----------+-------------------------+---------------------------------------------------------------+
+| Type      | Options                 | Location                                                      |
++-----------+-------------------------+---------------------------------------------------------------+
+| interface | mode=axis port=src      | src/saveSrcDest_kernel.cpp:12 in savesrcdest_kernel, src      |
+| interface | mode=axis port=dest     | src/saveSrcDest_kernel.cpp:13 in savesrcdest_kernel, dest     |
+| interface | mode=axis port=src_out  | src/saveSrcDest_kernel.cpp:14 in savesrcdest_kernel, src_out  |
+| interface | mode=axis port=dest_out | src/saveSrcDest_kernel.cpp:15 in savesrcdest_kernel, dest_out |
+| pipeline  | II=1                    | src/saveSrcDest_kernel.cpp:19 in savesrcdest_kernel           |
++-----------+-------------------------+---------------------------------------------------------------+
+
+
