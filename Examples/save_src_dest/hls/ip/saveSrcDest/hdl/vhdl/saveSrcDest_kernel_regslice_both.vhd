@@ -1,14 +1,16 @@
 -- ==============================================================
--- Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2022.2 (64-bit)
--- Tool Version Limit: 2019.12
+-- Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2023.1 (64-bit)
+-- Tool Version Limit: 2023.05
 -- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+-- Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+-- 
 -- ==============================================================
 
 library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 
-entity exchangeFivetuple_kernel_regslice_both is
+entity saveSrcDest_kernel_regslice_both is
 GENERIC (DataWidth : INTEGER := 32);
 port (
     ap_clk : IN STD_LOGIC;
@@ -23,7 +25,7 @@ port (
     apdone_blk : OUT STD_LOGIC );
 end;
 
-architecture behav of exchangeFivetuple_kernel_regslice_both is
+architecture behav of saveSrcDest_kernel_regslice_both is
     constant ap_const_logic_1 : STD_LOGIC := '1';
     constant ap_const_logic_0 : STD_LOGIC := '0';
     constant ap_const_lv2_0 : STD_LOGIC_VECTOR (1 downto 0) := "00";
@@ -154,7 +156,7 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 
-entity exchangeFivetuple_kernel_regslice_both_w1 is
+entity saveSrcDest_kernel_regslice_both_w1 is
 GENERIC (DataWidth : INTEGER := 1);
 port (
     ap_clk : IN STD_LOGIC;
@@ -168,7 +170,7 @@ port (
     ack_out : IN STD_LOGIC;
     apdone_blk : OUT STD_LOGIC );
 end;
-architecture behav of exchangeFivetuple_kernel_regslice_both_w1 is
+architecture behav of saveSrcDest_kernel_regslice_both_w1 is
     constant ap_const_logic_1 : STD_LOGIC := '1';
     constant ap_const_logic_0 : STD_LOGIC := '0';
     constant ap_const_lv2_0 : STD_LOGIC_VECTOR (1 downto 0) := "00";

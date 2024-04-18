@@ -17,7 +17,7 @@ assign inst_block_sigs[0] = 1'b0;
 
 assign inst_idle_sigs[0] = 1'b0;
 
-exchangeFivetuple_kernel_hls_deadlock_idx0_monitor exchangeFivetuple_kernel_hls_deadlock_idx0_monitor_U (
+saveSrcDest_kernel_hls_deadlock_idx0_monitor saveSrcDest_kernel_hls_deadlock_idx0_monitor_U (
     .clock(kernel_monitor_clock),
     .reset(kernel_monitor_reset),
     .axis_block_sigs(axis_block_sigs),

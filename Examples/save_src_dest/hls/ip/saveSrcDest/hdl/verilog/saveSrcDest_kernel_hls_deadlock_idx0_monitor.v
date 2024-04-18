@@ -1,6 +1,6 @@
 `timescale 1 ns / 1 ps
 
-module exchangeFivetuple_kernel_hls_deadlock_idx0_monitor ( // for module exchangeFivetuple_kernel_exchangeFivetuple_kernel_inst
+module saveSrcDest_kernel_hls_deadlock_idx0_monitor ( // for module saveSrcDest_kernel_saveSrcDest_kernel_inst
     input wire clock,
     input wire reset,
     input wire [1:0] axis_block_sigs,

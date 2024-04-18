@@ -1,12 +1,14 @@
 // ==============================================================
-// Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2022.2 (64-bit)
-// Tool Version Limit: 2019.12
+// Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2023.1 (64-bit)
+// Tool Version Limit: 2023.05
 // Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+// 
 // ==============================================================
 
 `timescale 1ns/1ps
 
-module exchangeFivetuple_kernel_regslice_both
+module saveSrcDest_kernel_regslice_both
 #(parameter 
     DataWidth=32
 )(
@@ -119,7 +121,7 @@ assign apdone_blk = ((B_V_data_1_state == 2'd3 && ack_out == 1'b0) | (B_V_data_1
 
 endmodule // both
 
-module exchangeFivetuple_kernel_regslice_both_w1
+module saveSrcDest_kernel_regslice_both_w1
 #(parameter 
     DataWidth=1
 )(
