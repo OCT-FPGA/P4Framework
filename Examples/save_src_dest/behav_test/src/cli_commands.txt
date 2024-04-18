@@ -1,5 +1,5 @@
 # run traffic
-run_traffic src/reverse_tuple
+run_traffic src/save_src_dest
 
 # end
 exit

@@ -61,9 +61,9 @@
 #include <bm/bm_sim/extern.h>
 #include <bm/bm_sim/logger.h>
 #include <iostream>
-#include "tuple_types.h"
+#include "addr_types.h"
 
-void exchangeFivetuple_hls_wrapper(five_tuples_t *tuple_in, five_tuples_t *tuple_out);
+void exchangeFivetuple_hls_wrapper(src_dest_t *sd_in, src_dest_t *sd_out);
 
 template <typename... Args>
 using ActionPrimitive = bm::ActionPrimitive<Args...>;
@@ -187,13 +187,13 @@ public:
 BM_REGISTER_EXTERN(calc_square_root);
 BM_REGISTER_EXTERN_METHOD(calc_square_root, apply, const Data &, Data &);
 
-class exchangeFivetuple : public ExternType
+class saveSrcDest : public ExternType
 {
 public:
   BM_EXTERN_ATTRIBUTES {}
   void apply(const Header &in, Header &out)
   {
-    BMLOG_DEBUG("exchangeFiveTuple: input header {}", in.get_name());
+    BMLOG_DEBUG("saveSrcDest: input header {}", in.get_name());
     const Field &proto_in = in.get_field(0);
     const Field &dst_port_in = in.get_field(1);
     const Field &src_port_in = in.get_field(2);
@@ -206,21 +206,28 @@ public:
     Field &src_Ip_out = out.get_field(3);
     Field &dst_Ip_out = out.get_field(4);
 
-    five_tuples_t in_tuple, out_tuple;
-    in_tuple.dst = dst_Ip_in.get_uint64();
+    src_dest_t in_sd, out_sd;
+    //five_tuples_t in_tuple, out_tuple;
+
+    in_sd.dest = dst_Ip_in.get_uint64();
+    in_sd.src = src_Ip_in.get_uint64();
+    /* in_tuple.dst = dst_Ip_in.get_uint64();
     in_tuple.src = src_Ip_in.get_uint64();
     in_tuple.srcPort = src_port_in.get_uint();
     in_tuple.dstPort = dst_port_in.get_uint();
-    in_tuple.proto = proto_in.get_uint();
-    exchangeFivetuple_hls_wrapper(&in_tuple, &out_tuple);
-    proto_out.set((uint8_t)out_tuple.proto);   
+    in_tuple.proto = proto_in.get_uint(); */
+
+    saveSrcDest_hls_wrapper(&in_sd, &out_sd);
+    //exchangeFivetuple_hls_wrapper(&in_sd, &out_sd);
+
+    src_Ip_in.set((uint64_t)out_sd.src);
+    dst_Ip_out.set((uint64_t)out_sd.dest);
+    /* proto_out.set((uint8_t)out_tuple.proto);   
     dst_port_out.set((uint16_t)out_tuple.dstPort);
     src_port_out.set((uint16_t)out_tuple.srcPort);
     src_Ip_out.set((uint64_t)out_tuple.src);
-    dst_Ip_out.set((uint64_t)out_tuple.dst);
-
-
+    dst_Ip_out.set((uint64_t)out_tuple.dst); */
   }
 };
-BM_REGISTER_EXTERN(exchangeFivetuple);
-BM_REGISTER_EXTERN_METHOD(exchangeFivetuple, apply, const Header &, Header &);
+BM_REGISTER_EXTERN(saveSrcDest);
+BM_REGISTER_EXTERN_METHOD(saveSrcDest, apply, const Header &, Header &);
