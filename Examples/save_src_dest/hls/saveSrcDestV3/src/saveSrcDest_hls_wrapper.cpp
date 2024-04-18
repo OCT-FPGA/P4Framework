@@ -1,17 +1,13 @@
 #include "saveSrcDest.hpp"
 #include "addr_types.h"
 
-void saveSrcDest_hls_wrapper(addr *src, addr *dest, addr *src_out, addr *dest_out) {
-	hls::stream<addr> in1_stream;
-	hls::stream<addr> in2_stream;
-	hls::stream<addr> out1_stream;
-	hls::stream<addr> out2_stream;
+void saveSrcDest_hls_wrapper(src_dest_t *sd_in, src_dest_t *sd_out) {
+	hls::stream<src_dest_t> in_stream;
+	hls::stream<src_dest_t> out_stream;
 	std::cout << "Entering wrapper" << std::endl;
 
-	in1_stream.write(*src);
-	in2_stream.write(*dest);
+	in_stream.write(*sd_in);
 
-	saveSrcDest_kernel(in1_stream, in2_stream, out1_stream, out2_stream);
-	*src_out = out1_stream.read();
-	*dest_out = out2_stream.read();
+	saveSrcDest_kernel(in_stream, out_stream);
+	*sd_out = out_stream.read();
 }

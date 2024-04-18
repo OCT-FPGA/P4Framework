@@ -5,6 +5,16 @@
                 <option name="name" value="saveSrcDest_kernel"/>
             </pragma>
         </directive>
+        <directive functionName="saveSrcDest_kernel" label="" functionLabel="">
+            <pragma name="TOP">
+                <option name="name" value="saveSrcDest_kernel"/>
+            </pragma>
+        </directive>
+        <directive functionName="saveSrcDest_kernel" label="" functionLabel="">
+            <pragma name="TOP">
+                <option name="name" value="saveSrcDest_kernel"/>
+            </pragma>
+        </directive>
     </sourceFile>
 </AutoPilot:ProjectResources>
 

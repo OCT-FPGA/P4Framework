@@ -4,11 +4,11 @@
 == Synthesis Summary Report of 'saveSrcDest_kernel'
 ================================================================
 + General Information: 
-    * Date:           Wed Apr 17 13:46:55 2024
-    * Version:        2023.1 (Build 3854077 on May  4 2023)
+    * Date:           Thu Apr 18 21:07:32 2024
+    * Version:        2021.2 (Build 3367213 on Tue Oct 19 02:47:39 MDT 2021)
     * Project:        saveSrcDestV3
     * Solution:       solution1 (Vivado IP Flow Target)
-    * Product family: virtexuplusHBM
+    * Product family: virtexuplus
     * Target device:  xcu280-fsvh2892-2L-e
     
 
@@ -19,7 +19,7 @@
     |        Modules       | Issue|      | Latency | Latency| Iteration|         | Trip |          |      |    |           |           |     |
     |        & Loops       | Type | Slack| (cycles)|  (ns)  |  Latency | Interval| Count| Pipelined| BRAM | DSP|     FF    |    LUT    | URAM|
     +----------------------+------+------+---------+--------+----------+---------+------+----------+------+----+-----------+-----------+-----+
-    |+ saveSrcDest_kernel  |     -|  0.16|        3|   6.000|         -|        1|     -|       yes|     -|   -|  166 (~0%)|  406 (~0%)|    -|
+    |+ saveSrcDest_kernel  |     -|  0.15|        3|   6.000|         -|        1|     -|       yes|     -|   -|  166 (~0%)|  418 (~0%)|    -|
     +----------------------+------+------+---------+--------+----------+---------+------+----------+------+----+-----------+-----------+-----+
 
 
@@ -27,14 +27,12 @@
 == HW Interfaces
 ================================================================
 * AXIS
-+-----------+-----------+---------------+-------+--------+--------+
-| Interface | Direction | Register Mode | TDATA | TREADY | TVALID |
-+-----------+-----------+---------------+-------+--------+--------+
-| dest      | in        | both          | 32    | 1      | 1      |
-| dest_out  | out       | both          | 32    | 1      | 1      |
-| src       | in        | both          | 32    | 1      | 1      |
-| src_out   | out       | both          | 32    | 1      | 1      |
-+-----------+-----------+---------------+-------+--------+--------+
++-----------------+---------------+-------+--------+--------+
+| Interface       | Register Mode | TDATA | TREADY | TVALID |
++-----------------+---------------+-------+--------+--------+
+| user_extern_in  | both          | 64    | 1      | 1      |
+| user_extern_out | both          | 64    | 1      | 1      |
++-----------------+---------------+-------+--------+--------+
 
 * TOP LEVEL CONTROL
 +-----------+------------+-----------------------------------+
@@ -50,65 +48,65 @@
 == SW I/O Information
 ================================================================
 * Top Function Arguments
-+----------+-----------+-------------------------+
-| Argument | Direction | Datatype                |
-+----------+-----------+-------------------------+
-| src      | in        | stream<ap_uint<32>, 0>& |
-| dest     | in        | stream<ap_uint<32>, 0>& |
-| src_out  | out       | stream<ap_uint<32>, 0>& |
-| dest_out | out       | stream<ap_uint<32>, 0>& |
-+----------+-----------+-------------------------+
++-----------------+-----------+------------------------+
+| Argument        | Direction | Datatype               |
++-----------------+-----------+------------------------+
+| user_extern_in  | in        | stream<src_dest_t, 0>& |
+| user_extern_out | out       | stream<src_dest_t, 0>& |
++-----------------+-----------+------------------------+
 
 * SW-to-HW Mapping
-+----------+--------------+-----------+
-| Argument | HW Interface | HW Type   |
-+----------+--------------+-----------+
-| src      | src          | interface |
-| dest     | dest         | interface |
-| src_out  | src_out      | interface |
-| dest_out | dest_out     | interface |
-+----------+--------------+-----------+
++-----------------+-----------------+-----------+
+| Argument        | HW Interface    | HW Type   |
++-----------------+-----------------+-----------+
+| user_extern_in  | user_extern_in  | interface |
+| user_extern_out | user_extern_out | interface |
++-----------------+-----------------+-----------+
 
+
+================================================================
+== M_AXI Burst Information
+================================================================
+ Note: All burst requests might be further partitioned into multiple requests during RTL generation based on max_read_burst_length or max_write_burst_length settings.
+
+  No burst in design
 
 ================================================================
 == Bind Op Report
 ================================================================
-+----------------------+-----+--------+----------+-----+--------+---------+
-| Name                 | DSP | Pragma | Variable | Op  | Impl   | Latency |
-+----------------------+-----+--------+----------+-----+--------+---------+
-| + saveSrcDest_kernel | 0   |        |          |     |        |         |
-|   add_ln24_fu_202_p2 | -   |        | add_ln24 | add | fabric | 0       |
-|   add_ln32_fu_246_p2 | -   |        | add_ln32 | add | fabric | 0       |
-|   grp_fu_172_p2      | -   |        | add_ln33 | add | fabric | 0       |
-|   add_ln34_fu_268_p2 | -   |        | add_ln34 | add | fabric | 0       |
-|   grp_fu_172_p2      | -   |        | add_ln29 | add | fabric | 0       |
-+----------------------+-----+--------+----------+-----+--------+---------+
++-------------------------+-----+--------+-------------+-----+--------+---------+
+| Name                    | DSP | Pragma | Variable    | Op  | Impl   | Latency |
++-------------------------+-----+--------+-------------+-----+--------+---------+
+| + saveSrcDest_kernel    | 0   |        |             |     |        |         |
+|   ret_fu_196_p2         | -   |        | ret         | add | fabric | 0       |
+|   add_ln885_fu_222_p2   | -   |        | add_ln885   | add | fabric | 0       |
+|   ret_1_fu_246_p2       | -   |        | ret_1       | add | fabric | 0       |
+|   add_ln885_1_fu_268_p2 | -   |        | add_ln885_1 | add | fabric | 0       |
++-------------------------+-----+--------+-------------+-----+--------+---------+
 
 
 ================================================================
 == Bind Storage Report
 ================================================================
-+-----------------------+------+------+--------+-------------------+---------+------+---------+
-| Name                  | BRAM | URAM | Pragma | Variable          | Storage | Impl | Latency |
-+-----------------------+------+------+--------+-------------------+---------+------+---------+
-| + saveSrcDest_kernel  | 0    | 0    |        |                   |         |      |         |
-|   saved_addresses_0_U | -    | -    |        | saved_addresses_0 | ram_s2p | auto | 1       |
-|   saved_addresses_1_U | -    | -    |        | saved_addresses_1 | ram_s2p | auto | 1       |
-+-----------------------+------+------+--------+-------------------+---------+------+---------+
++-------------------------+------+------+--------+---------------------+---------+------+---------+
+| Name                    | BRAM | URAM | Pragma | Variable            | Storage | Impl | Latency |
++-------------------------+------+------+--------+---------------------+---------+------+---------+
+| + saveSrcDest_kernel    | 0    | 0    |        |                     |         |      |         |
+|   saved_addresses_V_1_U | -    | -    |        | saved_addresses_V_1 | ram_s2p | auto | 1       |
+|   saved_addresses_V_0_U | -    | -    |        | saved_addresses_V_0 | ram_s2p | auto | 1       |
++-------------------------+------+------+--------+---------------------+---------+------+---------+
 
 
 ================================================================
-== Pragma Report
+== User Pragma Report
 ================================================================
 * Valid Pragma Syntax
-+-----------+-------------------------+-----------------------------------------------------------------------------+
-| Type      | Options                 | Location                                                                    |
-+-----------+-------------------------+-----------------------------------------------------------------------------+
-| interface | mode=axis port=src      | saveSrcDestV3/src/saveSrcDest_kernel.cpp:12 in savesrcdest_kernel, src      |
-| interface | mode=axis port=dest     | saveSrcDestV3/src/saveSrcDest_kernel.cpp:13 in savesrcdest_kernel, dest     |
-| interface | mode=axis port=src_out  | saveSrcDestV3/src/saveSrcDest_kernel.cpp:14 in savesrcdest_kernel, src_out  |
-| interface | mode=axis port=dest_out | saveSrcDestV3/src/saveSrcDest_kernel.cpp:15 in savesrcdest_kernel, dest_out |
-| pipeline  | II=1                    | saveSrcDestV3/src/saveSrcDest_kernel.cpp:19 in savesrcdest_kernel           |
-+-----------+-------------------------+-----------------------------------------------------------------------------+
++-----------+--------------------------------+------------------------------------------------------------------------------------+
+| Type      | Options                        | Location                                                                           |
++-----------+--------------------------------+------------------------------------------------------------------------------------+
+| interface | mode=axis port=user_extern_in  | saveSrcDestV3/src/saveSrcDest_kernel.cpp:12 in savesrcdest_kernel, user_extern_in  |
+| interface | mode=axis port=user_extern_out | saveSrcDestV3/src/saveSrcDest_kernel.cpp:13 in savesrcdest_kernel, user_extern_out |
+| pipeline  | II=1                           | saveSrcDestV3/src/saveSrcDest_kernel.cpp:17 in savesrcdest_kernel                  |
++-----------+--------------------------------+------------------------------------------------------------------------------------+
 
 

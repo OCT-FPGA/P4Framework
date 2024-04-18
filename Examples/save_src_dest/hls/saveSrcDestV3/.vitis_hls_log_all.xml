@@ -11,7 +11,12 @@
   </errorLogs>
   <warningLogs>
     <logs>
-      <synLog/>
+      <synLog>
+        <logs message="WARNING: [RTGEN 206-101] Register 'prev_V' is power-on initialization." projectName="saveSrcDestV3" solutionName="solution1" date="2024-04-18T21:07:32.588+0000" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Register 'first' is power-on initialization." projectName="saveSrcDestV3" solutionName="solution1" date="2024-04-18T21:07:32.583+0000" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Register 'curr_V' is power-on initialization." projectName="saveSrcDestV3" solutionName="solution1" date="2024-04-18T21:07:32.578+0000" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Design contains AXI ports. Reset is fixed to synchronous and active low." projectName="saveSrcDestV3" solutionName="solution1" date="2024-04-18T21:07:32.566+0000" type="Warning"/>
+      </synLog>
       <simLog/>
       <mgLog/>
       <packageLog/>

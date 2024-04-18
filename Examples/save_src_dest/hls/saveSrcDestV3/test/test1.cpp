@@ -8,20 +8,21 @@ int main () {
 	addr c_e[NUM_TRANS], d_e[NUM_TRANS];
 
 	int ret = 0;
-	addr in_s, in_d, out_s, out_d;
+	addr in_s, in_d;
+	src_dest_t ein;
+	src_dest_t eout;
 
 	for (int i = 0; i < NUM_TRANS; i++) {
 		in_s = rand();
 		in_d = rand();
 		a[i] = in_s;
 		b[i] = in_d;
-		saveSrcDest_hls_wrapper(&in_s, &in_d, &out_s, &out_d);
-		c_e[i] = out_s;
-		d_e[i] = out_d;
+		ein.src = in_s;
+		ein.dest = in_d;
+		saveSrcDest_hls_wrapper(&ein, &eout);
+		c_e[i] = eout.src;
+		d_e[i] = eout.dest;
 	}
-
-	//call to the wrapper
-	//saveSrcDest_hls_wrapper(&a, &b, &c_e, &d_e);
 
 	for (int i = 0; i < NUM_TRANS; i++) {
 		if (i == 0) {

@@ -3,12 +3,12 @@
 ================================================================
 == Vitis HLS Report for 'saveSrcDest_kernel'
 ================================================================
-* Date:           Wed Apr 17 13:46:55 2024
+* Date:           Thu Apr 18 21:07:32 2024
 
-* Version:        2023.1 (Build 3854077 on May  4 2023)
+* Version:        2021.2 (Build 3367213 on Tue Oct 19 02:47:39 MDT 2021)
 * Project:        saveSrcDestV3
 * Solution:       solution1 (Vivado IP Flow Target)
-* Product family: virtexuplusHBM
+* Product family: virtexuplus
 * Target device:  xcu280-fsvh2892-2L-e
 
 
@@ -49,14 +49,14 @@
 |         Name        | BRAM_18K|  DSP |    FF   |   LUT   | URAM|
 +---------------------+---------+------+---------+---------+-----+
 |DSP                  |        -|     -|        -|        -|    -|
-|Expression           |        -|     -|        0|       78|    -|
+|Expression           |        -|     -|        0|      140|    -|
 |FIFO                 |        -|     -|        -|        -|    -|
-|Instance             |        -|     -|        0|       18|    -|
+|Instance             |        -|     -|        -|        -|    -|
 |Memory               |        0|     -|       64|      130|    0|
-|Multiplexer          |        -|     -|        -|      148|    -|
+|Multiplexer          |        -|     -|        -|      116|    -|
 |Register             |        -|     -|      102|       32|    -|
 +---------------------+---------+------+---------+---------+-----+
-|Total                |        0|     0|      166|      406|    0|
+|Total                |        0|     0|      166|      418|    0|
 +---------------------+---------+------+---------+---------+-----+
 |Available SLR        |     1344|  3008|   869120|   434560|  320|
 +---------------------+---------+------+---------+---------+-----+
@@ -69,27 +69,20 @@
 
 + Detail: 
     * Instance: 
-    +-------------------+----------------+---------+----+---+----+-----+
-    |      Instance     |     Module     | BRAM_18K| DSP| FF| LUT| URAM|
-    +-------------------+----------------+---------+----+---+----+-----+
-    |mux_2_1_32_1_1_U1  |mux_2_1_32_1_1  |        0|   0|  0|   9|    0|
-    |mux_2_1_32_1_1_U2  |mux_2_1_32_1_1  |        0|   0|  0|   9|    0|
-    +-------------------+----------------+---------+----+---+----+-----+
-    |Total              |                |        0|   0|  0|  18|    0|
-    +-------------------+----------------+---------+----+---+----+-----+
+    N/A
 
     * DSP: 
     N/A
 
     * Memory: 
-    +---------------------+---------------------------------+---------+----+----+-----+------+-----+------+-------------+
-    |        Memory       |              Module             | BRAM_18K| FF | LUT| URAM| Words| Bits| Banks| W*Bits*Banks|
-    +---------------------+---------------------------------+---------+----+----+-----+------+-----+------+-------------+
-    |saved_addresses_0_U  |saved_addresses_0_RAM_AUTO_1R1W  |        0|  32|  65|    0|   128|   32|     1|         4096|
-    |saved_addresses_1_U  |saved_addresses_0_RAM_AUTO_1R1W  |        0|  32|  65|    0|   128|   32|     1|         4096|
-    +---------------------+---------------------------------+---------+----+----+-----+------+-----+------+-------------+
-    |Total                |                                 |        0|  64| 130|    0|   256|   64|     2|         8192|
-    +---------------------+---------------------------------+---------+----+----+-----+------+-----+------+-------------+
+    +-----------------------+-----------------------------------+---------+----+----+-----+------+-----+------+-------------+
+    |         Memory        |               Module              | BRAM_18K| FF | LUT| URAM| Words| Bits| Banks| W*Bits*Banks|
+    +-----------------------+-----------------------------------+---------+----+----+-----+------+-----+------+-------------+
+    |saved_addresses_V_1_U  |saved_addresses_V_1_RAM_AUTO_1R1W  |        0|  32|  65|    0|   128|   32|     1|         4096|
+    |saved_addresses_V_0_U  |saved_addresses_V_1_RAM_AUTO_1R1W  |        0|  32|  65|    0|   128|   32|     1|         4096|
+    +-----------------------+-----------------------------------+---------+----+----+-----+------+-----+------+-------------+
+    |Total                  |                                   |        0|  64| 130|    0|   256|   64|     2|         8192|
+    +-----------------------+-----------------------------------+---------+----+----+-----+------+-----+------+-------------+
 
     * FIFO: 
     N/A
@@ -98,42 +91,40 @@
     +----------------------------------+----------+----+---+----+------------+------------+
     |           Variable Name          | Operation| DSP| FF| LUT| Bitwidth P0| Bitwidth P1|
     +----------------------------------+----------+----+---+----+------------+------------+
-    |add_ln24_fu_202_p2                |         +|   0|  0|  15|           8|           1|
-    |add_ln32_fu_246_p2                |         +|   0|  0|  15|           8|           1|
-    |add_ln34_fu_268_p2                |         +|   0|  0|  15|           8|           2|
-    |grp_fu_172_p2                     |         +|   0|  0|  15|           8|           2|
-    |ap_condition_139                  |       and|   0|  0|   2|           1|           1|
-    |ap_condition_193                  |       and|   0|  0|   2|           1|           1|
+    |add_ln885_1_fu_268_p2             |         +|   0|  0|  15|           8|           2|
+    |add_ln885_fu_222_p2               |         +|   0|  0|  15|           8|           2|
+    |ret_1_fu_246_p2                   |         +|   0|  0|  15|           8|           1|
+    |ret_fu_196_p2                     |         +|   0|  0|  15|           8|           1|
+    |ap_condition_121                  |       and|   0|  0|   2|           1|           1|
+    |ap_condition_353                  |       and|   0|  0|   2|           1|           1|
     |ap_block_pp0_stage0_01001         |        or|   0|  0|   2|           1|           1|
     |ap_block_pp0_stage0_11001         |        or|   0|  0|   2|           1|           1|
-    |ap_block_state1_pp0_stage0_iter0  |        or|   0|  0|   2|           1|           1|
     |ap_block_state3_io                |        or|   0|  0|   2|           1|           1|
     |ap_block_state4_io                |        or|   0|  0|   2|           1|           1|
     |ap_block_state4_pp0_stage0_iter3  |        or|   0|  0|   2|           1|           1|
+    |tmp_dest_V_1_fu_309_p3            |    select|   0|  0|  32|           1|          32|
+    |tmp_src_V_1_fu_302_p3             |    select|   0|  0|  32|           1|          32|
     |ap_enable_pp0                     |       xor|   0|  0|   2|           1|           2|
     +----------------------------------+----------+----+---+----+------------+------------+
-    |Total                             |          |   0|  0|  78|          41|          16|
+    |Total                             |          |   0|  0| 140|          42|          79|
     +----------------------------------+----------+----+---+----+------------+------------+
 
     * Multiplexer: 
-    +-----------------------------+----+-----------+-----+-----------+
-    |             Name            | LUT| Input Size| Bits| Total Bits|
-    +-----------------------------+----+-----------+-----+-----------+
-    |dest_TDATA_blk_n             |   9|          2|    1|          2|
-    |dest_out_TDATA_blk_n         |   9|          2|    1|          2|
-    |dest_out_TDATA_int_regslice  |  14|          3|   32|         96|
-    |saved_addresses_0_address0   |  14|          3|    7|         21|
-    |saved_addresses_0_address1   |  14|          3|    7|         21|
-    |saved_addresses_0_d0         |  14|          3|   32|         96|
-    |saved_addresses_1_address0   |  14|          3|    7|         21|
-    |saved_addresses_1_address1   |  14|          3|    7|         21|
-    |saved_addresses_1_d0         |  14|          3|   32|         96|
-    |src_TDATA_blk_n              |   9|          2|    1|          2|
-    |src_out_TDATA_blk_n          |   9|          2|    1|          2|
-    |src_out_TDATA_int_regslice   |  14|          3|   32|         96|
-    +-----------------------------+----+-----------+-----+-----------+
-    |Total                        | 148|         32|  160|        476|
-    +-----------------------------+----+-----------+-----+-----------+
+    +------------------------------------+----+-----------+-----+-----------+
+    |                Name                | LUT| Input Size| Bits| Total Bits|
+    +------------------------------------+----+-----------+-----+-----------+
+    |saved_addresses_V_0_address0        |  14|          3|    7|         21|
+    |saved_addresses_V_0_address1        |  14|          3|    7|         21|
+    |saved_addresses_V_0_d0              |  14|          3|   32|         96|
+    |saved_addresses_V_1_address0        |  14|          3|    7|         21|
+    |saved_addresses_V_1_address1        |  14|          3|    7|         21|
+    |saved_addresses_V_1_d0              |  14|          3|   32|         96|
+    |user_extern_in_TDATA_blk_n          |   9|          2|    1|          2|
+    |user_extern_out_TDATA_blk_n         |   9|          2|    1|          2|
+    |user_extern_out_TDATA_int_regslice  |  14|          3|   64|        192|
+    +------------------------------------+----+-----------+-----+-----------+
+    |Total                               | 116|         25|  158|        472|
+    +------------------------------------+----+-----------+-----+-----------+
 
     * Register: 
     +----------------------------------+----+----+-----+-----------+
@@ -143,15 +134,15 @@
     |ap_enable_reg_pp0_iter1           |   1|   0|    1|          0|
     |ap_enable_reg_pp0_iter2           |   1|   0|    1|          0|
     |ap_enable_reg_pp0_iter3           |   1|   0|    1|          0|
-    |curr                              |   8|   0|    8|          0|
+    |curr_V                            |   8|   0|    8|          0|
     |first                             |   1|   0|    1|          0|
-    |first_load_reg_325                |   1|   0|    1|          0|
-    |lshr_ln2_reg_335                  |   7|   0|    7|          0|
-    |lshr_ln3_reg_340                  |   7|   0|    7|          0|
-    |prev                              |   8|   0|    8|          0|
-    |trunc_ln31_reg_329                |   1|   0|    1|          0|
-    |trunc_ln31_reg_329_pp0_iter1_reg  |   1|   0|    1|          0|
-    |first_load_reg_325                |  64|  32|    1|          0|
+    |first_load_reg_328                |   1|   0|    1|          0|
+    |lshr_ln2_reg_338                  |   7|   0|    7|          0|
+    |lshr_ln3_reg_343                  |   7|   0|    7|          0|
+    |prev_V                            |   8|   0|    8|          0|
+    |trunc_ln31_reg_332                |   1|   0|    1|          0|
+    |trunc_ln31_reg_332_pp0_iter1_reg  |   1|   0|    1|          0|
+    |first_load_reg_328                |  64|  32|    1|          0|
     +----------------------------------+----+----+-----+-----------+
     |Total                             | 102|  32|   39|          0|
     +----------------------------------+----+----+-----+-----------+
@@ -162,26 +153,22 @@
 == Interface
 ================================================================
 * Summary: 
-+-----------------+-----+-----+------------+--------------------+--------------+
-|    RTL Ports    | Dir | Bits|  Protocol  |    Source Object   |    C Type    |
-+-----------------+-----+-----+------------+--------------------+--------------+
-|ap_clk           |   in|    1|  ap_ctrl_hs|  saveSrcDest_kernel|  return value|
-|ap_rst_n         |   in|    1|  ap_ctrl_hs|  saveSrcDest_kernel|  return value|
-|ap_start         |   in|    1|  ap_ctrl_hs|  saveSrcDest_kernel|  return value|
-|ap_done          |  out|    1|  ap_ctrl_hs|  saveSrcDest_kernel|  return value|
-|ap_idle          |  out|    1|  ap_ctrl_hs|  saveSrcDest_kernel|  return value|
-|ap_ready         |  out|    1|  ap_ctrl_hs|  saveSrcDest_kernel|  return value|
-|src_TVALID       |   in|    1|        axis|                 src|       pointer|
-|src_TDATA        |   in|   32|        axis|                 src|       pointer|
-|src_TREADY       |  out|    1|        axis|                 src|       pointer|
-|dest_TVALID      |   in|    1|        axis|                dest|       pointer|
-|dest_TDATA       |   in|   32|        axis|                dest|       pointer|
-|dest_TREADY      |  out|    1|        axis|                dest|       pointer|
-|src_out_TREADY   |   in|    1|        axis|             src_out|       pointer|
-|src_out_TDATA    |  out|   32|        axis|             src_out|       pointer|
-|src_out_TVALID   |  out|    1|        axis|             src_out|       pointer|
-|dest_out_TREADY  |   in|    1|        axis|            dest_out|       pointer|
-|dest_out_TDATA   |  out|   32|        axis|            dest_out|       pointer|
-|dest_out_TVALID  |  out|    1|        axis|            dest_out|       pointer|
-+-----------------+-----+-----+------------+--------------------+--------------+
++------------------------+-----+-----+------------+--------------------+--------------+
+|        RTL Ports       | Dir | Bits|  Protocol  |    Source Object   |    C Type    |
++------------------------+-----+-----+------------+--------------------+--------------+
+|ap_local_block          |  out|    1|  ap_ctrl_hs|  saveSrcDest_kernel|  return value|
+|ap_local_deadlock       |  out|    1|  ap_ctrl_hs|  saveSrcDest_kernel|  return value|
+|ap_clk                  |   in|    1|  ap_ctrl_hs|  saveSrcDest_kernel|  return value|
+|ap_rst_n                |   in|    1|  ap_ctrl_hs|  saveSrcDest_kernel|  return value|
+|ap_start                |   in|    1|  ap_ctrl_hs|  saveSrcDest_kernel|  return value|
+|ap_done                 |  out|    1|  ap_ctrl_hs|  saveSrcDest_kernel|  return value|
+|ap_idle                 |  out|    1|  ap_ctrl_hs|  saveSrcDest_kernel|  return value|
+|ap_ready                |  out|    1|  ap_ctrl_hs|  saveSrcDest_kernel|  return value|
+|user_extern_in_TVALID   |   in|    1|        axis|      user_extern_in|       pointer|
+|user_extern_in_TDATA    |   in|   64|        axis|      user_extern_in|       pointer|
+|user_extern_in_TREADY   |  out|    1|        axis|      user_extern_in|       pointer|
+|user_extern_out_TREADY  |   in|    1|        axis|     user_extern_out|       pointer|
+|user_extern_out_TDATA   |  out|   64|        axis|     user_extern_out|       pointer|
+|user_extern_out_TVALID  |  out|    1|        axis|     user_extern_out|       pointer|
++------------------------+-----+-----+------------+--------------------+--------------+
 

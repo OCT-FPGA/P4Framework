@@ -7,30 +7,31 @@ ap_uint<8> prev = 0;
 bool first = true;
 
 
-void saveSrcDest_kernel(hls::stream<addr> &src, hls::stream<addr> &dest, hls::stream<addr> &src_out, hls::stream<addr> &dest_out) {
+void saveSrcDest_kernel(hls::stream<src_dest_t> &user_extern_in, hls::stream<src_dest_t> &user_extern_out) {
 #ifdef __VITIS_HLS__
-#pragma HLS INTERFACE mode=axis port=src
-#pragma HLS INTERFACE mode=axis port=dest
-#pragma HLS INTERFACE mode=axis port=src_out
-#pragma HLS INTERFACE mode=axis port=dest_out
+#pragma HLS INTERFACE mode=axis port=user_extern_in
+#pragma HLS INTERFACE mode=axis port=user_extern_out
 #endif
 	// while (1) {
 #ifdef __VITIS_HLS__
 #pragma HLS PIPELINE II=1
 #endif
-	addr in_src = src.read();
-	addr in_dest = dest.read();
+	src_dest_t in_extern = user_extern_in.read();
+	addr in_src = in_extern.src;
+	addr in_dest = in_extern.dest;
 	saved_addresses[curr] = in_src;
 	saved_addresses[curr+1] = in_dest;
 	if (first) {
 		first = false;
-		src_out.write(0);
-		dest_out.write(0);
+		in_extern.src = 0;
+		in_extern.dest = 0;
 		curr += 2;
+		user_extern_out.write(in_extern);
 	}else {
-		src_out.write(saved_addresses[prev]);
-		dest_out.write(saved_addresses[prev+1]);
+		in_extern.src = saved_addresses[prev];
+		in_extern.dest = saved_addresses[prev+1];
 		curr += 2;
 		prev += 2;
+		user_extern_out.write(in_extern);
 	}
 }
