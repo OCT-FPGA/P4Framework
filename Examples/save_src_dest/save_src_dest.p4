@@ -146,13 +146,17 @@ error {
     InvalidTCPpacket
 }
 
-struct fivetuples {
-    bit<8>   protocol;
-    bit<16>  dst_port;
-    bit<16>  src_port;
-    IPv4Addr dst;
-    IPv4Addr src;
+// struct fivetuples {
+//     bit<8>   protocol;
+//     bit<16>  dst_port;
+//     bit<16>  src_port;
+//     IPv4Addr dst;
+//     IPv4Addr src;
     
+// }
+struct srcdest {
+    IPv4Addr src;
+    IPv4Addr dest;
 }
 
 // ****************************************************************************** //
@@ -230,10 +234,11 @@ control MyProcessing(inout headers hdr,
                      inout metadata meta, 
                      inout standard_metadata_t smeta) {
                       
-    UserExtern<fivetuples, fivetuples>(2) exchangeFivetuple;
+    UserExtern<srcdest, srcdest>(3) saveSrcDest;
+    //UserExtern<fivetuples, fivetuples>(2) exchangeFivetuple;
     
-    fivetuples tuple_in;
-    fivetuples tuple_out;
+    srcdest sd_in;
+    srcdest sd_out;
 
     action forwardPacket() {
     }
@@ -259,7 +264,10 @@ control MyProcessing(inout headers hdr,
         
         if (hdr.ipv4.isValid()) {
             //prepare tuple_in
-            tuple_in.src = hdr.ipv4.src;
+            //prepare sd_in
+            sd_in.src = hdr.ipv4.src;
+            sd_in.dest = hdr.ipv4.dst;
+            /* tuple_in.src = hdr.ipv4.src;
             tuple_in.dst = hdr.ipv4.dst;
             tuple_in.protocol = hdr.ipv4.protocol;
             if (hdr.tcp.isValid()) {
@@ -269,12 +277,17 @@ control MyProcessing(inout headers hdr,
             else if (hdr.udp.isValid()) {
                 tuple_in.src_port = hdr.udp.src_port;
                 tuple_in.dst_port = hdr.udp.dst_port;
-            }
+            } */
 
-            exchangeFivetuple.apply(tuple_in,tuple_out);
+            /* exchangeFivetuple.apply(tuple_in,tuple_out); */
+            saveSrcDest.apply(sd_in, sd_out);
+
+            // get sd_out result
+            hdr.ipv4.src = sd_out.src;
+            hdr.ipv4.dst = sd_out.dest;
 
             // get tuple_out result
-            hdr.ipv4.src = tuple_out.src;
+            /* hdr.ipv4.src = tuple_out.src;
             hdr.ipv4.dst = tuple_out.dst;
             hdr.ipv4.protocol = tuple_out.protocol;
             if (hdr.ipv4.protocol == TCP_PROT) {
@@ -284,7 +297,7 @@ control MyProcessing(inout headers hdr,
             else if (hdr.ipv4.protocol == UDP_PROT) {
                 hdr.udp.src_port = tuple_out.src_port;
                 hdr.udp.dst_port = tuple_out.dst_port;
-            }
+            } */
             forwardIPv4.apply();
         }
         else
