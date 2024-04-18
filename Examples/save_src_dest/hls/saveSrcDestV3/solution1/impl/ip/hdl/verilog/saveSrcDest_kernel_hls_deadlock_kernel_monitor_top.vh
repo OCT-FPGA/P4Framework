@@ -5,15 +5,13 @@ wire kernel_monitor_report;
 assign kernel_monitor_reset = ~ap_rst_n;
 assign kernel_monitor_clock = ap_clk;
 assign kernel_monitor_report = 1'b0;
-wire [3:0] axis_block_sigs;
+wire [1:0] axis_block_sigs;
 wire [0:0] inst_idle_sigs;
 wire [0:0] inst_block_sigs;
 wire kernel_block;
 
-assign axis_block_sigs[0] = ~src_TDATA_blk_n;
-assign axis_block_sigs[1] = ~dest_TDATA_blk_n;
-assign axis_block_sigs[2] = ~src_out_TDATA_blk_n;
-assign axis_block_sigs[3] = ~dest_out_TDATA_blk_n;
+assign axis_block_sigs[0] = ~user_extern_in_TDATA_blk_n;
+assign axis_block_sigs[1] = ~user_extern_out_TDATA_blk_n;
 
 assign inst_block_sigs[0] = 1'b0;
 

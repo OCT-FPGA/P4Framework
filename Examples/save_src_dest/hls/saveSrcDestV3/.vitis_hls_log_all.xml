@@ -12,10 +12,10 @@
   <warningLogs>
     <logs>
       <synLog>
-        <logs message="WARNING: [RTGEN 206-101] Register 'prev_V' is power-on initialization." projectName="saveSrcDestV3" solutionName="solution1" date="2024-04-18T21:07:32.588+0000" type="Warning"/>
-        <logs message="WARNING: [RTGEN 206-101] Register 'first' is power-on initialization." projectName="saveSrcDestV3" solutionName="solution1" date="2024-04-18T21:07:32.583+0000" type="Warning"/>
-        <logs message="WARNING: [RTGEN 206-101] Register 'curr_V' is power-on initialization." projectName="saveSrcDestV3" solutionName="solution1" date="2024-04-18T21:07:32.578+0000" type="Warning"/>
-        <logs message="WARNING: [RTGEN 206-101] Design contains AXI ports. Reset is fixed to synchronous and active low." projectName="saveSrcDestV3" solutionName="solution1" date="2024-04-18T21:07:32.566+0000" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Register 'prev' is power-on initialization." projectName="saveSrcDestV3" solutionName="solution1" date="2024-04-18T21:37:47.125+0000" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Register 'first' is power-on initialization." projectName="saveSrcDestV3" solutionName="solution1" date="2024-04-18T21:37:47.119+0000" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Register 'curr' is power-on initialization." projectName="saveSrcDestV3" solutionName="solution1" date="2024-04-18T21:37:47.068+0000" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Design contains AXI ports. Reset is fixed to synchronous and active low." projectName="saveSrcDestV3" solutionName="solution1" date="2024-04-18T21:37:47.061+0000" type="Warning"/>
       </synLog>
       <simLog/>
       <mgLog/>

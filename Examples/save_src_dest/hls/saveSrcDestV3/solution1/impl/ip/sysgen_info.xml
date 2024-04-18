@@ -2,63 +2,33 @@
 <AdditionalInfo>
   <CTypeInfo>
       <RtlPort>
-        <name>dest_out_TDATA</name>
-        <type>Unsigned</type>
+        <name>user_extern_in_TDATA</name>
+        <type>Signed</type>
         <fractionWidth>0</fractionWidth>
       </RtlPort>
       <RtlPort>
-        <name>dest_out_TREADY</name>
-        <type>Unsigned</type>
+        <name>user_extern_in_TREADY</name>
+        <type>Signed</type>
         <fractionWidth>0</fractionWidth>
       </RtlPort>
       <RtlPort>
-        <name>dest_out_TVALID</name>
-        <type>Unsigned</type>
+        <name>user_extern_in_TVALID</name>
+        <type>Signed</type>
         <fractionWidth>0</fractionWidth>
       </RtlPort>
       <RtlPort>
-        <name>dest_TDATA</name>
-        <type>Unsigned</type>
+        <name>user_extern_out_TDATA</name>
+        <type>Signed</type>
         <fractionWidth>0</fractionWidth>
       </RtlPort>
       <RtlPort>
-        <name>dest_TREADY</name>
-        <type>Unsigned</type>
+        <name>user_extern_out_TREADY</name>
+        <type>Signed</type>
         <fractionWidth>0</fractionWidth>
       </RtlPort>
       <RtlPort>
-        <name>dest_TVALID</name>
-        <type>Unsigned</type>
-        <fractionWidth>0</fractionWidth>
-      </RtlPort>
-      <RtlPort>
-        <name>src_out_TDATA</name>
-        <type>Unsigned</type>
-        <fractionWidth>0</fractionWidth>
-      </RtlPort>
-      <RtlPort>
-        <name>src_out_TREADY</name>
-        <type>Unsigned</type>
-        <fractionWidth>0</fractionWidth>
-      </RtlPort>
-      <RtlPort>
-        <name>src_out_TVALID</name>
-        <type>Unsigned</type>
-        <fractionWidth>0</fractionWidth>
-      </RtlPort>
-      <RtlPort>
-        <name>src_TDATA</name>
-        <type>Unsigned</type>
-        <fractionWidth>0</fractionWidth>
-      </RtlPort>
-      <RtlPort>
-        <name>src_TREADY</name>
-        <type>Unsigned</type>
-        <fractionWidth>0</fractionWidth>
-      </RtlPort>
-      <RtlPort>
-        <name>src_TVALID</name>
-        <type>Unsigned</type>
+        <name>user_extern_out_TVALID</name>
+        <type>Signed</type>
         <fractionWidth>0</fractionWidth>
       </RtlPort>
   </CTypeInfo>

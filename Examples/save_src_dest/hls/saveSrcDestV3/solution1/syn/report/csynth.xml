@@ -1,10 +1,10 @@
 <profile>
     <ReportVersion>
-        <Version>2021.2</Version>
+        <Version>2023.1</Version>
     </ReportVersion>
     <UserAssignments>
         <unit>ns</unit>
-        <ProductFamily>virtexuplus</ProductFamily>
+        <ProductFamily>virtexuplusHBM</ProductFamily>
         <Part>xcu280-fsvh2892-2L-e</Part>
         <TopModelName>saveSrcDest_kernel</TopModelName>
         <TargetClockPeriod>2.00</TargetClockPeriod>
@@ -36,7 +36,7 @@
         <Resources>
             <BRAM_18K>0</BRAM_18K>
             <FF>166</FF>
-            <LUT>418</LUT>
+            <LUT>372</LUT>
             <URAM>0</URAM>
             <DSP>0</DSP>
         </Resources>
@@ -49,28 +49,6 @@
         </AvailableResources>
     </AreaEstimates>
     <InterfaceSummary>
-        <RtlPorts>
-            <name>ap_local_block</name>
-            <Object>saveSrcDest_kernel</Object>
-            <Type>return value</Type>
-            <Scope/>
-            <IOProtocol>ap_ctrl_hs</IOProtocol>
-            <IOConfig/>
-            <Dir>out</Dir>
-            <Bits>1</Bits>
-            <Attribute>unknown</Attribute>
-        </RtlPorts>
-        <RtlPorts>
-            <name>ap_local_deadlock</name>
-            <Object>saveSrcDest_kernel</Object>
-            <Type>return value</Type>
-            <Scope/>
-            <IOProtocol>ap_ctrl_hs</IOProtocol>
-            <IOConfig/>
-            <Dir>out</Dir>
-            <Bits>1</Bits>
-            <Attribute>unknown</Attribute>
-        </RtlPorts>
         <RtlPorts>
             <name>ap_clk</name>
             <Object>saveSrcDest_kernel</Object>
@@ -213,7 +191,7 @@
     <RTLDesignHierarchy>
         <TopModule MAX_DEPTH="2">
             <ModuleName>saveSrcDest_kernel</ModuleName>
-            <BindInstances>ret_fu_196_p2 add_ln885_fu_222_p2 ret_1_fu_246_p2 add_ln885_1_fu_268_p2 saved_addresses_V_1_U saved_addresses_V_0_U</BindInstances>
+            <BindInstances>add_ln23_fu_200_p2 add_ln28_fu_226_p2 add_ln32_fu_250_p2 add_ln34_fu_272_p2 saved_addresses_0_U saved_addresses_1_U</BindInstances>
         </TopModule>
     </RTLDesignHierarchy>
     <ModuleInformation>
@@ -246,7 +224,7 @@
                     <FF>166</FF>
                     <AVAIL_FF>2607360</AVAIL_FF>
                     <UTIL_FF>~0</UTIL_FF>
-                    <LUT>418</LUT>
+                    <LUT>372</LUT>
                     <AVAIL_LUT>1303680</AVAIL_LUT>
                     <UTIL_LUT>~0</UTIL_LUT>
                     <URAM>0</URAM>
@@ -258,18 +236,18 @@
                 </Resources>
             </AreaEstimates>
             <BindNodes>
-                <BindNode BINDTYPE="op" BRAM="0" BUNDLEDNAME="" DISPNAME="bind_op add" DSP="0" ID="" IMPL="fabric" LATENCY="0" LOOP="" OPTYPE="add" PRAGMA="" RTLNAME="ret_fu_196_p2" SOURCE="/tools/Xilinx/Vitis_HLS/2021.2/common/technology/autopilot/ap_int_base.h:1540" URAM="0" VARIABLE="ret"/>
-                <BindNode BINDTYPE="op" BRAM="0" BUNDLEDNAME="" DISPNAME="bind_op add" DSP="0" ID="" IMPL="fabric" LATENCY="0" LOOP="" OPTYPE="add" PRAGMA="" RTLNAME="add_ln885_fu_222_p2" SOURCE="/tools/Xilinx/Vitis_HLS/2021.2/common/technology/autopilot/ap_int_base.h:885" URAM="0" VARIABLE="add_ln885"/>
-                <BindNode BINDTYPE="op" BRAM="0" BUNDLEDNAME="" DISPNAME="bind_op add" DSP="0" ID="" IMPL="fabric" LATENCY="0" LOOP="" OPTYPE="add" PRAGMA="" RTLNAME="ret_1_fu_246_p2" SOURCE="/tools/Xilinx/Vitis_HLS/2021.2/common/technology/autopilot/ap_int_base.h:1540" URAM="0" VARIABLE="ret_1"/>
-                <BindNode BINDTYPE="op" BRAM="0" BUNDLEDNAME="" DISPNAME="bind_op add" DSP="0" ID="" IMPL="fabric" LATENCY="0" LOOP="" OPTYPE="add" PRAGMA="" RTLNAME="add_ln885_1_fu_268_p2" SOURCE="/tools/Xilinx/Vitis_HLS/2021.2/common/technology/autopilot/ap_int_base.h:885" URAM="0" VARIABLE="add_ln885_1"/>
-                <BindNode BINDTYPE="storage" BRAM="0" BUNDLEDNAME="" DISPNAME="bind_storage ram_s2p" DSP="0" ID="" IMPL="auto" LATENCY="1" LOOP="" OPTYPE="ram_s2p" PRAGMA="" RTLNAME="saved_addresses_V_1_U" SOURCE="" URAM="0" VARIABLE="saved_addresses_V_1"/>
-                <BindNode BINDTYPE="storage" BRAM="0" BUNDLEDNAME="" DISPNAME="bind_storage ram_s2p" DSP="0" ID="" IMPL="auto" LATENCY="1" LOOP="" OPTYPE="ram_s2p" PRAGMA="" RTLNAME="saved_addresses_V_0_U" SOURCE="" URAM="0" VARIABLE="saved_addresses_V_0"/>
+                <BindNode BINDTYPE="op" BRAM="0" BUNDLEDNAME="" DISPNAME="bind_op add" DSP="0" ID="" IMPL="fabric" LATENCY="0" LOOP="" OPTYPE="add" PRAGMA="" RTLNAME="add_ln23_fu_200_p2" SOURCE="saveSrcDestV3/src/saveSrcDest_kernel.cpp:23" URAM="0" VARIABLE="add_ln23"/>
+                <BindNode BINDTYPE="op" BRAM="0" BUNDLEDNAME="" DISPNAME="bind_op add" DSP="0" ID="" IMPL="fabric" LATENCY="0" LOOP="" OPTYPE="add" PRAGMA="" RTLNAME="add_ln28_fu_226_p2" SOURCE="saveSrcDestV3/src/saveSrcDest_kernel.cpp:28" URAM="0" VARIABLE="add_ln28"/>
+                <BindNode BINDTYPE="op" BRAM="0" BUNDLEDNAME="" DISPNAME="bind_op add" DSP="0" ID="" IMPL="fabric" LATENCY="0" LOOP="" OPTYPE="add" PRAGMA="" RTLNAME="add_ln32_fu_250_p2" SOURCE="saveSrcDestV3/src/saveSrcDest_kernel.cpp:32" URAM="0" VARIABLE="add_ln32"/>
+                <BindNode BINDTYPE="op" BRAM="0" BUNDLEDNAME="" DISPNAME="bind_op add" DSP="0" ID="" IMPL="fabric" LATENCY="0" LOOP="" OPTYPE="add" PRAGMA="" RTLNAME="add_ln34_fu_272_p2" SOURCE="saveSrcDestV3/src/saveSrcDest_kernel.cpp:34" URAM="0" VARIABLE="add_ln34"/>
+                <BindNode BINDTYPE="storage" BRAM="0" BUNDLEDNAME="" DISPNAME="bind_storage ram_s2p" DSP="0" ID="" IMPL="auto" LATENCY="1" LOOP="" OPTYPE="ram_s2p" PRAGMA="" RTLNAME="saved_addresses_0_U" SOURCE="" URAM="0" VARIABLE="saved_addresses_0"/>
+                <BindNode BINDTYPE="storage" BRAM="0" BUNDLEDNAME="" DISPNAME="bind_storage ram_s2p" DSP="0" ID="" IMPL="auto" LATENCY="1" LOOP="" OPTYPE="ram_s2p" PRAGMA="" RTLNAME="saved_addresses_1_U" SOURCE="" URAM="0" VARIABLE="saved_addresses_1"/>
             </BindNodes>
         </Module>
     </ModuleInformation>
     <FIFOInformation/>
     <UserConfigCommands>
-        <config_export output="/home/abriasco/P4OpenNIC_Public/P4Framework/Examples/save_src_dest/testing_ip_folder"/>
+        <config_export output="/home/abriasco/P4OpenNIC_Public/P4Framework/Examples/save_src_dest/"/>
     </UserConfigCommands>
     <Args>
         <Arg ArgName="user_extern_in" index="0" direction="in" srcType="stream&lt;src_dest_t, 0&gt;&amp;" srcSize="64">
@@ -345,14 +323,14 @@
     <ReportHWInterface>
         <section name="HW Interfaces" level="0">
             <item name="AXIS">
-                <table isCollapsed="0">
-                    <keys size="5">Interface, Register Mode, TDATA, TREADY, TVALID</keys>
-                    <column name="user_extern_in">both, 64, 1, 1</column>
-                    <column name="user_extern_out">both, 64, 1, 1</column>
+                <table>
+                    <keys size="6">Interface, Direction, Register Mode, TDATA, TREADY, TVALID</keys>
+                    <column name="user_extern_in">in, both, 64, 1, 1</column>
+                    <column name="user_extern_out">out, both, 64, 1, 1</column>
                 </table>
             </item>
             <item name="TOP LEVEL CONTROL">
-                <table isCollapsed="0">
+                <table>
                     <keys size="3">Interface, Type, Ports</keys>
                     <column name="ap_clk">clock, ap_clk</column>
                     <column name="ap_rst_n">reset, ap_rst_n</column>
@@ -364,14 +342,14 @@
     <ReportSWInterface>
         <section name="SW I/O Information" level="0">
             <item name="Top Function Arguments">
-                <table isCollapsed="1">
+                <table>
                     <keys size="3">Argument, Direction, Datatype</keys>
                     <column name="user_extern_in">in, stream&lt;src_dest_t 0&gt;&amp;</column>
                     <column name="user_extern_out">out, stream&lt;src_dest_t 0&gt;&amp;</column>
                 </table>
             </item>
             <item name="SW-to-HW Mapping">
-                <table isCollapsed="1">
+                <table>
                     <keys size="3">Argument, HW Interface, HW Type</keys>
                     <column name="user_extern_in">user_extern_in, interface</column>
                     <column name="user_extern_out">user_extern_out, interface</column>
@@ -379,9 +357,7 @@
             </item>
         </section>
     </ReportSWInterface>
-    <ReportBurst>
-        <section name="M_AXI Burst Information" level="0" HEADER_NOTE="Note: All burst requests might be further partitioned into multiple requests during RTL generation based on max_read_burst_length or max_write_burst_length settings."/>
-    </ReportBurst>
+    <ResolutionUrl key="ZZZ">www.xilinx.com/cgi-bin/docs/rdoc?v=2023.1;t=hls+guidance;d=ZZZ.html</ResolutionUrl>
     <PragmaReport>
         <Pragma type="interface" location="saveSrcDestV3/src/saveSrcDest_kernel.cpp:12" status="valid" parentFunction="savesrcdest_kernel" variable="user_extern_in" isDirective="0" options="mode=axis port=user_extern_in"/>
         <Pragma type="interface" location="saveSrcDestV3/src/saveSrcDest_kernel.cpp:13" status="valid" parentFunction="savesrcdest_kernel" variable="user_extern_out" isDirective="0" options="mode=axis port=user_extern_out"/>
