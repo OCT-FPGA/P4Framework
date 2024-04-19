@@ -11,7 +11,7 @@ set(INCLUDE_DIR include include/spdlog ${XILINX_VIVADO}/include ${XILINX_VIVADO}
 
 
 file(GLOB SRC_FILE src/*.cpp)
-set(TARGET_OBJECT advan_calc_user_externs)
+set(TARGET_OBJECT save_src_dest_user_externs)
 
 # Target
 add_subdirectory(${HLS_FUNC_FOLDER} saveSrcDest)
