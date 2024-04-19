@@ -18,9 +18,10 @@ cd ..
 
 source $XILINX_VIVADO/settings64.sh
 echo $XILINX_VIVADO
+rm -rf gen
 mkdir gen
 p4c-vitisnet ../save_src_dest.p4 -o gen/save_src_dest.json
-run-p4bm-vitisnet -j gen/save_src_dest.json --load-modules extern_lib_build/libadvan_calc_user_externs.so -s src/cli_commands.txt
+run-p4bm-vitisnet -j gen/save_src_dest.json --load-modules extern_lib_build/libsave_src_dest_user_externs.so -s src/cli_commands.txt
 python3 ../../utility/convertPcap.py src/save_src_dest_in.user gen/behav_save_src_dest_in.pcap
 python3 ../../utility/convertPcap.py src/save_src_dest_out.user gen/behav_save_src_dest_out.pcap
 rm -rf src/save_src_dest_out*
