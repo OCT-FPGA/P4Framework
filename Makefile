@@ -1,6 +1,6 @@
 .PHONY: all clean
 
-EXAMPLE_OBJ=forward calc advCalc advCalc_no_table reverse_tuple sketch
+EXAMPLE_OBJ=forward calc advCalc advCalc_no_table reverse_tuple sketch save_src_dest
 QSPI=false
 SHELL := /bin/bash
 VIVADO_TARGET_VER=2021.2
@@ -11,9 +11,9 @@ DIST_DIR=dist
 # Define default implement arguments and default values
 TCL_ARGS_LIST=board tag build_timestamp sim impl synth_ip post_impl user_plugin user_build_dir num_cmac_port num_phys_func
 board=au280
-impl=0
-synth_ip=0
-post_impl=0
+impl=1
+synth_ip=1
+post_impl=1
 sim=0
 #Fix Version
 sim_lib_path=$(HOME)/opt/xilinx_sim_libs/2022.2/compile_simlib

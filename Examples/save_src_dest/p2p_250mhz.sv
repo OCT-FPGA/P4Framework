@@ -150,17 +150,17 @@ module p2p_250mhz #(
     );
 
     if (i==0) begin
-      exchangeFivetuple_0 exchangeFivetuple_inst(
+      saveSrcDest_0 saveSrcDest_inst(
         .ap_start(1'b1),
         .ap_clk(axis_aclk),
         .ap_rst_n(axis_aresetn),
-        .user_extern_in_TDATA(user_extern_out.exchangeFivetuple),
-        .user_extern_in_TVALID(user_extern_out_valid.exchangeFivetuple),
-        .user_extern_out_TDATA(user_extern_in.exchangeFivetuple),
-        .user_extern_out_TVALID(user_extern_in_valid.exchangeFivetuple),
+        .user_extern_in_TDATA(user_extern_out.saveSrcDest),
+        .user_extern_in_TVALID(user_extern_out_valid.saveSrcDest),
+        .user_extern_out_TDATA(user_extern_in.saveSrcDest),
+        .user_extern_out_TVALID(user_extern_in_valid.saveSrcDest),
         .user_extern_out_TREADY(1'b1)
       );
-      vitis_net_p4_0 reverse_p4 (
+      vitis_net_p4_0 saveSrcDest_p4 (
         .s_axis_aclk     (axis_aclk),                         // input wire s_axis_aclk
         .s_axis_aresetn  (axis_aresetn),                      // input wire s_axis_aresetn
         .s_axi_aclk      (axil_aclk),                         // input wire s_axi_aclk

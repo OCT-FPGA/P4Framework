@@ -17,7 +17,7 @@
 # *************************************************************************
 #set p4_dir $user_plugin
 set p4_dir [file normalize .] 
-set p4_src reverse_tuple.p4
+set p4_src save_src_dest.p4
 set_property ip_repo_paths "$p4_dir/hls/ip" [current_project]
 
 read_verilog -quiet -sv p2p_250mhz.sv
@@ -28,7 +28,7 @@ generate_target all [get_ips vitis_net_p4_0]
 
 # Add HLS IP
 update_ip_catalog
-create_ip -name exchangeFivetuple_kernel -vendor xilinx.com -library hls -version 1.0 -module_name exchangeFivetuple_0
+create_ip -name saveSrcDest_kernel -vendor xilinx.com -library hls -version 1.0 -module_name saveSrcDest_0
 
 
 # Modify AXI_CROSSBAR to fit Table register size
