@@ -1,0 +1,24 @@
+{
+	"version" : {"major" : "1", "minor" : "0"},
+	"kernels" : 
+	[{
+		"name" : "",
+		"deadlock_register_list" : 
+		[
+			{"register_name" : "dl_diagnosis_info_P0_blocks",
+			"register_word_offset" : "0xFFFFFFFFFFFFFFFF",
+			"register_bit_info" : 
+			[
+				{"bit" : "0", "message" : "The top pipeline FSM in kernel 'saveSrcDest_kernel' blocks port 'user_extern_in'"},
+				{"bit" : "1", "message" : "The top pipeline FSM in kernel 'saveSrcDest_kernel' blocks port 'user_extern_out'"}
+			]},
+			{"register_name" : "dl_diagnosis_info_P0_is_blocked_by",
+			"register_word_offset" : "0x-1",
+			"register_bit_info" : 
+			[
+				{"bit" : "0", "message" : "The top pipeline FSM in kernel 'saveSrcDest_kernel' is blocked by port 'user_extern_in'"},
+				{"bit" : "1", "message" : "The top pipeline FSM in kernel 'saveSrcDest_kernel' is blocked by port 'user_extern_out'"}
+			]}
+		]
+	}]
+}

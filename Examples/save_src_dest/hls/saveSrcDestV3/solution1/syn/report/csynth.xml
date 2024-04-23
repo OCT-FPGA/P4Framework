@@ -247,7 +247,7 @@
     </ModuleInformation>
     <FIFOInformation/>
     <UserConfigCommands>
-        <config_export output="/home/abriasco/P4OpenNIC_Public/P4Framework/Examples/save_src_dest/"/>
+        <config_export output="/home/abriasco/P4OpenNIC_Public/P4Framework/Examples/save_src_dest/hls/ip/saveSrcDest"/>
     </UserConfigCommands>
     <Args>
         <Arg ArgName="user_extern_in" index="0" direction="in" srcType="stream&lt;src_dest_t, 0&gt;&amp;" srcSize="64">

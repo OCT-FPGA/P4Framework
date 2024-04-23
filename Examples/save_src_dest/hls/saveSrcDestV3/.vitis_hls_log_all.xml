@@ -12,12 +12,14 @@
   <warningLogs>
     <logs>
       <synLog>
-        <logs message="WARNING: [RTGEN 206-101] Register 'prev' is power-on initialization." projectName="saveSrcDestV3" solutionName="solution1" date="2024-04-18T21:37:47.125+0000" type="Warning"/>
-        <logs message="WARNING: [RTGEN 206-101] Register 'first' is power-on initialization." projectName="saveSrcDestV3" solutionName="solution1" date="2024-04-18T21:37:47.119+0000" type="Warning"/>
-        <logs message="WARNING: [RTGEN 206-101] Register 'curr' is power-on initialization." projectName="saveSrcDestV3" solutionName="solution1" date="2024-04-18T21:37:47.068+0000" type="Warning"/>
-        <logs message="WARNING: [RTGEN 206-101] Design contains AXI ports. Reset is fixed to synchronous and active low." projectName="saveSrcDestV3" solutionName="solution1" date="2024-04-18T21:37:47.061+0000" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Register 'prev' is power-on initialization." projectName="saveSrcDestV3" solutionName="solution1" date="2024-04-23T22:24:11.231+0000" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Register 'first' is power-on initialization." projectName="saveSrcDestV3" solutionName="solution1" date="2024-04-23T22:24:11.228+0000" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Register 'curr' is power-on initialization." projectName="saveSrcDestV3" solutionName="solution1" date="2024-04-23T22:24:11.225+0000" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Design contains AXI ports. Reset is fixed to synchronous and active low." projectName="saveSrcDestV3" solutionName="solution1" date="2024-04-23T22:24:11.220+0000" type="Warning"/>
       </synLog>
-      <simLog/>
+      <simLog>
+        <logs message="WARNING: [XSIM 43-3431] One or more environment variables have been detected which affect the operation of the C compiler. These are typically not set in standard installations and are not tested by Xilinx, however they may be appropriate for your system, so the flow will attempt to continue.  If errors occur, try running xelab with the &quot;-mt off -v 1&quot; switches to see more information from the C compiler. The following environment variables have been detected:&#xA;    LIBRARY_PATH" projectName="saveSrcDestV3" solutionName="solution1" date="2024-04-23T22:24:46.177+0000" type="Warning"/>
+      </simLog>
       <mgLog/>
       <packageLog/>
       <csimLog/>

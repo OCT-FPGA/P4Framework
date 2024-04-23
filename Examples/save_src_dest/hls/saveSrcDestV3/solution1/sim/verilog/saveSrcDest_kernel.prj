@@ -1,0 +1,13 @@
+sv work "glbl.v"
+sv xil_defaultlib "saveSrcDest_kernel_saved_addresses_0_RAM_AUTO_1R1W.v"
+sv xil_defaultlib "AESL_axi_s_user_extern_out.v"
+sv xil_defaultlib "saveSrcDest_kernel.autotb.v"
+sv xil_defaultlib "saveSrcDest_kernel_mux_2_1_32_1_1.v"
+sv xil_defaultlib "AESL_deadlock_idx0_monitor.v"
+sv xil_defaultlib "AESL_deadlock_kernel_monitor_top.v"
+sv xil_defaultlib "AESL_axi_s_user_extern_in.v"
+sv xil_defaultlib "AESL_fifo.v"
+sv xil_defaultlib "saveSrcDest_kernel_regslice_both.v"
+sv xil_defaultlib "saveSrcDest_kernel.v"
+sv xil_defaultlib "dataflow_monitor.sv"
+
