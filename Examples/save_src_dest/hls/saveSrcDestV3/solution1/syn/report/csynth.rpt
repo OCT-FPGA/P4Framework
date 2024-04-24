@@ -4,7 +4,7 @@
 == Synthesis Summary Report of 'saveSrcDest_kernel'
 ================================================================
 + General Information: 
-    * Date:           Tue Apr 23 22:24:11 2024
+    * Date:           Wed Apr 24 15:10:55 2024
     * Version:        2023.1 (Build 3854077 on May  4 2023)
     * Project:        saveSrcDestV3
     * Solution:       solution1 (Vivado IP Flow Target)
@@ -15,12 +15,12 @@
 + Performance & Resource Estimates: 
     
     PS: '+' for module; 'o' for loop; '*' for dataflow
-    +----------------------+------+------+---------+--------+----------+---------+------+----------+------+----+-----------+-----------+-----+
-    |        Modules       | Issue|      | Latency | Latency| Iteration|         | Trip |          |      |    |           |           |     |
-    |        & Loops       | Type | Slack| (cycles)|  (ns)  |  Latency | Interval| Count| Pipelined| BRAM | DSP|     FF    |    LUT    | URAM|
-    +----------------------+------+------+---------+--------+----------+---------+------+----------+------+----+-----------+-----------+-----+
-    |+ saveSrcDest_kernel  |     -|  0.16|        3|   6.000|         -|        1|     -|       yes|     -|   -|  166 (~0%)|  372 (~0%)|    -|
-    +----------------------+------+------+---------+--------+----------+---------+------+----------+------+----+-----------+-----------+-----+
+    +----------------------+------+------+---------+--------+----------+---------+------+----------+------+----+-----------+----------+-----+
+    |        Modules       | Issue|      | Latency | Latency| Iteration|         | Trip |          |      |    |           |          |     |
+    |        & Loops       | Type | Slack| (cycles)|  (ns)  |  Latency | Interval| Count| Pipelined| BRAM | DSP|     FF    |    LUT   | URAM|
+    +----------------------+------+------+---------+--------+----------+---------+------+----------+------+----+-----------+----------+-----+
+    |+ saveSrcDest_kernel  |     -|  1.07|        2|   4.000|         -|        1|     -|       yes|     -|   -|  134 (~0%)|  48 (~0%)|    -|
+    +----------------------+------+------+---------+--------+----------+---------+------+----------+------+----+-----------+----------+-----+
 
 
 ================================================================
@@ -67,28 +67,12 @@
 ================================================================
 == Bind Op Report
 ================================================================
-+----------------------+-----+--------+----------+-----+--------+---------+
-| Name                 | DSP | Pragma | Variable | Op  | Impl   | Latency |
-+----------------------+-----+--------+----------+-----+--------+---------+
-| + saveSrcDest_kernel | 0   |        |          |     |        |         |
-|   add_ln23_fu_200_p2 | -   |        | add_ln23 | add | fabric | 0       |
-|   add_ln28_fu_226_p2 | -   |        | add_ln28 | add | fabric | 0       |
-|   add_ln32_fu_250_p2 | -   |        | add_ln32 | add | fabric | 0       |
-|   add_ln34_fu_272_p2 | -   |        | add_ln34 | add | fabric | 0       |
-+----------------------+-----+--------+----------+-----+--------+---------+
-
+  No bind op info in design
 
 ================================================================
 == Bind Storage Report
 ================================================================
-+-----------------------+------+------+--------+-------------------+---------+------+---------+
-| Name                  | BRAM | URAM | Pragma | Variable          | Storage | Impl | Latency |
-+-----------------------+------+------+--------+-------------------+---------+------+---------+
-| + saveSrcDest_kernel  | 0    | 0    |        |                   |         |      |         |
-|   saved_addresses_0_U | -    | -    |        | saved_addresses_0 | ram_s2p | auto | 1       |
-|   saved_addresses_1_U | -    | -    |        | saved_addresses_1 | ram_s2p | auto | 1       |
-+-----------------------+------+------+--------+-------------------+---------+------+---------+
-
+  No bind storage info in design
 
 ================================================================
 == Pragma Report
@@ -97,9 +81,9 @@
 +-----------+--------------------------------+------------------------------------------------------------------------------------+
 | Type      | Options                        | Location                                                                           |
 +-----------+--------------------------------+------------------------------------------------------------------------------------+
-| interface | mode=axis port=user_extern_in  | saveSrcDestV3/src/saveSrcDest_kernel.cpp:12 in savesrcdest_kernel, user_extern_in  |
-| interface | mode=axis port=user_extern_out | saveSrcDestV3/src/saveSrcDest_kernel.cpp:13 in savesrcdest_kernel, user_extern_out |
-| pipeline  | II=1                           | saveSrcDestV3/src/saveSrcDest_kernel.cpp:17 in savesrcdest_kernel                  |
+| interface | mode=axis port=user_extern_in  | saveSrcDestV3/src/saveSrcDest_kernel.cpp:19 in savesrcdest_kernel, user_extern_in  |
+| interface | mode=axis port=user_extern_out | saveSrcDestV3/src/saveSrcDest_kernel.cpp:20 in savesrcdest_kernel, user_extern_out |
+| pipeline  | II=1                           | saveSrcDestV3/src/saveSrcDest_kernel.cpp:24 in savesrcdest_kernel                  |
 +-----------+--------------------------------+------------------------------------------------------------------------------------+
 
 

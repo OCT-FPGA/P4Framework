@@ -63,6 +63,7 @@ LFLAG += -lpthread
 LFLAG += -L "${AUTOPILOT_ROOT}/${AUTOPILOT_MACH}/tools/clang-3.9-csynth/lib/clang/7.0.0/lib/linux" -lclang_rt.builtins-x86_64
 IFLAG += -D__RTL_SIMULATION__
 IFLAG += -D__xilinx_ip_top=
+AP_ENABLE_OPTIMIZED := 1
 DFLAG += -DAESL_PIPELINE
 
 include ./Makefile.rules

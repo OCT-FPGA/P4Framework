@@ -6,5 +6,5 @@ typedef struct{
 	addr src;
 	addr dest;
 }src_dest_t;
-#define NUM_TRANS 300
+#define NUM_TRANS 10
 #endif

@@ -84021,15 +84021,15 @@ int main () {
 
  int retval = 0;
 
- addr a[300], b[300];
- addr c_e[300], d_e[300];
+ addr a[10], b[10];
+ addr c_e[10], d_e[10];
 
  int ret = 0;
  addr in_s, in_d;
  src_dest_t ein;
  src_dest_t eout;
 
- for (int i = 0; i < 300; i++) {
+ for (int i = 0; i < 10; i++) {
   in_s = rand();
   in_d = rand();
   a[i] = in_s;
@@ -84041,7 +84041,7 @@ int main () {
   d_e[i] = eout.dest;
  }
 
- for (int i = 0; i < 300; i++) {
+ for (int i = 0; i < 10; i++) {
   if (i == 0) {
    continue;
   }
