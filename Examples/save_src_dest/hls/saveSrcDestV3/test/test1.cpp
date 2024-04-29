@@ -28,12 +28,12 @@ int main () {
 		if (i == 0) {
 			continue;
 		}
-		if (a[i-1] != c_e[i]){
+		if (a[i-1] != c_e[i-1]){
 			std::cout << "wrong a values!" << std::endl;
 			retval = 1;
 		}
 		std::cout << "src:\t" << a[i-1] << "\tmatches returned src:\t" << c_e[i] << std::endl;
-		if (b[i-1] != d_e[i]){
+		if (b[i-1] != d_e[i-1]){
 			std::cout << "wrong b values!" << std::endl;
 			retval = 1;
 		}

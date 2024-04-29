@@ -6,7 +6,7 @@
 
 `timescale 1 ns / 1 ps 
 
-(* CORE_GENERATION_INFO="saveSrcDest_kernel_saveSrcDest_kernel,hls_ip_2023_1,{HLS_INPUT_TYPE=cxx,HLS_INPUT_FLOAT=0,HLS_INPUT_FIXED=0,HLS_INPUT_PART=xcu280-fsvh2892-2L-e,HLS_INPUT_CLOCK=2.000000,HLS_INPUT_ARCH=pipeline,HLS_SYN_CLOCK=0.387000,HLS_SYN_LAT=2,HLS_SYN_TPT=1,HLS_SYN_MEM=0,HLS_SYN_DSP=0,HLS_SYN_FF=134,HLS_SYN_LUT=48,HLS_VERSION=2023_1}" *)
+(* CORE_GENERATION_INFO="saveSrcDest_kernel_saveSrcDest_kernel,hls_ip_2023_1,{HLS_INPUT_TYPE=cxx,HLS_INPUT_FLOAT=0,HLS_INPUT_FIXED=0,HLS_INPUT_PART=xcu280-fsvh2892-2L-e,HLS_INPUT_CLOCK=2.000000,HLS_INPUT_ARCH=pipeline,HLS_SYN_CLOCK=0.000000,HLS_SYN_LAT=1,HLS_SYN_TPT=1,HLS_SYN_MEM=0,HLS_SYN_DSP=0,HLS_SYN_FF=2,HLS_SYN_LUT=26,HLS_VERSION=2023_1}" *)
 
 module saveSrcDest_kernel (
         ap_clk,
@@ -47,33 +47,18 @@ reg ap_ready;
 wire    ap_CS_fsm_pp0_stage0;
 wire    ap_enable_reg_pp0_iter0;
 reg    ap_enable_reg_pp0_iter1;
-reg    ap_enable_reg_pp0_iter2;
 reg    ap_idle_pp0;
 reg    ap_block_state1_pp0_stage0_iter0;
-reg   [0:0] which_load_reg_153;
-reg    ap_block_state2_pp0_stage0_iter1;
-reg    ap_block_state2_io;
-reg   [0:0] which_load_reg_153_pp0_iter1_reg;
 wire    regslice_both_user_extern_out_U_apdone_blk;
-reg    ap_block_state3_pp0_stage0_iter2;
-reg    ap_block_state3_io;
+reg    ap_block_state2_pp0_stage0_iter1;
 reg    ap_block_pp0_stage0_subdone;
-reg   [0:0] which;
-reg   [31:0] src_a;
-reg   [31:0] dst_a;
-reg   [31:0] src_b;
-reg   [31:0] dst_b;
 reg    user_extern_in_TDATA_blk_n;
 wire    ap_block_pp0_stage0;
 reg    user_extern_out_TDATA_blk_n;
-wire   [0:0] which_load_load_fu_79_p1;
 reg    ap_block_pp0_stage0_11001;
-wire   [63:0] p_s_fu_127_p3;
-wire   [63:0] p_0_fu_144_p3;
-wire   [31:0] in_extern_src_fu_65_p1;
 reg    ap_block_pp0_stage0_01001;
 reg   [0:0] ap_NS_fsm;
-reg    ap_idle_pp0_0to1;
+reg    ap_idle_pp0_0to0;
 reg    ap_reset_idle_pp0;
 wire    ap_enable_pp0;
 wire    regslice_both_user_extern_in_U_apdone_blk;
@@ -81,24 +66,15 @@ wire   [63:0] user_extern_in_TDATA_int_regslice;
 wire    user_extern_in_TVALID_int_regslice;
 reg    user_extern_in_TREADY_int_regslice;
 wire    regslice_both_user_extern_in_U_ack_in;
-reg   [63:0] user_extern_out_TDATA_int_regslice;
 reg    user_extern_out_TVALID_int_regslice;
 wire    user_extern_out_TREADY_int_regslice;
 wire    regslice_both_user_extern_out_U_vld_out;
-reg    ap_condition_140;
-reg    ap_condition_116;
 wire    ap_ce_reg;
 
 // power-on initialization
 initial begin
 #0 ap_CS_fsm = 1'd1;
 #0 ap_enable_reg_pp0_iter1 = 1'b0;
-#0 ap_enable_reg_pp0_iter2 = 1'b0;
-#0 which = 1'd1;
-#0 src_a = 32'd0;
-#0 dst_a = 32'd0;
-#0 src_b = 32'd0;
-#0 dst_b = 32'd0;
 end
 
 saveSrcDest_kernel_regslice_both #(
@@ -120,7 +96,7 @@ saveSrcDest_kernel_regslice_both #(
 regslice_both_user_extern_out_U(
     .ap_clk(ap_clk),
     .ap_rst(ap_rst_n_inv),
-    .data_in(user_extern_out_TDATA_int_regslice),
+    .data_in(user_extern_in_TDATA_int_regslice),
     .vld_in(user_extern_out_TVALID_int_regslice),
     .ack_in(user_extern_out_TREADY_int_regslice),
     .data_out(user_extern_out_TDATA),
@@ -147,49 +123,8 @@ always @ (posedge ap_clk) begin
     end
 end
 
-always @ (posedge ap_clk) begin
-    if (ap_rst_n_inv == 1'b1) begin
-        ap_enable_reg_pp0_iter2 <= 1'b0;
-    end else begin
-        if ((1'b0 == ap_block_pp0_stage0_subdone)) begin
-            ap_enable_reg_pp0_iter2 <= ap_enable_reg_pp0_iter1;
-        end
-    end
-end
-
-always @ (posedge ap_clk) begin
-    if ((1'b1 == ap_condition_116)) begin
-        if ((which_load_load_fu_79_p1 == 1'd1)) begin
-            which <= 1'd0;
-        end else if ((which_load_load_fu_79_p1 == 1'd0)) begin
-            which <= 1'd1;
-        end
-    end
-end
-
-always @ (posedge ap_clk) begin
-    if (((1'b0 == ap_block_pp0_stage0_11001) & (ap_start == 1'b1) & (1'b1 == ap_CS_fsm_pp0_stage0) & (which_load_load_fu_79_p1 == 1'd1))) begin
-        dst_a <= {{user_extern_in_TDATA_int_regslice[63:32]}};
-        src_a <= in_extern_src_fu_65_p1;
-    end
-end
-
-always @ (posedge ap_clk) begin
-    if (((1'b0 == ap_block_pp0_stage0_11001) & (ap_start == 1'b1) & (1'b1 == ap_CS_fsm_pp0_stage0) & (which_load_load_fu_79_p1 == 1'd0))) begin
-        dst_b <= {{user_extern_in_TDATA_int_regslice[63:32]}};
-        src_b <= in_extern_src_fu_65_p1;
-    end
-end
-
-always @ (posedge ap_clk) begin
-    if (((1'b0 == ap_block_pp0_stage0_11001) & (1'b1 == ap_CS_fsm_pp0_stage0))) begin
-        which_load_reg_153 <= which;
-        which_load_reg_153_pp0_iter1_reg <= which_load_reg_153;
-    end
-end
-
 always @ (*) begin
-    if (((1'b0 == ap_block_pp0_stage0_subdone) & (ap_enable_reg_pp0_iter2 == 1'b1))) begin
+    if (((1'b0 == ap_block_pp0_stage0_subdone) & (ap_enable_reg_pp0_iter1 == 1'b1) & (1'b1 == ap_CS_fsm_pp0_stage0))) begin
         ap_done = 1'b1;
     end else begin
         ap_done = 1'b0;
@@ -205,7 +140,7 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if (((ap_enable_reg_pp0_iter2 == 1'b0) & (ap_enable_reg_pp0_iter1 == 1'b0) & (ap_enable_reg_pp0_iter0 == 1'b0))) begin
+    if (((ap_enable_reg_pp0_iter1 == 1'b0) & (ap_enable_reg_pp0_iter0 == 1'b0))) begin
         ap_idle_pp0 = 1'b1;
     end else begin
         ap_idle_pp0 = 1'b0;
@@ -213,10 +148,10 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if (((ap_enable_reg_pp0_iter1 == 1'b0) & (ap_enable_reg_pp0_iter0 == 1'b0))) begin
-        ap_idle_pp0_0to1 = 1'b1;
+    if ((ap_enable_reg_pp0_iter0 == 1'b0)) begin
+        ap_idle_pp0_0to0 = 1'b1;
     end else begin
-        ap_idle_pp0_0to1 = 1'b0;
+        ap_idle_pp0_0to0 = 1'b0;
     end
 end
 
@@ -229,7 +164,7 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if (((ap_start == 1'b0) & (ap_idle_pp0_0to1 == 1'b1))) begin
+    if (((ap_start == 1'b0) & (ap_idle_pp0_0to0 == 1'b1))) begin
         ap_reset_idle_pp0 = 1'b1;
     end else begin
         ap_reset_idle_pp0 = 1'b0;
@@ -253,7 +188,7 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if ((((1'b0 == ap_block_pp0_stage0) & (which_load_reg_153_pp0_iter1_reg == 1'd1) & (ap_enable_reg_pp0_iter2 == 1'b1)) | ((1'b0 == ap_block_pp0_stage0) & (which_load_reg_153_pp0_iter1_reg == 1'd0) & (ap_enable_reg_pp0_iter2 == 1'b1)) | ((1'b0 == ap_block_pp0_stage0) & (which_load_reg_153 == 1'd1) & (ap_enable_reg_pp0_iter1 == 1'b1) & (1'b1 == ap_CS_fsm_pp0_stage0)) | ((1'b0 == ap_block_pp0_stage0) & (which_load_reg_153 == 1'd0) & (ap_enable_reg_pp0_iter1 == 1'b1) & (1'b1 == ap_CS_fsm_pp0_stage0)))) begin
+    if ((((1'b0 == ap_block_pp0_stage0) & (ap_enable_reg_pp0_iter1 == 1'b1) & (1'b1 == ap_CS_fsm_pp0_stage0)) | ((1'b0 == ap_block_pp0_stage0) & (ap_start == 1'b1) & (1'b1 == ap_CS_fsm_pp0_stage0)))) begin
         user_extern_out_TDATA_blk_n = user_extern_out_TREADY_int_regslice;
     end else begin
         user_extern_out_TDATA_blk_n = 1'b1;
@@ -261,21 +196,7 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if ((1'b1 == ap_condition_140)) begin
-        if ((which_load_reg_153 == 1'd1)) begin
-            user_extern_out_TDATA_int_regslice = p_0_fu_144_p3;
-        end else if ((which_load_reg_153 == 1'd0)) begin
-            user_extern_out_TDATA_int_regslice = p_s_fu_127_p3;
-        end else begin
-            user_extern_out_TDATA_int_regslice = 'bx;
-        end
-    end else begin
-        user_extern_out_TDATA_int_regslice = 'bx;
-    end
-end
-
-always @ (*) begin
-    if ((((1'b0 == ap_block_pp0_stage0_11001) & (which_load_reg_153 == 1'd1) & (ap_enable_reg_pp0_iter1 == 1'b1) & (1'b1 == ap_CS_fsm_pp0_stage0)) | ((1'b0 == ap_block_pp0_stage0_11001) & (which_load_reg_153 == 1'd0) & (ap_enable_reg_pp0_iter1 == 1'b1) & (1'b1 == ap_CS_fsm_pp0_stage0)))) begin
+    if (((1'b0 == ap_block_pp0_stage0_11001) & (ap_start == 1'b1) & (1'b1 == ap_CS_fsm_pp0_stage0))) begin
         user_extern_out_TVALID_int_regslice = 1'b1;
     end else begin
         user_extern_out_TVALID_int_regslice = 1'b0;
@@ -298,43 +219,23 @@ assign ap_CS_fsm_pp0_stage0 = ap_CS_fsm[32'd0];
 assign ap_block_pp0_stage0 = ~(1'b1 == 1'b1);
 
 always @ (*) begin
-    ap_block_pp0_stage0_01001 = (((ap_enable_reg_pp0_iter2 == 1'b1) & ((regslice_both_user_extern_out_U_apdone_blk == 1'b1) | ((which_load_reg_153_pp0_iter1_reg == 1'd1) & (user_extern_out_TREADY_int_regslice == 1'b0)) | ((which_load_reg_153_pp0_iter1_reg == 1'd0) & (user_extern_out_TREADY_int_regslice == 1'b0)))) | ((ap_enable_reg_pp0_iter1 == 1'b1) & (((which_load_reg_153 == 1'd1) & (user_extern_out_TREADY_int_regslice == 1'b0)) | ((which_load_reg_153 == 1'd0) & (user_extern_out_TREADY_int_regslice == 1'b0)))) | ((ap_start == 1'b1) & (user_extern_in_TVALID_int_regslice == 1'b0)));
+    ap_block_pp0_stage0_01001 = (((ap_enable_reg_pp0_iter1 == 1'b1) & ((regslice_both_user_extern_out_U_apdone_blk == 1'b1) | (user_extern_out_TREADY_int_regslice == 1'b0))) | ((ap_start == 1'b1) & ((user_extern_out_TREADY_int_regslice == 1'b0) | (user_extern_in_TVALID_int_regslice == 1'b0))));
 end
 
 always @ (*) begin
-    ap_block_pp0_stage0_11001 = (((ap_enable_reg_pp0_iter2 == 1'b1) & ((regslice_both_user_extern_out_U_apdone_blk == 1'b1) | (1'b1 == ap_block_state3_io) | ((which_load_reg_153_pp0_iter1_reg == 1'd1) & (user_extern_out_TREADY_int_regslice == 1'b0)) | ((which_load_reg_153_pp0_iter1_reg == 1'd0) & (user_extern_out_TREADY_int_regslice == 1'b0)))) | ((ap_enable_reg_pp0_iter1 == 1'b1) & ((1'b1 == ap_block_state2_io) | ((which_load_reg_153 == 1'd1) & (user_extern_out_TREADY_int_regslice == 1'b0)) | ((which_load_reg_153 == 1'd0) & (user_extern_out_TREADY_int_regslice == 1'b0)))) | ((ap_start == 1'b1) & (user_extern_in_TVALID_int_regslice == 1'b0)));
+    ap_block_pp0_stage0_11001 = (((ap_enable_reg_pp0_iter1 == 1'b1) & ((regslice_both_user_extern_out_U_apdone_blk == 1'b1) | (user_extern_out_TREADY_int_regslice == 1'b0))) | ((ap_start == 1'b1) & ((user_extern_out_TREADY_int_regslice == 1'b0) | (user_extern_in_TVALID_int_regslice == 1'b0))));
 end
 
 always @ (*) begin
-    ap_block_pp0_stage0_subdone = (((ap_enable_reg_pp0_iter2 == 1'b1) & ((regslice_both_user_extern_out_U_apdone_blk == 1'b1) | (1'b1 == ap_block_state3_io) | ((which_load_reg_153_pp0_iter1_reg == 1'd1) & (user_extern_out_TREADY_int_regslice == 1'b0)) | ((which_load_reg_153_pp0_iter1_reg == 1'd0) & (user_extern_out_TREADY_int_regslice == 1'b0)))) | ((ap_enable_reg_pp0_iter1 == 1'b1) & ((1'b1 == ap_block_state2_io) | ((which_load_reg_153 == 1'd1) & (user_extern_out_TREADY_int_regslice == 1'b0)) | ((which_load_reg_153 == 1'd0) & (user_extern_out_TREADY_int_regslice == 1'b0)))) | ((ap_start == 1'b1) & (user_extern_in_TVALID_int_regslice == 1'b0)));
+    ap_block_pp0_stage0_subdone = (((ap_enable_reg_pp0_iter1 == 1'b1) & ((regslice_both_user_extern_out_U_apdone_blk == 1'b1) | (user_extern_out_TREADY_int_regslice == 1'b0))) | ((ap_start == 1'b1) & ((user_extern_out_TREADY_int_regslice == 1'b0) | (user_extern_in_TVALID_int_regslice == 1'b0))));
 end
 
 always @ (*) begin
-    ap_block_state1_pp0_stage0_iter0 = (user_extern_in_TVALID_int_regslice == 1'b0);
+    ap_block_state1_pp0_stage0_iter0 = ((user_extern_out_TREADY_int_regslice == 1'b0) | (user_extern_in_TVALID_int_regslice == 1'b0));
 end
 
 always @ (*) begin
-    ap_block_state2_io = (((which_load_reg_153 == 1'd1) & (user_extern_out_TREADY_int_regslice == 1'b0)) | ((which_load_reg_153 == 1'd0) & (user_extern_out_TREADY_int_regslice == 1'b0)));
-end
-
-always @ (*) begin
-    ap_block_state2_pp0_stage0_iter1 = (((which_load_reg_153 == 1'd1) & (user_extern_out_TREADY_int_regslice == 1'b0)) | ((which_load_reg_153 == 1'd0) & (user_extern_out_TREADY_int_regslice == 1'b0)));
-end
-
-always @ (*) begin
-    ap_block_state3_io = (((which_load_reg_153_pp0_iter1_reg == 1'd1) & (user_extern_out_TREADY_int_regslice == 1'b0)) | ((which_load_reg_153_pp0_iter1_reg == 1'd0) & (user_extern_out_TREADY_int_regslice == 1'b0)));
-end
-
-always @ (*) begin
-    ap_block_state3_pp0_stage0_iter2 = ((regslice_both_user_extern_out_U_apdone_blk == 1'b1) | ((which_load_reg_153_pp0_iter1_reg == 1'd1) & (user_extern_out_TREADY_int_regslice == 1'b0)) | ((which_load_reg_153_pp0_iter1_reg == 1'd0) & (user_extern_out_TREADY_int_regslice == 1'b0)));
-end
-
-always @ (*) begin
-    ap_condition_116 = ((1'b0 == ap_block_pp0_stage0_11001) & (ap_start == 1'b1) & (1'b1 == ap_CS_fsm_pp0_stage0));
-end
-
-always @ (*) begin
-    ap_condition_140 = ((1'b0 == ap_block_pp0_stage0_01001) & (ap_enable_reg_pp0_iter1 == 1'b1) & (1'b1 == ap_CS_fsm_pp0_stage0));
+    ap_block_state2_pp0_stage0_iter1 = ((regslice_both_user_extern_out_U_apdone_blk == 1'b1) | (user_extern_out_TREADY_int_regslice == 1'b0));
 end
 
 assign ap_enable_pp0 = (ap_idle_pp0 ^ 1'b1);
@@ -345,16 +246,8 @@ always @ (*) begin
     ap_rst_n_inv = ~ap_rst_n;
 end
 
-assign in_extern_src_fu_65_p1 = user_extern_in_TDATA_int_regslice[31:0];
-
-assign p_0_fu_144_p3 = {{dst_b}, {src_b}};
-
-assign p_s_fu_127_p3 = {{dst_a}, {src_a}};
-
 assign user_extern_in_TREADY = regslice_both_user_extern_in_U_ack_in;
 
 assign user_extern_out_TVALID = regslice_both_user_extern_out_U_vld_out;
-
-assign which_load_load_fu_79_p1 = which;
 
 endmodule //saveSrcDest_kernel

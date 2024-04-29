@@ -9,11 +9,11 @@
 
 void saveSrcDest_kernel(hls::stream<src_dest_t> &user_extern_in, hls::stream<src_dest_t> &user_extern_out) {
 	//static bool first = true;
-	static bool which = true;
-	static addr src_a = 0;
-	static addr dst_a = 0;
-	static addr src_b = 0;
-	static addr dst_b = 0;
+//	static bool which = true;
+//	static addr src_a = 0;
+//	static addr dst_a = 0;
+//	static addr src_b = 0;
+//	static addr dst_b = 0;
 
 #ifdef __VITIS_HLS__
 #pragma HLS INTERFACE mode=axis port=user_extern_in
@@ -24,24 +24,26 @@ void saveSrcDest_kernel(hls::stream<src_dest_t> &user_extern_in, hls::stream<src
 #pragma HLS PIPELINE II=1
 #endif
 	src_dest_t in_extern = user_extern_in.read();
-	addr in_src = in_extern.src;
-	addr in_dest = in_extern.dest;
+//	addr in_src = in_extern.src;
+//	addr in_dest = in_extern.dest;
 
-	if (which) {
-		which = !which;
-		src_a = in_src;
-		dst_a = in_dest;
-		in_extern.src = src_b;
-		in_extern.dest = dst_b;
-		user_extern_out.write(in_extern);
-	} else {
-		which = !which;
-		src_b = in_src;
-		dst_b = in_dest;
-		in_extern.src = src_a;
-		in_extern.dest = dst_a;
-		user_extern_out.write(in_extern);
-	}
+	user_extern_out.write(in_extern);
+
+//	if (which) {
+//		which = !which;
+//		src_a = in_src;
+//		dst_a = in_dest;
+//		in_extern.src = src_b;
+//		in_extern.dest = dst_b;
+//		user_extern_out.write(in_extern);
+//	} else {
+//		which = !which;
+//		src_b = in_src;
+//		dst_b = in_dest;
+//		in_extern.src = src_a;
+//		in_extern.dest = dst_a;
+//		user_extern_out.write(in_extern);
+//	}
 
 	//old impl
 //	saved_addresses[curr] = in_src;

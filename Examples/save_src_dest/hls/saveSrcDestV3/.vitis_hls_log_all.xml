@@ -12,12 +12,7 @@
   <warningLogs>
     <logs>
       <synLog>
-        <logs message="WARNING: [RTGEN 206-101] Register 'dst_b' is power-on initialization." projectName="saveSrcDestV3" solutionName="solution1" date="2024-04-24T15:10:55.776+0000" type="Warning"/>
-        <logs message="WARNING: [RTGEN 206-101] Register 'src_b' is power-on initialization." projectName="saveSrcDestV3" solutionName="solution1" date="2024-04-24T15:10:55.769+0000" type="Warning"/>
-        <logs message="WARNING: [RTGEN 206-101] Register 'dst_a' is power-on initialization." projectName="saveSrcDestV3" solutionName="solution1" date="2024-04-24T15:10:55.764+0000" type="Warning"/>
-        <logs message="WARNING: [RTGEN 206-101] Register 'src_a' is power-on initialization." projectName="saveSrcDestV3" solutionName="solution1" date="2024-04-24T15:10:55.755+0000" type="Warning"/>
-        <logs message="WARNING: [RTGEN 206-101] Register 'which' is power-on initialization." projectName="saveSrcDestV3" solutionName="solution1" date="2024-04-24T15:10:55.751+0000" type="Warning"/>
-        <logs message="WARNING: [RTGEN 206-101] Design contains AXI ports. Reset is fixed to synchronous and active low." projectName="saveSrcDestV3" solutionName="solution1" date="2024-04-24T15:10:55.747+0000" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Design contains AXI ports. Reset is fixed to synchronous and active low." projectName="saveSrcDestV3" solutionName="solution1" date="2024-04-29T15:46:12.585+0000" type="Warning"/>
       </synLog>
       <simLog/>
       <mgLog/>
