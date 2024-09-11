@@ -9,12 +9,13 @@ DIST_DIR=dist
 
 
 # Define default implement arguments and default values
-TCL_ARGS_LIST=board tag build_timestamp impl synth_ip post_impl user_plugin user_build_dir
+TCL_ARGS_LIST=board tag build_timestamp impl synth_ip post_impl user_plugin user_build_dir num_cmac_port num_phys_func
+SYN_ARGS_LIST=impl synth_ip post_impl
+if_synth=1
 board=au280
-impl=1
-synth_ip=1
-post_impl=1
 build_timestamp=$(shell date +%y%m%d%H%M)
+num_cmac_port=2
+num_phys_func=2
 
 # user_build_dir must be full path. Use build_dir to give the relative path 
 build_dir=build
@@ -27,6 +28,8 @@ $(EXAMPLE_OBJ): CHECK_VIVADO_VER
 	$(eval tag=$@_$(build_timestamp))
 	$(eval user_plugin=../../Examples/$@)
 	$(eval DIST_APP_DIR=$(DIST_DIR)/$(board)_$(tag)_dist)
+	#$(eval post_impl=$(if_synth))
+	$(foreach arg, $(SYN_ARGS_LIST), $(eval $(arg)=$(if_synth)))
 	$(eval TCL_ARGS=$(foreach arg, $(TCL_ARGS_LIST), -$(arg) $($(arg))))
 	$(info TCL_ARGS=$(TCL_ARGS))
 
@@ -34,13 +37,16 @@ $(EXAMPLE_OBJ): CHECK_VIVADO_VER
 	@[ -d '$(user_build_dir)' ] || mkdir $(user_build_dir) 
 	cd open-nic-shell/script && vivado -mode batch -source build.tcl -tclargs $(TCL_ARGS) | tee $(cur_dir)/build_$(tag).log
 
-	@[ -d '$(DIST_APP_DIR)' ] || mkdir -p $(DIST_APP_DIR) 
-	cp -r $(build_dir)/$(board)_$(tag)/open_nic_shell/open_nic_shell.gen/sources_1/ip/vitis_net_p4_0/src/sw/drivers $(DIST_APP_DIR)/.
-	cd $(DIST_APP_DIR)/drivers && make
-	cp -r Examples/$@/c-driver/* $(DIST_APP_DIR)/drivers/install/.
-	cd $(DIST_APP_DIR)/drivers/install && make
-
-	cp $(build_dir)/$(board)_$(tag)/open_nic_shell/open_nic_shell.runs/impl_1/open_nic_shell.mcs $(DIST_APP_DIR)/$@.mcs
+	@if [ $(if_synth) = 1 ]; then { \
+		echo "Condition is true"; \
+		@[ -d '$(DIST_APP_DIR)' ] || mkdir -p $(DIST_APP_DIR); \
+		cp -r $(build_dir)/$(board)_$(tag)/open_nic_shell/open_nic_shell.gen/sources_1/ip/vitis_net_p4_0/src/sw/drivers $(DIST_APP_DIR)/; \
+		cd $(DIST_APP_DIR)/drivers && make; \
+		cp -r Examples/$@/c-driver/* $(DIST_APP_DIR)/drivers/install/; \
+		cd $(DIST_APP_DIR)/drivers/install && make; \
+		cp $(build_dir)/$(board)_$(tag)/open_nic_shell/open_nic_shell.runs/impl_1/open_nic_shell.mcs $(DIST_APP_DIR)/$@.mcs; \
+	}; \
+	fi
 
 shell: CHECK_VIVADO_VER
 	$(eval tag=$@_$(build_timestamp))
@@ -58,6 +64,7 @@ ifeq ($(VIVADO_VER), $(VIVADO_TARGET_VER))
 else
 	@echo "This Makefile requires VIVADO_VER as 2021.2"
 	@echo "Please make sure your have source your VIVADO_ROOT/settings64.sh"
+	exit 1;
 endif
 		
 
