@@ -1,7 +1,7 @@
 #!/bin/bash
 # build external object
-export XILINX_VITIS=/opt/Xilinx/Vitis_HLS/2021.2
-export XILINX_VIVADO=/opt/Xilinx/Vivado/2021.2
+export XILINX_VITIS=/tools/Xilinx/Vitis_HLS/2021.2
+export XILINX_VIVADO=/tools/Xilinx/Vivado/2021.2
 
 if [ -z "$variable" ]; then
     echo "Variable is unset or null"
