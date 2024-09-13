@@ -3,8 +3,8 @@
 EXAMPLE_OBJ=forward calc advCalc advCalc_no_table reverse_tuple
 QSPI=false
 SHELL := /bin/bash
-VIVADO_TARGET_VER=2021.2
-VIVADO_VER=$(shell vivado -version | grep -o '[^v][0-9]*\.[0-9]')
+VIVADO_TARGET_VER=2022.2
+VIVADO_VER=$(shell vivado -version | grep -m1 -o '[^v][0-9]*\.[0-9]')
 DIST_DIR=dist
 
 
@@ -44,11 +44,11 @@ endif
 #	#build
 	@[ -d '$(user_build_dir)' ] || mkdir $(user_build_dir) 
 	cd open-nic-shell/script && vivado -mode batch -source build.tcl -tclargs $(TCL_ARGS) | tee $(cur_dir)/build_$(tag).log
-	ifeq ($(sim),1)
+ifeq ($(sim),1)
 		ln -s $(cur_dir)/open-nic-shell/script/tb/* $(app_dir)/open_nic_shell/open_nic_shell.sim/sim_1/behav/modelsim/.
 		ln -s $(cur_dir)/Examples/$@/tb/* $(app_dir)/open_nic_shell/open_nic_shell.sim/sim_1/behav/modelsim/.
 		[ ! -d 'Examples/$@/behav_test/gen' ] || cp Examples/$@/behav_test/gen/*.pcap $(app_dir)/open_nic_shell/open_nic_shell.sim/sim_1/behav/modelsim/.
-	endif
+endif
 	@if [ $(if_synth) = 1 ]; then { \
 		echo "Condition is true"; \
 		@[ -d '$(DIST_APP_DIR)' ] || mkdir -p $(DIST_APP_DIR); \
@@ -74,7 +74,8 @@ CHECK_VIVADO_VER:
 ifeq ($(VIVADO_VER), $(VIVADO_TARGET_VER))
 	@echo "Current Vivado Verion is $(VIVADO_VER)"
 else
-	@echo "This Makefile requires VIVADO_VER as 2021.2"
+	@echo "Current Vivado Verion is $(VIVADO_VER)"
+	@echo "This Makefile requires VIVADO_VER as $(VIVADO_TARGET_VER)"
 	@echo "Please make sure your have source your VIVADO_ROOT/settings64.sh"
 	exit 1;
 endif
