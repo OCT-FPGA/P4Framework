@@ -140,8 +140,9 @@ header udp_t {
 // header structure
 struct headers {
     eth_mac_t    eth;
+    vlan_t     vlan_0;
+    vlan_t     vlan_1;
     timer_t      timer;                                                               //HEADER FOR PREVIOUS HOP'S INGRESS_TIMESTAMP
-    vlan_t[2]    vlan;
     ipv4_t       ipv4;
     ipv4_opt_t   ipv4opt;
     ipv6_t       ipv6;
@@ -181,8 +182,27 @@ parser MyParser(packet_in packet,
     state parse_eth {
         packet.extract(hdr.eth);
         transition select(hdr.eth.type) {
+            VLAN_TYPE : parse_vlan_0;
             HNEW_TYPE : parse_timer;
-            VLAN_TYPE : parse_vlan;
+            IPV4_TYPE : parse_ipv4;
+            IPV6_TYPE : parse_ipv6;
+            default   : accept; 
+        }
+    }
+    state parse_vlan_0 {
+        packet.extract(hdr.vlan_0);
+        transition select(hdr.vlan_0.tpid) {
+            VLAN_TYPE : parse_vlan_1;
+            HNEW_TYPE : parse_timer;
+            IPV4_TYPE : parse_ipv4;
+            IPV6_TYPE : parse_ipv6;
+            default   : accept; 
+        }
+    }
+    state parse_vlan_1 {
+        packet.extract(hdr.vlan_1);
+        transition select(hdr.vlan_1.tpid) {
+            HNEW_TYPE : parse_timer;
             IPV4_TYPE : parse_ipv4;
             IPV6_TYPE : parse_ipv6;
             default   : accept; 
@@ -194,7 +214,6 @@ parser MyParser(packet_in packet,
     state parse_timer {
         packet.extract(hdr.timer);
         transition select(hdr.timer.intermediate_type) {
-            VLAN_TYPE : parse_vlan;
             IPV4_TYPE : parse_ipv4;
             IPV6_TYPE : parse_ipv6;
             default   : accept; 
@@ -203,15 +222,6 @@ parser MyParser(packet_in packet,
 
 //===========================================================================================================================================
     
-    state parse_vlan {
-        packet.extract(hdr.vlan.next);
-        transition select(hdr.vlan.last.tpid) {
-            VLAN_TYPE : parse_vlan;
-            IPV4_TYPE : parse_ipv4;
-            IPV6_TYPE : parse_ipv6;
-            default   : accept; 
-        }
-    }
     
     state parse_ipv4 {
         packet.extract(hdr.ipv4);
@@ -287,18 +297,27 @@ control MyProcessing(inout headers hdr,
             return;
         }
 
-//================================================================ REMOVING THE NEW HEADER FOR THE TIMER AND SETTING IT INVALID ===============================================================
-
-        if((hdr.timer.isValid())&&(hdr.eth.isValid())){
-            
-            hdr.eth.type = hdr.timer.intermediate_type;                                                                        //ASSIGNING THE PROTOCOL ID OF THE HEADER AFTER THE TIMER HEADER TO THE ETHERNET HEADER TYPE FOR PARSING IN NEXT DESTINATION 
-            
-            hdr.timer.setInvalid();                                                                                            //TO SET THE TIMER HEADER TO BE INVALID
-            meta.tuser_size = meta.tuser_size - 0x000a;                                                                        //TO DECREASE THE METADATA SIZE OF THE PACKET BY THE SIZE OF THE CUSTOM HEADER
+        if((hdr.timer.isValid())&&(hdr.eth.isValid()) && !hdr.vlan_0.isValid()){
+            hdr.eth.type = hdr.timer.intermediate_type;
+            hdr.timer.setInvalid();                    
+            meta.tuser_size = meta.tuser_size - 0x000a;
 
         }
 
-//========================================================================================================================================================================================    
+        if((hdr.timer.isValid()) && hdr.vlan_0.isValid() && !hdr.vlan_1.isValid()){
+            hdr.vlan_0.tpid = hdr.timer.intermediate_type;
+            hdr.timer.setInvalid();                    
+            meta.tuser_size = meta.tuser_size - 0x000a;
+
+        }
+
+        if((hdr.timer.isValid()) && hdr.vlan_1.isValid()){
+            hdr.vlan_1.tpid = hdr.timer.intermediate_type;
+            hdr.timer.setInvalid();                    
+            meta.tuser_size = meta.tuser_size - 0x000a;
+
+        }
+
 
         if (hdr.ipv4.isValid())   
             forwardIPv4.apply();
@@ -321,8 +340,9 @@ control MyDeparser(packet_out packet,
                    inout standard_metadata_t smeta) {
     apply {
         packet.emit(hdr.eth);
+        packet.emit(hdr.vlan_0);
+        packet.emit(hdr.vlan_1);
         packet.emit(hdr.timer);
-        packet.emit(hdr.vlan);
         packet.emit(hdr.ipv4);
         packet.emit(hdr.ipv4opt);
         packet.emit(hdr.ipv6);
