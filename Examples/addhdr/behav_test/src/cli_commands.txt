@@ -1,0 +1,26 @@
+# Table forwardIPv4, Entry 1 
+# key:[ ipv4.dst=9aaa2010 ] 
+# response:[ action=dropPacket ]
+#table_add forwardIPv4 dropPacket 0x9aaa2010/32 => 0
+
+# Table forwardIPv4, Entry 2 
+# key:[ ipv4.dst=cc930a03 ]
+# response:[ action=dropPacket ]
+#table_add forwardIPv4 dropPacket 0xcc930a03/32 => 0
+
+# Table forwardIPv4, Entry 3 
+# key:[ ipv4.dst=6353a5ca ]
+# response:[ action=dropPacket ]
+#table_add forwardIPv4 dropPacket 0x6353a5ca/32 => 0
+
+# Table forwardIPv4, Entry 4 
+# key:[ ipv4.dst=cc3d03d7 ]
+# response:[ action=dropPacket ]
+#table_add forwardIPv4 dropPacket 0xcc3d03d7/32 => 0
+
+
+# run traffic
+run_traffic src/addhdr
+
+# end
+exit
