@@ -140,7 +140,7 @@ struct headers {
 
 // User metadata structure
 struct metadata {
-    
+    //bit<9> port;
 	bit<16> tuser_size;
 	bit<16> tuser_src;
 	bit<16> tuser_dst;
@@ -227,7 +227,9 @@ control MyProcessing(inout headers hdr,
                      inout metadata meta, 
                      inout standard_metadata_t smeta) {
                       
- 
+   // action forwardPacket(bit<9> port) {
+   //     meta.port = port;
+   // }
 
     action forwardPacket() {
     }
@@ -235,7 +237,6 @@ control MyProcessing(inout headers hdr,
     action dropPacket() {
 		smeta.drop = 1;
     }
-    
 
     table forwardIPv4 {
         key             = { hdr.ipv4.dst : lpm; }
@@ -255,8 +256,7 @@ control MyProcessing(inout headers hdr,
     }
 
     apply {
-    
-
+        
         if (smeta.parser_error != error.NoError) {
             dropPacket();
             return;
@@ -264,7 +264,6 @@ control MyProcessing(inout headers hdr,
         
         if (hdr.ipv4.isValid())
             forwardIPv4.apply();
-            
         else if (hdr.ipv6.isValid())
             forwardIPv6.apply();
         else
