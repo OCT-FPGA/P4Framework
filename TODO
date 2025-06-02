@@ -3,4 +3,5 @@
 ## Vivado version control
 # dev
 # Create an empty template user extern wrapper in component. Now using exchangeFiveTuple
+# exchangeFiveTuple behav_test will fail in 2023.1. But still working in 2021.2
 
