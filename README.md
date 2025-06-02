@@ -17,9 +17,23 @@ Run `source $(YOUR_VIVADO_ROOT)/Vivado/2021.2/bin/settings64.sh` and make sure y
 Run `make forward` or `make calc` or `make advCalc` to build the examples. 
 
 
-
 ### Options for build
 You can set arguments `impl=0 synth_ip=0 post_impl=0` to only create the design but not build it. 
+
+### RTL Simulation
+Before running testbench, make sure the Modelsim or Questa is installed. 
+
+Install cocotb for generating python testbench.
+
+Run `make forward sim=1 if_synth=0` to build the simulation testbench.
+
+Go to folder `cd build/<board>_<tag>/open_nic_shell/open_nic_shell.sim/sim_1/behav/modelsim`. 
+
+Run `./compile.sh` to compile the library
+
+Run `DUT=<module-to-test> GUI=0 DEBUG=0 ./run.sh` to start simulation.
+
+
 
 ### Option for JTAG or PCIe programming
 The generated bitstreams can either be programmed through PCIe bus or JTAG. 
