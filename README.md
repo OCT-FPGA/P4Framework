@@ -25,6 +25,9 @@ Before running testbench, make sure the Modelsim or Questa is installed.
 
 Install cocotb for generating python testbench.
 
+Export your Modelsim/Questa binaray location through setting the `MODELSIM_LOC` variable.
+For example: `export MODELSIM_LOC=~/intelFPGA_pro/23.3/questa_fse/bin/`
+
 Run `make forward sim=1 if_synth=0` to build the simulation testbench.
 
 Go to folder `cd build/<board>_<tag>/open_nic_shell/open_nic_shell.sim/sim_1/behav/modelsim`. 
