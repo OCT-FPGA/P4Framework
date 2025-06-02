@@ -3,7 +3,7 @@
 EXAMPLE_OBJ=forward calc advCalc advCalc_no_table reverse_tuple sketch
 QSPI=false
 SHELL := /bin/bash
-VIVADO_TARGET_VER=2021.2
+VIVADO_TARGET_VER=2023.1
 VIVADO_VER=$(shell vivado -version | grep -o '[^v][0-9]*\.[0-9]')
 DIST_DIR=dist
 
@@ -16,7 +16,7 @@ synth_ip=0
 post_impl=0
 sim=0
 #Fix Version
-sim_lib_path=$(HOME)/opt/xilinx_sim_libs/2022.2/compile_simlib
+sim_lib_path=$(HOME)/opt/xilinx_sim_libs/$(VIVADO_TARGET_VER)/compile_simlib
 sim_exec_path=$(MODELSIM_LOC)
 sim_top=p2p_250mhz
 build_timestamp=$(shell date +%y%m%d%H%M)
