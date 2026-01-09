@@ -1,4 +1,5 @@
 # P4-OpenNIC Framework
+NOTE: If you are using Cloudlab build machines instead of NERC VMs, please follow the initialization steps in [here](https://github.com/OCT-FPGA/P4Framework/blob/master/build_cloudlab.md) 
 This framework integrates the VitisNetP4 with Xilinx's OpenNIC shell. This framework will utilize Xilinx's VitisNetP4 compiler to compile the P4 codes into hardware IP. This hardware IP will then be instantiated as a box_plugin for the OpenNIC shell. 
 
 In addition, we provide three examples to demonstrate the usage of this framework.
