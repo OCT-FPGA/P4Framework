@@ -37,6 +37,10 @@
  *
  */
 
+
+
+const bit<16> VLAN_TYPE  = 0x8100;
+
 const bit<16> P4CALC_ETYPE = 0x1234; // custom value
 const bit<8>  P4CALC_P     = 0x50;   // 'P'
 const bit<8>  P4CALC_4     = 0x34;   // '4'
@@ -51,6 +55,15 @@ header eth_mac_t {
     bit<48> srcAddr;     // Source MAC address
     bit<16> etherType;   // Tag Protocol Identifier
 }
+
+header vlan_t {
+    bit<3>  pcp;  // Priority code point
+    bit<1>  cfi;  // Drop eligible indicator
+    bit<12> vid;  // VLAN identifier
+    bit<16> tpid; // Tag protocol identifier
+}
+
+
 
 header p4calc_t {
     bit<8>  p;           // P is an ASCII Letter 'P'
@@ -79,6 +92,8 @@ struct divider_output {
 // header structure
 struct headers {
     eth_mac_t    eth;
+    vlan_t       vlan;
+    vlan_t       new_vlan;
     p4calc_t     p4calc;
 }
 
@@ -102,10 +117,19 @@ parser MyParser(packet_in packet,
     state start {
         packet.extract(hdr.eth);
         transition select(hdr.eth.etherType) {
+            VLAN_TYPE : parse_vlan;
             P4CALC_ETYPE : parse_p4calc;
             default      : drop;
         }
     }
+
+    state parse_vlan {
+    packet.extract(hdr.vlan);
+    transition select(hdr.vlan.tpid) {
+        P4CALC_ETYPE  : parse_p4calc;
+        default       : drop;
+    }
+}
 
     state parse_p4calc {
         packet.extract(hdr.p4calc);
@@ -136,6 +160,24 @@ control MyProcessing(inout headers hdr,
     divider_output div_out;
     
     bit<24> square_root_result;
+
+    // action modifyHeader() {
+    //     bit<16> oldType;
+
+    //     if (hdr.vlan.isValid()) {
+    //         oldType = hdr.vlan.tpid;   
+    //         hdr.vlan.setInvalid();       
+    //     } else {
+    //         oldType = hdr.eth.etherType;   
+    //     }
+
+    //     hdr.new_vlan.setValid();
+    //     hdr.new_vlan.vid = 0xA97;
+	//     hdr.new_vlan.pcp = 1; 
+	//     hdr.new_vlan.cfi = 0;
+	//     hdr.new_vlan.tpid = oldType;
+	//     hdr.eth.etherType = 0x8100;
+    // }
       
     action send_back(bit<32> result) {
         bit<48> tmp       = hdr.eth.dstAddr;
@@ -185,6 +227,7 @@ control MyProcessing(inout headers hdr,
     action operation_drop() {
         smeta.drop = 1;
     }
+
     
     table calculate {
         key = {
@@ -206,6 +249,23 @@ control MyProcessing(inout headers hdr,
     }
 
     apply {
+
+        bit<16> oldType;
+
+        if (hdr.vlan.isValid()) {
+            oldType = hdr.vlan.tpid;   
+            hdr.vlan.setInvalid();       
+        } else {
+            oldType = hdr.eth.etherType;   
+        }
+
+        hdr.new_vlan.setValid();
+        hdr.new_vlan.vid = 0xA97;
+	    hdr.new_vlan.pcp = 1; 
+	    hdr.new_vlan.cfi = 0;
+	    hdr.new_vlan.tpid = oldType;
+	    hdr.eth.etherType = 0x8100;
+        
         if (hdr.p4calc.isValid()) {
             calculate.apply();
         } else {
@@ -224,6 +284,8 @@ control MyDeparser(packet_out packet,
                    inout standard_metadata_t smeta) {
     apply {
         packet.emit(hdr.eth);
+        packet.emit(hdr.vlan);
+        packet.emit(hdr.new_vlan);
         packet.emit(hdr.p4calc);
     }
 }

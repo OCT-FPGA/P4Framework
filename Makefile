@@ -42,7 +42,7 @@ $(EXAMPLE_OBJ): CHECK_VIVADO_VER
 		@[ -d '$(DIST_APP_DIR)' ] || mkdir -p $(DIST_APP_DIR); \
 		cp -r $(build_dir)/$(board)_$(tag)/open_nic_shell/open_nic_shell.gen/sources_1/ip/vitis_net_p4_0/src/sw/drivers $(DIST_APP_DIR)/; \
 		cd $(DIST_APP_DIR)/drivers && make; \
-		cp -r Examples/$@/c-driver/* $(DIST_APP_DIR)/drivers/install/; \
+		cp -r ../../../Examples/$@/c-driver/* $(DIST_APP_DIR)/drivers/install/; \
 		cd $(DIST_APP_DIR)/drivers/install && make; \
 		cp $(build_dir)/$(board)_$(tag)/open_nic_shell/open_nic_shell.runs/impl_1/open_nic_shell.mcs $(DIST_APP_DIR)/$@.mcs; \
 	}; \

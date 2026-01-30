@@ -1,0 +1,13 @@
+#-----------------------------------------------------------
+# Vivado v2021.2 (64-bit)
+# SW Build 3367213 on Tue Oct 19 02:47:39 MDT 2021
+# IP Build 3369179 on Thu Oct 21 08:25:16 MDT 2021
+# Start of session at: Tue Jan 27 02:18:52 2026
+# Process ID: 1936042
+# Current directory: /home/pavanikuppili/P4Framework/Resub/EmulatorScripts
+# Command line: vivado -mode batch -source calc_latency.tcl -tclargs ../P4Examples/checksum/checksum.p4 55 512
+# Log file: /home/pavanikuppili/P4Framework/Resub/EmulatorScripts/vivado.log
+# Journal file: /home/pavanikuppili/P4Framework/Resub/EmulatorScripts/vivado.jou
+# Running On: p4-tools, OS: Linux, CPU Frequency: 2893.202 MHz, CPU Physical cores: 16, Host memory: 135067 MB
+#-----------------------------------------------------------
+source calc_latency.tcl

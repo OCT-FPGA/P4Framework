@@ -327,7 +327,7 @@ int main(void)
             goto target_exit;
         }
     }
-
+/*
     printf("\n Deleting Tables....\n\r");
     for (Index = 0; Index < EXAMPLE_NUM_TABLE_ENTRIES-2; Index++)
     {
