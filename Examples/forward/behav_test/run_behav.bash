@@ -1,5 +1,12 @@
 #!/bin/bash
-source $VIVADO_ROOT/settings64.sh
+#source $VIVADO_ROOT/settings64.sh
+source /tools/Xilinx/Vivado/2021.2/settings64.sh
+echo "PATH=$PATH"
+echo "p4c-vitisnet => $(command -v p4c-vitisnet || echo NOT_FOUND)"
+echo "run-p4bm-vitisnet => $(command -v run-p4bm-vitisnet || echo NOT_FOUND)"
+type -a p4c-vitisnet || true
+type -a run-p4bm-vitisnet || true
+
 rm -rf gen
 mkdir gen
 p4c-vitisnet ../forward.p4 -o gen/forward.json

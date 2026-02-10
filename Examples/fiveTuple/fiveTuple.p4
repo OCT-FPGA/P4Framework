@@ -138,8 +138,15 @@ struct headers {
 }
 
 // User metadata structure
+// struct metadata {
+//     // empty
+// }
+
 struct metadata {
-    // empty
+    
+	bit<16> tuser_size;
+	bit<16> tuser_src;
+	bit<16> tuser_dst;
 }
 
 // User-defined errors 
@@ -228,6 +235,7 @@ control MyProcessing(inout headers hdr,
 
     action InsertTimestamp() {
         hdr.timestamp.setValid();
+        meta.tuser_size = meta.tuser_size + 0x0012;  
         hdr.timestamp.time_par = smeta.ingress_timestamp;
         hdr.timestamp.time_depar = 0;
         hdr.eth.type = 0x88A9;
@@ -236,6 +244,7 @@ control MyProcessing(inout headers hdr,
 
     action InsertVLAN(bit<3> pcp, bit<1> cfi, bit<12> vid) {
         hdr.new_vlan.setValid();
+        meta.tuser_size = meta.tuser_size + 0x0004;  
         hdr.new_vlan.pcp  = pcp;
         hdr.new_vlan.cfi  = cfi;
         hdr.new_vlan.vid  = vid;

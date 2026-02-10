@@ -8,7 +8,7 @@ txt = "\n".join(line.split("//", 1)[0] for line in txt.splitlines())
 ops = {
     "setValid":   set(re.findall(r"\bhdr\.(\w+)\.setValid\(\)",   txt)),
     "setInvalid": set(re.findall(r"\bhdr\.(\w+)\.setInvalid\(\)", txt)),
-    "isValid":    set(re.findall(r"\bhdr\.(\w+)\.isValid\(\)",    txt)),
+   # "isValid":    set(re.findall(r"\bhdr\.(\w+)\.isValid\(\)",    txt)),
 }
 keep = lambda n: not (n.startswith(("eth", "ipv", "tcp", "udp")))
 names = sorted({n for s in ops.values() for n in s if keep(n)})

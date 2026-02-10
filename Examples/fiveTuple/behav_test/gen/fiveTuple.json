@@ -125,6 +125,16 @@
         ["time_depar", 64, false],
         ["hdrtype", 16, false]
       ]
+    },
+    {
+      "name" : "metadata",
+      "id" : 10,
+      "is_struct" : true,
+      "fields" : [
+        ["tuser_size", 16, false],
+        ["tuser_src", 16, false],
+        ["tuser_dst", 16, false]
+      ]
     }
   ],
   "headers" : [
@@ -203,6 +213,13 @@
       "id" : 10,
       "header_type" : "timestamp_t",
       "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "metadata",
+      "id" : 11,
+      "header_type" : "metadata",
+      "metadata" : true,
       "pi_omit" : true
     }
   ],
@@ -735,7 +752,7 @@
       "id" : 0,
       "source_info" : {
         "filename" : "../fiveTuple.p4",
-        "line" : 290,
+        "line" : 299,
         "column" : 8,
         "source_fragment" : "MyDeparser"
       },
@@ -835,9 +852,51 @@
           ],
           "source_info" : {
             "filename" : "../fiveTuple.p4",
-            "line" : 230,
+            "line" : 237,
             "column" : 8,
             "source_fragment" : "hdr.timestamp.setValid()"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["metadata", "tuser_size"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["metadata", "tuser_size"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x0012"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "../fiveTuple.p4",
+            "line" : 238,
+            "column" : 8,
+            "source_fragment" : "meta.tuser_size = meta.tuser_size + 0x0012"
           }
         },
         {
@@ -854,7 +913,7 @@
           ],
           "source_info" : {
             "filename" : "../fiveTuple.p4",
-            "line" : 231,
+            "line" : 239,
             "column" : 8,
             "source_fragment" : "hdr.timestamp.time_par = smeta.ingress_timestamp"
           }
@@ -873,7 +932,7 @@
           ],
           "source_info" : {
             "filename" : "../fiveTuple.p4",
-            "line" : 233,
+            "line" : 241,
             "column" : 8,
             "source_fragment" : "hdr.eth.type = 0x88A9"
           }
@@ -892,7 +951,7 @@
           ],
           "source_info" : {
             "filename" : "../fiveTuple.p4",
-            "line" : 234,
+            "line" : 242,
             "column" : 8,
             "source_fragment" : "hdr.timestamp.hdrtype = 0x0800"
           }
@@ -927,9 +986,51 @@
           ],
           "source_info" : {
             "filename" : "../fiveTuple.p4",
-            "line" : 238,
+            "line" : 246,
             "column" : 8,
             "source_fragment" : "hdr.new_vlan.setValid()"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["metadata", "tuser_size"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "expression",
+                    "value" : {
+                      "op" : "+",
+                      "left" : {
+                        "type" : "field",
+                        "value" : ["metadata", "tuser_size"]
+                      },
+                      "right" : {
+                        "type" : "hexstr",
+                        "value" : "0x0004"
+                      }
+                    }
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "../fiveTuple.p4",
+            "line" : 247,
+            "column" : 8,
+            "source_fragment" : "meta.tuser_size = meta.tuser_size + 0x0004"
           }
         },
         {
@@ -946,7 +1047,7 @@
           ],
           "source_info" : {
             "filename" : "../fiveTuple.p4",
-            "line" : 239,
+            "line" : 248,
             "column" : 8,
             "source_fragment" : "hdr.new_vlan.pcp = pcp"
           }
@@ -965,7 +1066,7 @@
           ],
           "source_info" : {
             "filename" : "../fiveTuple.p4",
-            "line" : 240,
+            "line" : 249,
             "column" : 8,
             "source_fragment" : "hdr.new_vlan.cfi = cfi"
           }
@@ -984,7 +1085,7 @@
           ],
           "source_info" : {
             "filename" : "../fiveTuple.p4",
-            "line" : 241,
+            "line" : 250,
             "column" : 8,
             "source_fragment" : "hdr.new_vlan.vid = vid"
           }
@@ -1003,7 +1104,7 @@
           ],
           "source_info" : {
             "filename" : "../fiveTuple.p4",
-            "line" : 242,
+            "line" : 251,
             "column" : 8,
             "source_fragment" : "hdr.eth.type = 0x88A9"
           }
@@ -1022,7 +1123,7 @@
           ],
           "source_info" : {
             "filename" : "../fiveTuple.p4",
-            "line" : 243,
+            "line" : 252,
             "column" : 8,
             "source_fragment" : "hdr.timestamp.hdrtype = 0x8100"
           }
@@ -1041,7 +1142,7 @@
           ],
           "source_info" : {
             "filename" : "../fiveTuple.p4",
-            "line" : 244,
+            "line" : 253,
             "column" : 5,
             "source_fragment" : "hdr.new_vlan.tpid = 0x0800"
           }
@@ -1067,7 +1168,7 @@
           ],
           "source_info" : {
             "filename" : "../fiveTuple.p4",
-            "line" : 248,
+            "line" : 257,
             "column" : 8,
             "source_fragment" : "hdr.timestamp.time_depar = smeta.ingress_timestamp"
           }
@@ -1093,7 +1194,7 @@
           ],
           "source_info" : {
             "filename" : "../fiveTuple.p4",
-            "line" : 267,
+            "line" : 276,
             "column" : 12,
             "source_fragment" : "table_key_sport = hdr.udp.src_port"
           }
@@ -1112,7 +1213,7 @@
           ],
           "source_info" : {
             "filename" : "../fiveTuple.p4",
-            "line" : 268,
+            "line" : 277,
             "column" : 12,
             "source_fragment" : "table_key_dport = hdr.udp.dst_port"
           }
@@ -1138,7 +1239,7 @@
           ],
           "source_info" : {
             "filename" : "../fiveTuple.p4",
-            "line" : 271,
+            "line" : 280,
             "column" : 12,
             "source_fragment" : "table_key_sport = hdr.tcp.src_port"
           }
@@ -1157,7 +1258,7 @@
           ],
           "source_info" : {
             "filename" : "../fiveTuple.p4",
-            "line" : 272,
+            "line" : 281,
             "column" : 12,
             "source_fragment" : "table_key_dport = hdr.tcp.dst_port"
           }
@@ -1171,7 +1272,7 @@
       "id" : 0,
       "source_info" : {
         "filename" : "../fiveTuple.p4",
-        "line" : 221,
+        "line" : 228,
         "column" : 8,
         "source_fragment" : "MyProcessing"
       },
@@ -1231,7 +1332,7 @@
           "sequence_point" : false,
           "source_info" : {
             "filename" : "../fiveTuple.p4",
-            "line" : 252,
+            "line" : 261,
             "column" : 10,
             "source_fragment" : "FiveTuple"
           },
@@ -1344,7 +1445,7 @@
           "sequence_point" : true,
           "source_info" : {
             "filename" : "../fiveTuple.p4",
-            "line" : 266,
+            "line" : 275,
             "column" : 9,
             "source_fragment" : "hdr.udp.isValid()"
           },
@@ -1370,7 +1471,7 @@
           "sequence_point" : false,
           "source_info" : {
             "filename" : "../fiveTuple.p4",
-            "line" : 270,
+            "line" : 279,
             "column" : 19,
             "source_fragment" : "hdr.tcp.isValid()"
           },

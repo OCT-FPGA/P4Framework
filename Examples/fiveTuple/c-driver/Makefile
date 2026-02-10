@@ -2,7 +2,7 @@
 
 CC=gcc
 LIBS=-lm
-OBJ=forward_main.c lib/libvitisnetp4drv.so
+OBJ=fiveTuple_main.c lib/libvitisnetp4drv.so
 TARGET=driver
 
 TARGET_DBG=driver_debug

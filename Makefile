@@ -1,6 +1,6 @@
 .PHONY: all clean
 
-EXAMPLE_OBJ=forward calc advCalc checksum addhdr rmvhdr
+EXAMPLE_OBJ=forward calc advCalc checksum addhdr rmvhdr fiveTuple
 QSPI=false
 SHELL := /bin/bash
 VIVADO_TARGET_VER=2021.2
