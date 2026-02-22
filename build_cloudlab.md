@@ -29,7 +29,7 @@ Run `export XILINXD_LICENSE_FILE=2100@xilinxlm`
 
 `VIVADO_TARGET_VER=2023.1`
 
-## To get BMv2 working do the following installations
+## To get BMv2 working do the following installations[Reference](https://github.com/OCT-FPGA/P4Framework/tree/master/Examples/forward/behav_test)
 
 `sudo apt-get update && sudo apt-get install libgmpxx4ldbl`
 
@@ -41,6 +41,6 @@ Run `export XILINXD_LICENSE_FILE=2100@xilinxlm`
 
 `sudo apt install wireshark`
 
-[Reference](https://github.com/OCT-FPGA/P4Framework/tree/master/Examples/forward/behav_test)
+
 
 Now the steps mentioned in [P4Framework](https://github.com/OCT-FPGA/P4Framework/tree/master) can be followed to build P4 bitstreams.
