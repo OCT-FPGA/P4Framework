@@ -23,7 +23,7 @@ Verify Vivado version 2023.1.
 
 ## Update the license 
 
-Run `export XILINXD_LICENSE_FILE=2100@xilinxlm` 
+Run `export XILINXD_LICENSE_FILE=2100@octlm` 
 
 ## Verify that the Makefile in P4Framework has the right Vivado version:
 
