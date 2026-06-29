@@ -163,60 +163,60 @@ parser MyParser(packet_in packet,
                 inout standard_metadata_t smeta) {
     
     state start {
-        transition parse_eth;
+        transition accept;
     }
     
-    state parse_eth {
-        packet.extract(hdr.eth);
-        transition select(hdr.eth.type) {
-            VLAN_TYPE : parse_vlan;
-            IPV4_TYPE : parse_ipv4;
-            IPV6_TYPE : parse_ipv6;
-            default   : accept; 
-        }
-    }
+    // state parse_eth {
+    //     packet.extract(hdr.eth);
+    //     transition select(hdr.eth.type) {
+    //         VLAN_TYPE : parse_vlan;
+    //         IPV4_TYPE : parse_ipv4;
+    //         IPV6_TYPE : parse_ipv6;
+    //         default   : accept; 
+    //     }
+    // }
     
-    state parse_vlan {
-        packet.extract(hdr.vlan);
-        transition select(hdr.vlan.tpid) {
-            IPV4_TYPE : parse_ipv4;
-            IPV6_TYPE : parse_ipv6;
-            default   : accept; 
-        }
-    }
+    // state parse_vlan {
+    //     packet.extract(hdr.vlan);
+    //     transition select(hdr.vlan.tpid) {
+    //         IPV4_TYPE : parse_ipv4;
+    //         IPV6_TYPE : parse_ipv6;
+    //         default   : accept; 
+    //     }
+    // }
     
-    state parse_ipv4 {
-        packet.extract(hdr.ipv4);
-        verify(hdr.ipv4.version == 4 && hdr.ipv4.hdr_len >= 5, error.InvalidIPpacket);
-        packet.extract(hdr.ipv4opt, (((bit<32>)hdr.ipv4.hdr_len - 5) * 32));
-        transition select(hdr.ipv4.protocol) {
-            TCP_PROT  : parse_tcp;
-            UDP_PROT  : parse_udp;
-            default   : accept; 
-        }
-    }
+    // state parse_ipv4 {
+    //     packet.extract(hdr.ipv4);
+    //     verify(hdr.ipv4.version == 4 && hdr.ipv4.hdr_len >= 5, error.InvalidIPpacket);
+    //     packet.extract(hdr.ipv4opt, (((bit<32>)hdr.ipv4.hdr_len - 5) * 32));
+    //     transition select(hdr.ipv4.protocol) {
+    //         TCP_PROT  : parse_tcp;
+    //         UDP_PROT  : parse_udp;
+    //         default   : accept; 
+    //     }
+    // }
     
-    state parse_ipv6 {
-        packet.extract(hdr.ipv6);
-        verify(hdr.ipv6.version == 6, error.InvalidIPpacket);
-        transition select(hdr.ipv6.protocol) {
-            TCP_PROT  : parse_tcp;
-            UDP_PROT  : parse_udp;
-            default   : accept; 
-        } 
-    }
+    // state parse_ipv6 {
+    //     packet.extract(hdr.ipv6);
+    //     verify(hdr.ipv6.version == 6, error.InvalidIPpacket);
+    //     transition select(hdr.ipv6.protocol) {
+    //         TCP_PROT  : parse_tcp;
+    //         UDP_PROT  : parse_udp;
+    //         default   : accept; 
+    //     } 
+    // }
 
-    state parse_tcp {
-        packet.extract(hdr.tcp);
-        verify(hdr.tcp.dataOffset >= 5, error.InvalidTCPpacket);
-        packet.extract(hdr.tcpopt, (((bit<32>)hdr.tcp.dataOffset - 5) * 32));
-        transition accept;
-    }
+    // state parse_tcp {
+    //     packet.extract(hdr.tcp);
+    //     verify(hdr.tcp.dataOffset >= 5, error.InvalidTCPpacket);
+    //     packet.extract(hdr.tcpopt, (((bit<32>)hdr.tcp.dataOffset - 5) * 32));
+    //     transition accept;
+    // }
     
-    state parse_udp {
-        packet.extract(hdr.udp);
-        transition accept;
-    }
+    // state parse_udp {
+    //     packet.extract(hdr.udp);
+    //     transition accept;
+    // }
 }
 
 // ****************************************************************************** //
@@ -245,42 +245,44 @@ control MyProcessing(inout headers hdr,
     action forwardPacket() {
     }
     
-    action dropPacket() {
-		smeta.drop = 1;
-    }
+//     action dropPacket() {
+// 		smeta.drop = 1;
+//     }
 
-    table forwardIPv4 {
-        key             = { hdr.ipv4.dst : lpm; }
-        actions         = { forwardPacket; 
-                            dropPacket; }
-        size            = 1024;
-		num_masks       = 64;
-        default_action  = forwardPacket;
-    }
+//     table forwardIPv4 {
+//         key             = { hdr.ipv4.dst : lpm; }
+//         actions         = { forwardPacket; 
+//                             dropPacket; }
+//         size            = 1024;
+// 		num_masks       = 64;
+//         default_action  = forwardPacket;
+//     }
 
-   table forwardIPv6 {
-       key             = { hdr.ipv6.dst : lpm; }
-       actions         = { forwardPacket; 
-                           dropPacket; }
-       size            = 1024;
-       default_action  = forwardPacket;
-   }
+//    table forwardIPv6 {
+//        key             = { hdr.ipv6.dst : lpm; }
+//        actions         = { forwardPacket; 
+//                            dropPacket; }
+//        size            = 1024;
+//        default_action  = forwardPacket;
+//    }
 
     apply {
+
+        forwardPacket();
         
-        if (smeta.parser_error != error.NoError) {
-            dropPacket();
-            return;
-        }
+        // if (smeta.parser_error != error.NoError) {
+        //     dropPacket();
+        //     return;
+        // }
         
-        // modifyHeader();
+        // // modifyHeader();
         
-        if (hdr.ipv4.isValid()) {	
-            forwardIPv4.apply();
-        }
-        else {
-	        forwardPacket();
-        }
+        // if (hdr.ipv4.isValid()) {	
+        //     forwardIPv4.apply();
+        // }
+        // else {
+	    //     forwardPacket();
+        // }
         
     }
 } 

@@ -3,8 +3,10 @@
 EXAMPLE_OBJ=forward calc advCalc checksum addhdr rmvhdr fiveTuple
 QSPI=false
 SHELL := /bin/bash
-VIVADO_TARGET_VER=2021.2
-VIVADO_VER=$(shell vivado -version | grep -o '[^v][0-9]*\.[0-9]')
+#VIVADO_TARGET_VER=2021.2
+#VIVADO_VER=$(shell vivado -version | grep -o '[^v][0-9]*\.[0-9]')
+VIVADO_TARGET_VER=2023.1
+VIVADO_VER=2023.1
 DIST_DIR=dist
 
 
