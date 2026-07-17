@@ -5,15 +5,15 @@ Some initial setup is required on OCT machines before building bitstreams as men
 
 ## Verify vitis_net ip
 
-Run `ls -d /share/Xilinx/Vivado/2023.1/data/ip/xilinx/vitis_net_p4* 2>/dev/null` 
+Run `ls -d /fpga/Xilinx/Vivado/2023.1/data/ip/xilinx/vitis_net_p4* 2>/dev/null` 
 
 This should output something like:
 
-`/share/Xilinx/Vivado/2023.1/data/ip/xilinx/vitis_net_p4_v1_3` indicating VitisNetIP is present for the Vivado version 2023.1.
+`/fpga/Xilinx/Vivado/2023.1/data/ip/xilinx/vitis_net_p4_v1_3` indicating VitisNetIP is present for the Vivado version 2023.1.
 
 ## Setup Vivado environment
 
-Run `source /share/Xilinx/Vivado/2023.1/settings64.sh` 
+Run `source /fpga/Xilinx/Vivado/2023.1/settings64.sh` 
 
 Verify Vivado version 2023.1.
 
@@ -33,7 +33,13 @@ Run `export XILINXD_LICENSE_FILE=2100@octlm`
 
 `sudo apt-get update && sudo apt-get install libgmpxx4ldbl`
 
-`export LD_LIBRARY_PATH=/share/Xilinx/Vivado/2023.1/lib/lnx64.o/Ubuntu/20:$LD_LIBRARY_PATH`
+`find /fpga/Xilinx/Vivado/2023.1 -name "libthrift*" 2>/dev/null`
+
+`echo "/fpga/Xilinx/Vivado/2023.1/lib/lnx64.o/Ubuntu/20" | sudo tee /etc/ld.so.conf.d/vivado-thrift.conf`
+
+`sudo ldconfig`
+
+`ldconfig -p | grep thrift`
 
 `wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.24_amd64.deb`
 
